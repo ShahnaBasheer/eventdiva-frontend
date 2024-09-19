@@ -19,7 +19,7 @@
               "html-entities"
             ],
 
-            "outputPath": "../frontend/dist",
+            "outputPath": "dist/browser",
             "index": "src/index.html",
             "browser": "src/main.ts",
             "polyfills": [
