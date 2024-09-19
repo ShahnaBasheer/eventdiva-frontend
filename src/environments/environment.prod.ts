@@ -4,7 +4,7 @@
 export const environment = {
   production: true,
   google_client_id: '1064683432489-6jae1gj7ej8ljr5jd04pi2ucgihuivgb.apps.googleusercontent.com',
-  baseUrl: 'https://backend.eventdiva.online:2000',
+  baseUrl: 'https://backend.eventdiva.online',
   vendorUrl: 'https://backend.eventdiva.online/vendor',
   adminUrl: 'https://backend.eventdiva.online/admin',
   ep_portfolio_url: '/uploads/Event%20Planners/Portfolios/',
