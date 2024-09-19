@@ -13,6 +13,12 @@
         "build": {
           "builder": "@angular-devkit/build-angular:application",
           "options": {
+            "allowedCommonJsDependencies": [
+              "quill-delta",
+              "dompurify",
+              "html-entities"
+            ],
+
             "outputPath": "../frontend/dist",
             "index": "src/index.html",
             "browser": "src/main.ts",
