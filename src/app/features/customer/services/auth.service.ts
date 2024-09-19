@@ -21,7 +21,7 @@ export class CustomerAuthService {
         if (storedEmail) this.emailSubject.next(storedEmail);
     }
 
-    APIBASE_URL = 'http://localhost:2000'
+    APIBASE_URL = `${environment.baseUrl}`;
 
 
     customerRegistration(userData: any): Observable<any> {

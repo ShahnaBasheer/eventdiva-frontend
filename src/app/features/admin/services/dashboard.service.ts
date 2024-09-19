@@ -2,6 +2,7 @@ import { HttpClient } from "@angular/common/http";
 import { Injectable } from "@angular/core";
 import { Router } from "@angular/router";
 import { catchError, Observable, tap } from "rxjs";
+import { environment } from "../../../../environments/environment";
 
 
 
@@ -15,7 +16,7 @@ export class DashboardService {
 
     constructor(private http: HttpClient, private router: Router){}
 
-    APIBASE_URL = 'http://localhost:2000/admin'
+    APIBASE_URL = `${environment.baseUrl}/admin`
 
 
     getDashboardPage(): Observable<any>{

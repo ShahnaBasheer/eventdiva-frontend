@@ -3,6 +3,7 @@ import { HttpClient } from "@angular/common/http";
 import { Observable } from "rxjs";
 import { Injectable } from "@angular/core";
 import { LoginCredentials } from "../../../core/models/common.model";
+import { environment } from "../../../../environments/environment";
 
 
 
@@ -12,7 +13,7 @@ import { LoginCredentials } from "../../../core/models/common.model";
 export class AdminAuthService {
     constructor(private http: HttpClient){}
 
-    APIBASE_URL = 'http://localhost:2000/admin'
+    APIBASE_URL = `${environment.baseUrl}/admin`;
 
 
     AdminLogin(credentials: LoginCredentials): Observable<any> {
