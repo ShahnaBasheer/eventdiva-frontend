@@ -1,0 +1,26 @@
+/* fullcalendar.component.css */
+
+/* Custom styles for event 1 */
+::ng-deep .fc-event.event-1 {
+  @apply bg-red-500 border-red-700 text-white;
+}
+
+::ng-deep .fc-event.event-2 {
+  @apply bg-[#10B981] border-[#188e67] text-white;
+}
+
+::ng-deep .fc-event.custom-event {
+  @apply p-2 border rounded text-center;
+}
+
+::ng-deep .tooltip {
+  @apply absolute bg-black text-white text-xs px-2 py-1 rounded shadow-lg;
+}
+
+::ng-deep .holiday-cell {
+  @apply bg-[orange];
+}
+
+::ng-deep .disabled-date {
+  @apply pointer-events-none opacity-50 bg-[#f0f0f0]
+}

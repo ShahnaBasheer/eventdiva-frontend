@@ -1,0 +1,45 @@
+<!-- Detail -->
+<div class="p-8">
+  <div class="grid grid-cols-12 gap-8">
+    <div class="col-span-6">
+      <dl class="text-gray-900 divide-y divide-gray-200 dark:text-black dark:divide-gray-700">
+        <div class="flex flex-col py-3">
+          <dt class="mb-1 text-gray-500 text-md dark:text-gray-400">Building</dt>
+          <dd class="font-medium">{{ addressInfo.building }}</dd>
+        </div>
+        <div *ngIf="addressInfo.street" class="flex flex-col py-3">
+          <dt class="mb-1 text-gray-500 text-md dark:text-gray-400">Street</dt>
+          <dd class="text-lg font-medium">{{ addressInfo.street }}</dd>
+        </div>
+        <div class="flex flex-col py-3">
+          <dt class="mb-1 text-gray-500 text-md dark:text-gray-400">City</dt>
+          <dd class="font-medium">{{ addressInfo.city }}</dd>
+        </div>
+        <div class="flex flex-col py-3">
+          <dt class="mb-1 text-gray-500 text-md dark:text-gray-400">District</dt>
+          <dd class="text-lg font-medium">{{ addressInfo.district }}</dd>
+        </div>
+      </dl>
+    </div>
+    <div class="col-span-6">
+      <dl class="text-gray-900 divide-y divide-gray-200 dark:text-black dark:divide-gray-700">
+        <div *ngIf="addressInfo.town" class="flex flex-col py-3">
+          <dt class="mb-1 text-gray-500 text-md dark:text-gray-400">Town</dt>
+          <dd class="text-lg font-medium">{{ addressInfo.town }}</dd>
+        </div>
+        <div class="flex flex-col py-3">
+          <dt class="mb-1 text-gray-500 text-md dark:text-gray-400">State</dt>
+          <dd class="text-lg font-medium">{{ addressInfo.state }}</dd>
+        </div>
+        <div class="flex flex-col py-3">
+          <dt class="mb-1 text-gray-500 text-md dark:text-gray-400">Pincode</dt>
+          <dd class="text-lg font-medium">{{ addressInfo.pincode }}</dd>
+        </div>
+        <div class="flex flex-col py-3" *ngIf="addressInfo.landmark">
+          <dt class="mb-1 text-gray-500 text-md dark:text-gray-400">Landmark</dt>
+          <dd class="text-lg font-medium">{{ addressInfo.landmark }}</dd>
+        </div>
+      </dl>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,12 @@
+
+
+
+<app-sub-navbar [heading]="'Bookings'"></app-sub-navbar>
+
+<!-- Product List -->
+
+<div class="px-4 py-6">
+  <app-booking-card *ngFor="let data of allbookings" let [item]="data"></app-booking-card>
+</div>
+
+

@@ -1,0 +1,31 @@
+
+
+
+<div class="bg-[#F0F2F5] lg:px-12 px-6 pt-4 pb-10"  *ngIf="eventPlannerData">
+
+  <app-upper-image-part
+      [CompanyInfo]="eventPlannerData"
+      [Menu]="allMenus"
+      [Title]="eventPlannerData.company"
+      [Folder]="folder"
+      >
+      <div class="mt-6 mb-4 bg-[#fff8f8] p-3 shadow-md">
+        <p class="lg:text-sm flex items-center justify-center lg:justify-start">
+          <!-- <i class="fa-solid fa-indian-rupee-sign text-[1.4rem] me-1 text-[#2c6ac0]"></i> -->
+          <span class="text-[#2c6ac0] font-semibold text-[1.2rem]">
+            {{ eventPlannerData.planningFee.minPrice | currency:'INR':'symbol':'1.0-0' }} -
+            {{ eventPlannerData.planningFee.maxPrice | currency:'INR':'symbol':'1.0-0'}}
+            <span class="text-[#6c6c6c]  text-[.8rem] font-medium">Planning Fee</span>
+          </span>
+        </p>
+    </div>
+  </app-upper-image-part>
+
+  <div class="grid lg:grid-cols-12">
+      <div class="lg:col-span-12 ">
+
+        <app-planner-body-detail [eventPlannerData]="eventPlannerData"></app-planner-body-detail>
+      </div>
+  </div>
+</div>
+

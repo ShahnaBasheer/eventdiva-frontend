@@ -1,0 +1,9 @@
+
+<app-loader *ngIf="!venues && isLoading"></app-loader>
+
+<app-vendor-card-wrap [subHeading]="'Venues'" *ngIf="venues">
+  <app-venue-card *ngFor="let item of venues" [cardItems]="item"
+     [vendorType]="'VV'">
+  </app-venue-card>
+</app-vendor-card-wrap>
+

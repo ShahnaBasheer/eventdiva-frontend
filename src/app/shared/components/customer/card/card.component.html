@@ -1,0 +1,55 @@
+
+
+  `<div class="rounded-xl relative bg-white p-2 shadow-lg hover:shadow-xl hover:transform hover:scale-105 duration-300 ">
+      <a [routerLink]="['/vendors', 'event-planners', cardItems.slug]" routerLinkActive="router-link-active">
+          <div class="relative flex items-end overflow-hidden rounded-xl">
+              <div class="absolute flex flex-col top-0 right-0 p-3">
+                <button class="transition ease-in duration-300 bg-gray-700 hover:text-purple-500
+                    shadow-2xl hover:shadow-md text-gray-400 rounded-full w-8 h-8 text-center p-1 z-10">
+                  <i class="fa-regular fa-heart"></i>
+                </button>
+              </div>
+              <div class="h-56 overflow-hidden w-full">
+                <img [src]="imageUrl" class="self-stretch min-w-full max-h-full object-cover"
+                   alt="Hotel Photo" />
+              </div>
+          </div>
+
+
+          <!-- text-yellow-400,  #ef2727d9"-->
+          <div *ngIf="cardItems.rating" class="absolute right-0 pt-1 text-right pe-3">
+              <div class="inline-flex items-center rounded-lg bg-indigo-700 px-2 py-1 shadow-md">
+                <i class="fa-solid fa-star text-white pe-1"></i>
+                <span class="ml-1 text-sm text-white font-semibold">{{ cardItems.rating }}</span>
+              </div>
+              <p class="text-[.72rem] text-indigo-400  font-semibold pt-1">(1044 reveiws)</p>
+          </div>
+
+          <div class="px-3 pt-2">
+              <h3 class="text-black font-semibold pe-20 truncate" style="color:#ef2727d9">
+                {{ cardItems.company }}
+              </h3>
+              <p class="font-semibold text-[.8rem] py-2 text-gray-600" >
+                  <i class="fa-solid fa-location-dot me-1 text-gray-600"></i>
+                  {{ cardItems.address.city }}, {{ cardItems.address.state }}
+              </p>
+
+              <div class="py-2">
+                <div class="flex items-center">
+                    <p class="text-lg font-bold text-blue-600">
+                      {{cardItems.planningFee.minPrice | currency:'INR':'symbol':'1.0-0'}} -
+                      {{cardItems.planningFee.maxPrice | currency:'INR':'symbol':'1.0-0'}}</p>
+                    <span class="text-gray-300 text-[.77rem] font-semibold ps-2">Planning Fee</span>
+                </div>
+              </div>
+<!--
+              <div class="py-1">
+                  <span class="inline-block bg-[#e1e1e1] rounded-full px-3 py-1 text-[.68rem] font-semibold text-gray-700 mr-2">#photography</span>
+                  <span class="inline-block bg-[#e1e1e1] rounded-full px-3 py-1 text-[.68rem] font-semibold text-gray-700 mr-2">#travel</span>
+                  <span class="inline-block bg-[#e1e1e1] rounded-full px-3 py-1 text-[.68rem] font-semibold text-gray-700">#winter</span>
+              </div> -->
+          </div>
+      </a>
+  </div>
+
+

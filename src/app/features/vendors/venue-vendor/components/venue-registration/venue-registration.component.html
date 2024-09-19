@@ -1,0 +1,523 @@
+
+
+
+
+<h3 class="text-[1.7rem] font-semibold text-gray-700 uppercase">Venue</h3>
+
+<div class="bg-white shadow-md mt-4 p-5">
+  <h3 class="font-semibold mb-1 text-[1.2rem]">Add Venue</h3>
+
+
+  <div class="my-5 mx-10">
+    <div>
+      <ul class="flex justify-center items-center">
+        <li *ngFor="let tab of tabs; let i = index" (click)="setActiveTab(i)" [class.active]="activeTab === i"
+          class="w-full focus-within:z-10">
+          <a [ngClass]="{'bg-steelblue-200 dark:text-[rgb(255,255,255)] font-bold': activeTab === i}"
+              class="inline-block w-full p-2.5 border-2 text-center
+                border-steelblue-200 focus:ring-4 focus:ring-blue-300
+                text-steelblue-200" aria-current="page">
+            {{ tab }}
+          </a>
+        </li>
+      </ul>
+
+      <form [formGroup]="VenueRegistrationForm" class="py-10 px-6 mx-auto border"
+          enctype="multipart/form-data">
+        <div *ngIf="activeTab === 0">
+            <div class="grid grid-cols-6 gap-6" formGroupName="venueInfo">
+              <div class="col-span-6 sm:col-span-3">
+                <label for="venue-name" class="text-sm font-medium text-gray-900 block mb-2">Venue Name
+                  <span class="text-red-600 text-[1.24rem]">*</span>
+                </label>
+                <input type="text" formControlName="venueName" id="venue-name" placeholder="ABC Auditoirum"
+                    class="shadow-sm bg-gray-50 border focus:border-cyan-600 block w-full p-2.5 rounded-lg">
+                <p class="text-red-600 text-[.75rem] text-left italic"
+                    *ngIf="isFieldError('venueInfo', 'venueName')">Please enter a valid venue name!
+                </p>
+              </div>
+              <div class="col-span-6 sm:col-span-3">
+                <label for="venueType" class="text-sm font-medium text-gray-900 block mb-2">Venue Type
+                  <span class="text-red-600 text-[1.24rem]">*</span>
+                </label>
+                <select formControlName="venueType"
+                  class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg block w-full
+                    p-2.5 focus:ring-cyan-600 focus:border-cyan-600 dark:placeholder-gray-400
+                    dark:focus:ring-blue-500 dark:focus:border-blue-500">
+                    <option value="">Choose a venue type</option>
+                    <option *ngFor="let item of venueTypeOptions"
+                        [value]="item.value">{{ item.label }}</option>
+                </select>
+                <p class="text-red-600 text-[.75rem] text-left italic"
+                    *ngIf="isFieldError('venueInfo', 'venueType')">Please enter a valid venue type!
+                </p>
+              </div>
+              <div class="col-span-6 sm:col-span-3">
+                <label for="email" class="text-sm font-medium text-gray-900 block mb-2">Email
+                  <span class="text-red-600 text-[1.24rem]">*</span>
+                </label>
+                <input type="email" formControlName="email" id="email" placeholder="youremail@gmail.com"
+                    class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg
+                    focus:ring-cyan-600 focus:border-cyan-600 block w-full p-2.5">
+                <p class="text-red-600 text-[.75rem] text-left italic"
+                    *ngIf="isFieldError('venueInfo', 'email')">Please enter a valid email!
+                </p>
+              </div>
+              <div class="col-span-6 sm:col-span-3">
+                <label for="mobile" class="text-sm font-medium text-gray-900 block mb-2">Mobile
+                  <span class="text-red-600 text-[1.24rem]">*</span>
+                </label>
+                <input type="text" formControlName="mobile" id="mobile" placeholder="812345678"
+                    class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg
+                  focus:ring-cyan-600 focus:border-cyan-600 block w-full p-2.5">
+                <p class="text-red-600 text-[.75rem] text-left italic"
+                  *ngIf="isFieldError('venueInfo', 'mobile')">Please enter a valid mobile!
+                </p>
+              </div>
+              <div class="col-span-6 sm:col-span-3">
+                <label for="startYear" class="text-sm font-medium text-gray-900 block mb-2">Started Year
+                  <span class="text-red-600 text-[1.24rem]">*</span>
+                </label>
+                <input type="number" formControlName="startYear" id="startYear" placeholder="2018" class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg
+                  focus:ring-cyan-600 focus:border-cyan-600 block w-full p-2.5">
+                <p class="text-red-600 text-[.75rem] text-left italic"
+                    *ngIf="isFieldError('venueInfo', 'startYear')">Please enter a valid start year!
+                </p>
+              </div>
+              <div class="col-span-6 sm:col-span-3">
+                <label for="maxEvents" class="text-sm font-medium text-gray-900 block mb-2">Maximum Events(Daily basis)
+                  <span class="text-red-600 text-[1.24rem]">*</span>
+                </label>
+                <input type="number" formControlName="maxEvents" id="maxEvents" placeholder="eg.1" class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg
+                  focus:ring-cyan-600 focus:border-cyan-600 block w-full p-2.5">
+                <p class="text-red-600 text-[.75rem] text-left italic"
+                    *ngIf="isFieldError('venueInfo', 'maxEvents')">Please enter a valid maximum events count!
+                </p>
+              </div>
+              <!--Description-->
+              <div class="col-span-6">
+                <label for="description" class="text-sm font-medium text-gray-900 block mb-2">Description
+                  <span class="text-red-600 text-[1.24rem]">*</span>
+                </label>
+                <quill-editor  formControlName="description" [modules]="editorConfig" class="h-36"></quill-editor>
+                <p class="text-red-600 text-[.75rem] text-left italic"
+                    *ngIf="isFieldError('venueInfo', 'description')">Please enter a valid description!
+                </p>
+              </div>
+            </div>
+        </div>
+
+        <!--2nd activeTab-->
+        <div *ngIf="activeTab === 1">
+            <!-- Payment Structure -->
+            <div class="col-span-6" formGroupName="priceInfo">
+              <!-- Payment Structure Selection -->
+                <!-- Rent Fields -->
+                <div class="grid grid-cols-12 gap-6">
+                  <div class="col-span-6">
+                    <label for="rent" class="text-sm font-medium text-gray-900 block mb-2">Rent (₹)</label>
+                    <input type="number" id="rent" placeholder="Enter Rent" formControlName="rent"
+                        class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg
+                          focus:ring-cyan-600 focus:border-cyan-600 block w-full p-2.5">
+                    <p class="text-red-600 text-[.75rem] text-left italic"
+                        *ngIf="isFieldError('priceInfo', 'rent')">Please enter a valid rent!
+                    </p>
+                  </div>
+                </div>
+
+                <!-- Price per Plate Fields -->
+                <div  class="grid grid-cols-12 gap-x-6" formGroupName="platePrice"
+                    *ngIf="VenueRegistrationForm.get('priceInfo.priceType')?.value === 'PlatePrice'">
+                  <div class="col-span-6">
+                    <label for="vegPerPlate" class="text-sm font-medium text-gray-900 block mb-2">Vegetarian Per Plate Price (₹)</label>
+                    <input type="number" id="vegPerPlate" placeholder="Enter VegPerPlate Price" formControlName="vegPerPlate"
+                        class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg
+                          focus:ring-cyan-600 focus:border-cyan-600 block w-full p-2.5">
+                    <p class="text-red-600 text-[.75rem] text-left italic"
+                        *ngIf="isFieldError('priceInfo.platePrice', 'vegPerPlate')">Please enter a valid vegPerPlate!
+                    </p>
+                  </div>
+                  <div class="col-span-6">
+                    <label for="nonVegPlate" class="text-sm font-medium text-gray-900 block mb-2">Non-Vegetarian Per Plate Price (₹)</label>
+                    <input type="number" id="nonVegPlate" placeholder="Enter Non-VegPerPlate Price" formControlName="nonVegPerPlate"
+                        class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg
+                          focus:ring-cyan-600 focus:border-cyan-600 block w-full p-2.5">
+                    <p class="text-red-600 text-[.75rem] text-left italic"
+                        *ngIf="isFieldError('priceInfo.platePrice', 'nonVegPerPlate')">Please enter a valid nonVegPerPlate!
+                    </p>
+                  </div>
+                  <p class="text-red-600 text-[.75rem] text-left italic col-span-12"
+                      *ngIf="isFieldError('priceInfo', 'platePrice')">Please fill required fields!
+                  </p>
+                </div>
+
+                <!-- Additional Services -->
+                <div class="mt-10 mb-4">
+                  <fieldset class="border border-[#979798] p-4">
+                      <legend class="font-medium">Additional Services<span class="text-red-600 text-[1.24rem]"> *</span></legend>
+                      <div class="my-4">
+                          <div class="flex items-center mt-2 bg-[#cfecff] px-2 py-3">
+                            <input type="checkbox" id="pricePerPlate" formControlName="includePricePerPlate"
+                                class="focus:ring-cyan-600 h-4 w-4 text-cyan-600 border-gray-300">
+                            <label for="pricePerPlate" class="ml-2 text-sm font-medium text-gray-900">Include Price per Plate</label>
+                          </div>
+                          <!-- Price per Plate Fields -->
+                          <div  class="grid grid-cols-12 gap-x-6" formGroupName="platePrice"
+                              *ngIf="VenueRegistrationForm.get('priceInfo.includePricePerPlate')?.value">
+                              <div class="col-span-6">
+                                <label for="vegPerPlate" class="text-sm font-medium text-gray-900 block mb-2">Vegetarian Per Plate Price (₹)</label>
+                                <input type="text" id="vegPerPlate" placeholder="Enter VegPerPlate Price" formControlName="vegPerPlate"
+                                    class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg
+                                      focus:ring-cyan-600 focus:border-cyan-600 block w-full p-2.5">
+                                <p class="text-red-600 text-[.75rem] text-left italic"
+                                    *ngIf="isFieldError('priceInfo.platePrice', 'vegPerPlate')">Please enter a valid vegPerPlate!
+                                </p>
+                              </div>
+                              <div class="col-span-6">
+                                <label for="nonVegPlate" class="text-sm font-medium text-gray-900 block mb-2">Non-Vegetarian Per Plate Price (₹)</label>
+                                <input type="text" id="nonVegPlate" placeholder="Enter Non-VegPerPlate Price" formControlName="nonVegPerPlate"
+                                    class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg
+                                      focus:ring-cyan-600 focus:border-cyan-600 block w-full p-2.5">
+                                <p class="text-red-600 text-[.75rem] text-left italic"
+                                    *ngIf="isFieldError('priceInfo.platePrice', 'nonVegPerPlate')">Please enter a valid nonVegPerPlate!
+                                </p>
+                              </div>
+                          </div>
+                      </div>
+                      <div class="my-4">
+                          <div class="flex items-center bg-[#cfecff] px-2 py-3">
+                            <input type="checkbox" id="rooms" formControlName="includeRooms"
+                                class="focus:ring-cyan-600 h-4 w-4 text-cyan-600 border-gray-300">
+                            <label for="rooms" class="ml-2 text-sm font-medium text-gray-900">Include Rooms</label>
+                          </div>
+                          <div class="grid grid-cols-12 gap-6 mt-2" formGroupName="rooms"
+                              *ngIf="VenueRegistrationForm.get('priceInfo.includeRooms')?.value">
+                              <div class="col-span-6">
+                                <label for="roomsCount" class="text-sm font-medium text-gray-900 block mb-2">Number of Rooms</label>
+                                <input type="number" id="roomsCount" placeholder="Enter Number of Rooms" formControlName="count"
+                                    class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg
+                                     focus:ring-cyan-600 focus:border-cyan-600 block w-full p-2.5">
+                                <p class="text-red-600 text-[.75rem] text-left italic"
+                                    *ngIf="isFieldError('priceInfo.rooms', 'count')">Please enter a valid count!
+                                </p>
+                              </div>
+                              <div class="col-span-6">
+                                <label for="roomsPrice" class="text-sm font-medium text-gray-900 block mb-2">Starting Price of Rooms (₹)</label>
+                                <input type="number" id="roomsPrice" placeholder="Enter Price for Rooms" formControlName="startingPrice"
+                                    class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg
+                                      focus:ring-cyan-600 focus:border-cyan-600 block w-full p-2.5">
+                                <p class="text-red-600 text-[.75rem] text-left italic"
+                                    *ngIf="isFieldError('priceInfo.rooms', 'startingPrice')">Please enter a valid starting price!
+                                </p>
+                              </div>
+                          </div>
+                      </div>
+                      <div class="my-4">
+                        <div class="flex items-center bg-[#cfecff] px-2 py-3">
+                          <input type="checkbox" id="decor" formControlName="includeDecor"
+                              class="focus:ring-cyan-600 h-4 w-4 text-cyan-600 border-gray-300">
+                          <label for="decor" class="ml-2 text-sm font-medium text-gray-900">Include Decor</label>
+                        </div>
+                        <div  class="mt-2" *ngIf="VenueRegistrationForm.get('priceInfo.includeDecor')?.value">
+                            <div class="col-span-12">
+                              <label for="decorPrice" class="text-sm font-medium text-gray-900 block mb-2">StartingPrice of Decor (₹)</label>
+                              <input type="number" id="decorPrice" placeholder="Enter Price for Decor" formControlName="decorStartingPrice"
+                                  class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg
+                                  focus:ring-cyan-600 focus:border-cyan-600 block w-full p-2.5">
+                              <p class="text-red-600 text-[.75rem] text-left italic"
+                                  *ngIf="isFieldError('priceInfo', 'decorStartingPrice')">Please enter a valid decor starting price!
+                              </p>
+                            </div>
+                        </div>
+                      </div>
+                  </fieldset>
+                </div>
+            </div>
+        </div>
+
+        <!--2nd activeTa Ends here-->
+
+        <!--3rd activeTab-->
+        <div *ngIf="activeTab === 2">
+          <div formGroupName="addressInfo">
+            <app-address-form [addressFormGroup]="addressInfoFormGroup"> </app-address-form>
+          </div>
+        </div>
+        <!--3rd activeTa Ends here-->
+
+        <!--4th activeTab-->
+        <div *ngIf="activeTab === 3">
+          <div class="grid grid-cols-12 gap-4 bg-white mb-7">
+            <div class="col-span-12 relative grid grid-cols-1 md:grid-cols-3 border border-gray-300 bg-gray-100 rounded-lg">
+                <div class="rounded-l-lg p-4 bg-gray-200 flex flex-col justify-center items-center border-0 border-r border-gray-300">
+                    <label class="cursor-pointer hover:opacity-80 inline-flex items-center shadow-md my-2 px-2 py-2
+                        bg-gray-900 text-gray-50 border border-transparent rounded-md font-semibold text-xs uppercase
+                          tracking-widest hover:bg-gray-700 active:bg-gray-900 focus:outline-none focus:border-gray-900
+                          focus:ring ring-gray-300 disabled:opacity-25 transition ease-in-out duration-150" for="coverPic">
+                           Select Image
+                        <input id="coverPic" class="text-sm cursor-pointer w-36 hidden" type="file" (change)="onCoverPicSelected($event)">
+                    </label>
+                    <button (click)="onCoverPicRemove()"
+                      class = 'inline-flex items-center shadow-md my-2 px-2 py-2 bg-gray-900 text-gray-50 border border-transparent
+                          rounded-md font-semibold text-xs uppercase tracking-widest hover:bg-gray-700 active:bg-gray-900 focus:outline-none
+                         focus:border-gray-900 focus:ring ring-gray-300 disabled:opacity-25 transition ease-in-out duration-150'>
+                          remove
+                     </button>
+                     <p class="text-red-600 text-[.75rem] text-left italic"
+                        *ngIf="isFieldError('portfolioInfo', 'coverPic')">Please choose a cover picture!
+                      </p>
+                </div>
+
+                <div class="md:order-last h-28 md:h-auto flex justify-center items-center
+                    border border-dashed border-gray-400 col-span-2 m-2 rounded-lg bg-no-repeat bg-center
+                    bg-origin-padding bg-cover">
+
+                    <span class="text-gray-400 opacity-75" *ngIf="!coverImageSrc">
+                        <svg class="w-14 h-14"
+                            xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="0.7" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round"
+                            d="M2.25 15.75l5.159-5.159a2.25 2.25 0 013.182 0l5.159 5.159m-1.5-1.5l1.409-1.409a2.25 2.25 0 013.182 0l2.909 2.909m-18 3.75h16.5a1.5 1.5 0 001.5-1.5V6a1.5 1.5 0 00-1.5-1.5H3.75A1.5 1.5 0 002.25 6v12a1.5 1.5 0 001.5 1.5zm10.5-11.25h.008v.008h-.008V8.25zm.375 0a.375.375 0 11-.75 0 .375.375 0 01.75 0z" />
+                        </svg>
+                    </span>
+                    <img *ngIf="coverImageSrc" [src]="coverImageSrc" alt="" class="p-3 w-2/3 h-auto" >
+                </div>
+            </div>
+          </div>
+
+          <div class="grid grid-cols-12 gap-4 border border-gray-300 bg-gray-100 rounded-lg p-4">
+            <!-- Left Column -->
+            <div class="col-span-3">
+              <div class="rounded-lg p-4 bg-gray-200 border border-gray-300">
+                <h2 class="text-lg font-semibold mb-4">Choose Your Portfolio Images</h2>
+                <p class="text-red-600 text-[.75rem] text-left italic" py-3
+                    *ngIf="isFieldError('portfolioInfo', 'portfolios')">Please choose 5 images!
+                </p>
+                <label for="image-upload" class="cursor-pointer inline-flex items-center px-4 py-2 bg-gray-900
+                            text-gray-50 rounded-md shadow-md hover:bg-gray-700 transition duration-300">
+                  <i class="fa-solid fa-upload mr-2"></i>
+                  Select Image
+                </label>
+                <!-- Hidden input for file upload -->
+                <input id="image-upload" type="file" (change)="onFileSelected($event)" accept="image/*" multiple
+                  class="hidden">
+              </div>
+            </div>
+
+            <!-- Right Column -->
+            <div class="col-span-9">
+              <h2 class="text-lg font-semibold mb-4">Uploaded Images</h2>
+              <div class="grid grid-cols-2 gap-4">
+                <!-- Display uploaded images -->
+                <div *ngFor="let image of uploadedImages; let i = index" class="relative">
+                  <img [src]="image.url" [alt]="'Uploaded Image ' + (i + 1)" class="w-full h-auto rounded-lg">
+                  <button type="button" class="absolute top-2 right-2 bg-[#ffffffbe] text-gray-700 rounded-full
+                      p-1 shadow-md hover:bg-gray-200 transition duration-300" (click)="removeImage(i)">
+                      <i class="fa-solid fa-xmark px-1.5 py-0.5 text-[1.1rem]"></i>
+                  </button>
+                </div>
+                <!-- Repeat for each uploaded image -->
+              </div>
+            </div>
+          </div>
+        </div>
+        <!--4th activeTab Ends here-->
+
+        <!--5th active Tab -->
+        <div *ngIf="activeTab === 4">
+          <div class="grid grid-cols-12 gap-6" formGroupName="capacityInfo">
+
+            <div class="col-span-12">
+              <!-- Areas starts here-->
+              <fieldset class="border border-[#979798] p-4">
+                <legend class="font-medium">Areas<span class="text-red-600 text-[1.24rem]"> *</span></legend>
+                <div>
+                  <div formArrayName="areas" class="space-y-4">
+                      <div  class="p-4">
+                        <p class="text-red-600 text-[.75rem] text-left italic"
+                            *ngIf="isFieldError('capacityInfo', 'areas')">Please enter valid area names and details!
+                        </p>
+                        <div class="grid grid-cols-12 gap-3 mb-3"
+                           *ngFor="let areaRow of areas.controls; let i = index" [formGroupName]="i">
+                           <div class="col-span-2">
+                              <select formControlName="areaType"
+                                class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg block w-full
+                                  p-2.5 focus:ring-cyan-600 focus:border-cyan-600 dark:placeholder-gray-400
+                                  dark:focus:ring-blue-500 dark:focus:border-blue-500">
+                                  <option value="">Choose type</option>
+                                  <option value="indoor">Indoor</option>
+                                  <option value="outdoor">Outdoor</option>
+                                  <option value="indoor & outdoor">Indoor & Outdoor</option>
+                              </select>
+                          </div>
+                          <div class="col-span-3">
+                            <input type="text" id="areaName-{{i}}" formControlName="areaName"
+                                placeholder="Area Name"
+                                class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg
+                                  focus:ring-cyan-600 focus:border-cyan-600 block w-full p-2.5">
+                          </div>
+
+                          <div class="col-span-3">
+                            <input type="number" id="seats-{{i}}" formControlName="seats"
+                                placeholder="Seats"
+                                class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg
+                                  focus:ring-cyan-600 focus:border-cyan-600 block w-full p-2.5">
+                          </div>
+
+                          <div class="col-span-3">
+                            <input type="number" id="floats-{{i}}" formControlName="floats"
+                                placeholder="Floats"
+                                class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg
+                                  focus:ring-cyan-600 focus:border-cyan-600 block w-full p-2.5">
+                          </div>
+                          <div class="col-span-1">
+                            <button type="button" class="ml-2 p-2 bg-red-500 text-white rounded hover:bg-red-600"
+                                 (click)="removeArea(i)">
+                                 <i class="fa-solid fa-trash-can"></i>
+                            </button>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <button type="button" (click)="addArea()"
+                      class="bg-blue-500 text-white py-2 px-4 rounded-lg hover:bg-blue-600">
+                      Add New Area
+                    </button>
+                </div>
+              </fieldset>
+            </div>
+            <!-- Areas ends here-->
+
+            <!--Amenities start here-->
+            <div class="col-span-12">
+              <fieldset class="border border-[#979798] p-4">
+                <legend class="font-medium">Amenities<span class="text-red-600 text-[1.24rem]"> *</span></legend>
+                <p class="text-red-600 text-[.75rem] text-left italic" py-3
+                  *ngIf="isFieldError('capacityInfo', 'amenities')">
+                   Please choose atleast one amenity!
+                </p>
+                <div class="grid grid-cols-2 gap-5">
+                  <!-- First Column -->
+                  <div class="col-auto">
+                    <div *ngFor="let amenity of amenitiesControls | slice:0:amenityHalfLength; let i= index"
+                      class="flex items-center space-x-2 rounded p-2 hover:bg-gray-100 accent-teal-600">
+                      <input type="checkbox" id="amenity-{{amenity.name}}" name="amenities" [checked]="amenity.selected"
+                          (change)="onCheckboxChange($event, i, 'amenities' )"
+                          class="h-4 w-4 rounded border-gray-300 text-teal-600 shadow-sm focus:border-teal-300 focus:ring
+                          focus:ring-teal-200 focus:ring-opacity-50 focus:ring-offset-0 disabled:cursor-not-allowed
+                          disabled:text-gray-400" />
+                      <label for="amenity-{{amenity.name}}" class="flex w-full space-x-2 text-sm"> {{ amenity.name }} </label>
+                    </div>
+                  </div>
+                  <!-- Second Column -->
+                  <div class="col-auto">
+                    <div *ngFor="let amenity of amenitiesControls | slice:amenityHalfLength:amenitiesOptions.length; let i= index"
+                      class="flex items-center space-x-2 rounded p-2 hover:bg-gray-100 accent-teal-600">
+                      <input type="checkbox" id="amenity-{{amenity.name}}" name="amenities" [checked]="amenity.selected"
+                          (change)="onCheckboxChange($event, i+amenityHalfLength, 'amenities' )"
+                          class="h-4 w-4 rounded border-gray-300 text-teal-600 shadow-sm focus:border-teal-300 focus:ring
+                          focus:ring-teal-200 focus:ring-opacity-50 focus:ring-offset-0 disabled:cursor-not-allowed
+                          disabled:text-gray-400" />
+                      <label for="amenity-{{amenity.name}}" class="flex w-full space-x-2 text-sm">{{ amenity.name }} </label>
+                    </div>
+                  </div>
+                </div>
+              </fieldset>
+            </div>
+            <!--Amenities end here-->
+
+            <!--Services start here-->
+            <div class="col-span-12">
+              <fieldset class="border border-[#979798] p-4">
+                <legend class="font-medium">Services<span class="text-red-600 text-[1.24rem]"> *</span></legend>
+                <p class="text-red-600 text-[.75rem] text-left italic" py-3
+                  *ngIf="isFieldError('capacityInfo', 'services')">
+                   Please choose atleast one service!
+                </p>
+                <div class="grid grid-cols-2 gap-5">
+                  <!-- First Column -->
+                  <div class="col-auto">
+                    <div *ngFor="let service of serviceControls | slice:0:servicesHalfLength; let i= index"
+                      class="flex items-center space-x-2 rounded p-2 hover:bg-gray-100 accent-teal-600">
+                      <input type="checkbox" id="service-{{service.name}}" name="services" [checked]="service.selected"
+                          (change)="onCheckboxChange($event, i, 'services' )"
+                          class="h-4 w-4 rounded border-gray-300 text-teal-600 shadow-sm focus:border-teal-300 focus:ring
+                          focus:ring-teal-200 focus:ring-opacity-50 focus:ring-offset-0 disabled:cursor-not-allowed
+                          disabled:text-gray-400" />
+                      <label for="service-{{service.name}}" class="flex w-full space-x-2 text-sm"> {{ service.name }} </label>
+                    </div>
+                  </div>
+                  <!-- Second Column -->
+                  <div class="col-auto">
+                    <div *ngFor="let service of serviceControls | slice:servicesHalfLength:servicesOptions.length; let i= index;"
+                      class="flex items-center space-x-2 rounded p-2 hover:bg-gray-100 accent-teal-600">
+                      <input type="checkbox" id="services-{{service.name}}" name="services" [checked]="service.selected"
+                          (change)="onCheckboxChange($event, i+servicesHalfLength, 'services' )"
+                          class="h-4 w-4 rounded border-gray-300 text-teal-600 shadow-sm focus:border-teal-300 focus:ring
+                          focus:ring-teal-200 focus:ring-opacity-50 focus:ring-offset-0 disabled:cursor-not-allowed
+                          disabled:text-gray-400" />
+                      <label for="services-{{service.name}}" class="flex w-full space-x-2 text-sm"> {{ service.name }} </label>
+                    </div>
+                  </div>
+                </div>
+              </fieldset>
+            </div>
+            <!--Services end here-->
+
+
+            <div class="col-span-full">
+              <div class="my-6 text-center">
+                <h2 class="text-xl font-semibold">Confirmation of the Registration of Your Service</h2>
+                <hr class="border border-gray-200 w-full my-3">
+              </div>
+
+              <h2 class="font-medium text-gray-900 mb-2">Upload Documents
+                <span class="text-red-600">*</span>
+              </h2>
+              <p class="text-red-600 text-[.75rem] text-left italic" py-3
+                  *ngIf="isFieldError('capacityInfo', 'document')">Please choose a document!
+              </p>
+              <div class="flex justify-start">
+                <div>
+                  <label for="document-upload"
+                    class="cursor-pointer inline-flex items-center px-4 py-2 bg-gray-900 text-gray-50
+                       rounded-md shadow-md hover:bg-gray-700 transition duration-300">
+                    <i class="fa-solid fa-upload mr-2"></i>Select Document
+                  </label>
+                   <!-- Hidden input for file upload -->
+                    <input id="document-upload" type="file" class="hidden"
+                       (change)="onDocumentSelected($event)">
+                </div>
+
+                <!-- Display uploaded documents -->
+                <div *ngIf="uploadedDocument" class="ml-5">
+                  <span class="text-gray-700">{{ uploadedDocument.name }}</span>
+                  <button type="button" class="ml-2 p-2 bg-red-500 text-white rounded hover:bg-red-600"
+                    (click)="removeDocument()">
+                    <i class="fa-solid fa-trash-can"></i>
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </form>
+
+      <div class="flex gap-4 justify-center border-t p-4">
+        <button (click)="prevTab()" class="py-2 px-4 border rounded-md border-blue-600 text-blue-600 cursor-pointer
+          uppercase text-sm font-bold hover:bg-blue-500 hover:text-white hover:shadow"
+          [disabled]="activeTab === 0">Back
+        </button>
+        <button *ngIf="activeTab === 4; " (click)="onSubmit()" class="py-2 px-4 border rounded-md border-blue-600
+          text-white cursor-pointer uppercase text-sm font-bold bg-blue-600
+           hover:shadow" type="submit">Submit
+        </button>
+        <button *ngIf="activeTab !== 4" (click)="nextTab()" class="py-2 px-4 border rounded-md border-blue-600
+            text-blue-600 cursor-pointer uppercase text-sm font-bold hover:bg-blue-500
+            hover:text-white hover:shadow">Next
+        </button>
+
+      </div>
+    </div>
+  </div>
+</div>
+

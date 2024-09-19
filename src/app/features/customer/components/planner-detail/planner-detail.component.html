@@ -1,0 +1,179 @@
+
+<app-sub-navbar [heading]="'Event Planner Detail'"></app-sub-navbar>
+
+<app-loader *ngIf="!eventPlannerData && isLoading"></app-loader>
+
+<div class="bg-[#F0F2F5] lg:px-10 px-6 pt-4 pb-10" *ngIf="eventPlannerData">
+
+
+
+<div class="w-full grid grid-cols-12 lg:gap-0 gap-4">
+  <section class="lg:col-span-8 col-span-12 shadow-[0px_4px_4px_rgba(0,_0,_0,_0.25)] bg-white pt-2">
+      <div class="self-stretch flex flex-col justify-center px-6">
+          <div class="text-center pt-5 pb-3 ">
+              <h1 class="font-extrabold text-[1.46rem] uppercase">{{ eventPlannerData.company }}</h1>
+              <div class="flex items-center justify-center gap-1 text-red-500 text-[.93rem]">
+                <i class="fa-solid fa-location-dot"></i>
+                <div class="font-semibold">{{ eventPlannerData.address.city }}, {{ eventPlannerData.address.state }}</div>
+              </div>
+          </div>
+          <div class="self-stretch overflow-hidden xl:h-96">
+              <img class="self-stretch min-w-full max-h-full object-cover"
+                alt="Auditorium" [src]="imageUrl" />
+          </div>
+      </div>
+      <ul class="w-full flex flex-wrap items-center justify-between text-md text-black bg-[#E7E2E2] px-0">
+        <li *ngFor="let item of allMenus"
+           class="font-semibold px-8 py-3 hover:bg-[#CB3A3A] hover:text-white cursor-pointer">
+           {{ item }}
+        </li>
+
+        <li class="font-semibold px-10 py-3 bg-[#CB3A3A] text-white cursor-pointer">WISHLIST</li>
+      </ul>
+  </section>
+
+  <div class="lg:col-span-4 lg:flex lg:items-center col-span-12" #bookButton>
+    <div class="w-full shadow-md bg-white flex flex-col items-start justify-start p-8 gap-4 max-w-full">
+      <div class="flex flex-col items-start justify-start gap-2 max-w-full">
+        <div *ngIf="eventPlannerData.rating > 0" class="flex items-center gap-2 pb-6">
+          <div class="inline-flex items-center rounded-lg bg-indigo-700 px-2 py-1 shadow-md">
+            <i class="fa-solid fa-star text-white pe-1"></i>
+            <span class="ml-1 text-sm text-white font-semibold">4.9</span>
+          </div>
+          <a href="#" class="text-gray-300 text-[.95rem]">(10 reviews)</a>
+        </div>
+        <div class="my-4">
+          <p class="pt-4 text-base flex items-center justify-center lg:justify-start">
+            <i class="fa-solid fa-phone text-green text-[1.2rem] me-3"></i>
+            <span>{{ eventPlannerData.contact.mobile }}</span>
+          </p>
+          <p class="pt-2 text-gray-600 text-xs lg:text-sm flex items-center justify-center lg:justify-start">
+            <i class="fa-regular fa-envelope text-green text-[1.2rem] me-3"></i>
+            <span>{{ eventPlannerData.contact.email }}</span>
+          </p>
+          <p *ngIf="eventPlannerData.website "
+            class="pt-2 text-gray-600 text-xs lg:text-sm flex items-center
+               justify-center lg:justify-start">
+            <i class="fa-solid fa-globe text-green text-[1.2rem] me-3"></i>
+            <span>{{ eventPlannerData.website }}</span>
+          </p>
+       </div>
+       <!-- <div class="text-dimgray">Pallikulam, Pirayiri, Palakkad, Kerala 678004</div> -->
+        <div class="flex">
+          <a class="px-5 py-1 text-center text-white bg-[#3ea3c5] border
+           border-[#3ea3c5] rounded rounded-e-none focus:outline-none focus:ring text-sm"
+            href="/download"><i class="fa-solid fa-location-crosshairs pe-2"></i>Get Direction
+          </a>
+          <a class="px-4 py-1 text-center text-[#3ea3c5] border border-[#3ea3c5] font-semibold
+            rounded rounded-s-none focus:ring focus:outline-none text-sm" href="/download">
+            <i class="fa-regular fa-copy pe-2"></i>Copy
+          </a>
+        </div>
+
+        <!-- <div class="flex items-center gap-2 py-4 ">
+          <div class="whitespace-nowrap text-[#383838] font-bold text-lg">{{ eventPlannerData.advancePayments| currency:'INR':'symbol':'1.0-0' }}</div>
+          <div class="text-center text-[.9rem] text-gray-300 font-medium">Advance Payment</div>
+        </div> -->
+        <p class="text-2xl font-bold text-blue-600">
+          {{eventPlannerData.planningFee.minPrice | currency:'INR':'symbol':'1.0-0'}}
+          <span class="mx-2">-</span>
+          {{eventPlannerData.planningFee.maxPrice | currency:'INR':'symbol':'1.0-0'}}
+          <span class="text-center text-[.9rem] text-gray-300 font-medium">Planning Fee</span>
+        </p>
+      </div>
+      <div class="flex flex-col items-start justify-start gap-6 max-w-full">
+        <div class="flex items-center gap-4">
+          <button  (click)="onBooking()"
+            class="cursor-pointer rounded-full px-4 py-2 flex items-center gap-2 bg-[#363636] text-white">
+            <img class="w-6 h-6" alt="Booking Icon" src="/assets/images/icons8-event-accepted-96.png">
+            <div>BOOK</div>
+          </button>
+          <button (click)="startChat()"
+              class="cursor-pointer rounded-full px-4 py-2 flex items-center gap-2 bg-[#ab4f4f] text-white">
+              <i class="fa-solid fa-comments"></i>
+              <div>Chat Room</div>
+          </button>
+        </div>
+      </div>
+      <div class="flex flex-col items-start justify-start gap-6 max-w-full">
+        <div class="p-4">
+          <button (click)="startCall()"
+              class="py-2.5 px-6 rounded-full text-sm font-medium text-white bg-[#2b952b] hover:bg-green-600 transition">
+              <i class="fa-solid fa-phone-volume me-2"></i> Video Call
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+  <div class="grid lg:grid-cols-12 gap-1">
+      <div class="lg:col-span-8 me-3">
+        <app-planner-body-detail [eventPlannerData]="eventPlannerData"></app-planner-body-detail>
+      </div>
+
+      <div class="lg:col-span-4">
+          <div class="bg-white shadow-md my-6 rounded-lg"  #checkAvailabilitySection>
+            <app-check-availability [vendorId]="eventPlannerData.vendorId"
+            [role]="'event-planner'"
+            (availabilityChecked)="onAvailabilityChecked($event)">
+
+            </app-check-availability>
+          </div>
+          <div class="bg-white shadow-md mt-14 mb-6">
+            <app-browse-similar></app-browse-similar>
+          </div>
+      </div>
+  </div>
+
+
+  <div class="my-1">
+    <app-detail-reviews></app-detail-reviews>
+  </div>
+</div>
+
+
+
+
+<div *ngIf="showModal" class="fixed inset-0 z-50 flex items-center justify-center overflow-hidden bg-black bg-opacity-50">
+
+  <div class="relative w-full max-w-sm bg-white rounded-xl shadow-lg px-10 py-8">
+      <div class="flex justify-between items-start">
+          <h1 class="text-xl font-bold text-indigo-500 mb-4">
+            Are you sure you want to start a video call?
+          </h1>
+          <button type="button" (click)="onCloseModal()"
+            class="p-1 border border-transparent hover:border-red-600">
+            <i class="fa-solid fa-xmark cursor-pointer text-gray-400 hover:text-red-600"></i>
+          </button>
+      </div>
+
+      <div class="">
+        <p class="text-gray-500 text-left mb-4 text-[.9rem]">
+          This will initiate a video call with the selected user.
+        </p>
+
+        <div class="text-right">
+            <button (click)="onConfirmVideoCall()"
+                class="inline-block bg-indigo-600 py-2 px-4 text-white rounded-md
+                   font-semibold uppercase text-sm ">
+                <i class="fa-solid fa-phone-volume me-2"></i>
+                Start Video Call
+            </button>
+        </div>
+    </div>
+  </div>
+</div>
+
+
+<div *ngIf="showVideoCallModal">
+  <app-video-call (hideVideoCallModal)="onCloseVideoCall()" [remoteId]="eventPlannerData.vendorId"></app-video-call>
+</div>
+
+
+<div *ngIf="showChatRoomModal">
+  <app-chat-room (hideChatRoomModal)="onCloseChatRoom()" [remoteId]="eventPlannerData.vendorId"
+     [title]= "eventPlannerData.company">
+  </app-chat-room>
+</div>

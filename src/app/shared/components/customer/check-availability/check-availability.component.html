@@ -1,0 +1,133 @@
+<!-- Booking Section -->
+<div class="flex items-center justify-center rounded-lg shadow-md">
+  <div class="bg-[#2a2261] bg-opacity-90 w-full max-w-2xl p-6 rounded-lg">
+    <div class="text-center mb-6">
+      <h1 class="text-[1.5rem] font-semibold text-white">Check Availability</h1>
+    </div>
+    <form [formGroup]="checkAvailabilityForm">
+      <!-- Event Type Field #313560-->
+      <!-- <div class="mb-4">
+        <select formControlName="eventType" id="eventType"
+          class="form-control w-full px-3 py-2 rounded-full bg-opacity-20 bg-white
+          text-white focus:outline-none focus:ring-2 focus:ring-[#42d4eb] text-sm border-none" required>
+          <option class="text-black" value="" hidden>Event Type</option>
+          <option class="text-black" [value]="item" *ngFor="let item of eventTypes">{{ item }}</option>
+        </select>
+        <p class="text-red-400 text-[.75rem] text-left italic"
+            *ngIf="isFieldError('eventType')">Please select event type!
+        </p>
+        <label for="eventType" class="form-label text-[#42d4eb] text-xs uppercase font-semibold">Event Type</label>
+      </div> -->
+
+      <!-- Single Day or Multiple Days Radio Buttons -->
+      <div class="mt-6 mb-4">
+        <div class="flex items-center">
+          <input type="radio" name="isMultipleDays" formControlName="isMultipleDays"
+              [value]="false"  class="mr-2">
+          <label for="singleDay" class="text-white mr-4 text-sm">Single Day</label>
+          <input type="radio" name="isMultipleDays" formControlName="isMultipleDays"
+              [value]="true" class="mr-2">
+          <label for="multipleDays" class="text-white text-sm">Multiple Days</label>
+        </div>
+        <p class="text-red-400 text-[.75rem] text-left italic"
+            *ngIf="isFieldError('isMultipleDays')">Please select days!
+        </p>
+      </div>
+
+      <!-- Single Day Date Picker -->
+      <div *ngIf="!checkAvailabilityForm.get('isMultipleDays')?.value" class="mb-4">
+        <input formControlName="startDate" id="eventDate"
+          class="form-control w-full px-3 py-2 rounded-full bg-opacity-20 bg-white text-white
+          placeholder-white focus:outline-none focus:ring-2 focus:ring-[#42d4eb] text-sm border-none"
+          type="date">
+        <p class="text-red-400 text-[.75rem] text-left italic"
+            *ngIf="isFieldError('startDate')">Please select validstart date!
+        </p>
+        <label for="eventDate" class="form-label text-[#42d4eb] text-xs uppercase font-semibold">Event Date</label>
+
+      </div>
+
+      <!-- Multiple Days Date Pickers ff8846-->
+      <div *ngIf="checkAvailabilityForm.get('isMultipleDays')?.value" class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
+        <div>
+          <input formControlName="startDate" id="startDate"
+            class="form-control w-full px-3 py-2 rounded-full bg-opacity-20 bg-white text-white
+            placeholder-white focus:outline-none focus:ring-2 focus:ring-[#42d4eb] text-sm border-none"
+            type="date">
+          <p class="text-red-400 text-[.75rem] text-left italic"
+              *ngIf="isFieldError('startDate')">Please select start date!
+          </p>
+          <label for="startDate" class="form-label text-[#42d4eb] text-xs uppercase font-semibold">Start Date</label>
+        </div>
+        <div>
+          <input formControlName="endDate" id="endDate"
+            class="form-control w-full px-3 py-2 rounded-full bg-opacity-20 bg-white text-white
+            placeholder-white focus:outline-none focus:ring-2 focus:ring-[#42d4eb] text-sm border-none"
+            type="date">
+          <p class="text-red-400 text-[.75rem] text-left italic"
+              *ngIf="isFieldError('endDate')">Please select end date!
+          </p>
+          <label for="endDate" class="form-label text-[#42d4eb] text-xs uppercase font-semibold">End Date</label>
+        </div>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
+        <div class="">
+          <input type="time" id="startTime" name="startTime" formControlName="startTime"
+               class="form-control w-full px-3 py-2 rounded-full bg-opacity-20 bg-white text-white
+               placeholder-white focus:outline-none focus:ring-2 focus:ring-[#42d4eb] text-sm border-none" />
+          <p class="text-red-400 text-[.75rem] text-left italic"
+                *ngIf="isFieldError('startTime')">Please select start time!
+          </p>
+          <label for="startTime" class="form-label text-[#42d4eb] text-xs uppercase font-semibold">Start Time</label>
+        </div>
+        <div>
+          <input type="time" id="endTime" name="endTime" formControlName="endTime"
+              class="form-control w-full px-3 py-2 rounded-full bg-opacity-20 bg-white text-white
+              placeholder-white focus:outline-none focus:ring-2 focus:ring-[#42d4eb] text-sm border-none" />
+          <p class="text-red-400 text-[.75rem] text-left italic"
+              *ngIf="isFieldError('endTime')">Please select end time!
+          </p>
+          <label for="endTime" class="form-label text-[#42d4eb] text-xs uppercase font-semibold">End Time</label>
+        </div>
+      </div>
+
+      <!-- Number of Rooms and Guests -->
+      <!-- <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
+        <div>
+          <input formControlName="guests" id="guests"
+             class="form-control w-full px-3 py-2 rounded-full bg-opacity-20 bg-white text-white
+            placeholder-white focus:outline-none focus:ring-2 focus:ring-[#42d4eb] text-sm border-none"
+            type="text" placeholder="count">
+          <p class="text-red-400 text-[.75rem] text-left italic"
+              *ngIf="isFieldError('guests')">Please select valid guests count!
+          </p>
+          <label for="guests" class="form-label text-[#42d4eb] text-xs uppercase font-semibold">Guests</label>
+        </div>
+      </div> -->
+
+      <!-- Submit Button -->
+      <div class="text-center" (click)="onCheckAvailability()">
+        <button class="submit-btn w-full py-2 rounded-full bg-[#2a9fbd] text-white
+           font-bold uppercase hover:opacity-90 flex justify-center items-center">
+           <span *ngIf="isCheckingLoding"
+              class="me-3 border-gray-200 h-5 w-5 inline-block animate-spin rounded-full border-4
+              border-t-[#2a9fbd]">
+           </span>
+           <span>
+            Check Availability
+           </span>
+        </button>
+      </div>
+    </form>
+  </div>
+</div>
+
+
+<!-- <select class="form-control w-full px-3 py-2 rounded-full bg-opacity-20 bg-white text-white
+focus:outline-none focus:ring-2 focus:ring-[#42d4eb] text-sm border-none" required>
+<option class="text-black" value="" hidden>No.of Rooms</option>
+<option class="text-black">1</option>
+<option class="text-black">2</option>
+<option class="text-black">3</option>
+</select> -->

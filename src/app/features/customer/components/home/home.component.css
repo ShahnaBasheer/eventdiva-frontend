@@ -1,0 +1,6 @@
+
+
+.bg-gradient-overlay {
+  background: linear-gradient(270deg, rgba(27, 255, 255, 0.75) 0%, rgba(43, 85, 165, 0.75) 33.95%, rgba(46, 49, 146, 0.75) 60.45%, rgba(27, 255, 255, 0.75) 100%);
+  z-index: 10; /* Ensure the gradient is above the image but below the content */
+}

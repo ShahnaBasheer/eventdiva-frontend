@@ -1,0 +1,238 @@
+
+
+<div class="h-full bg-gray">
+	<!-- Container -->
+	<div class="mx-auto">
+		<div class="flex justify-center px-6 py-4">
+			<!-- Row -->
+			<div class="w-full xl:w-3/4 lg:w-11/12 flex shadow-[rgba(0,0,0,0.25)_0px_14px_28px,_rgba(0,0,0,0.22)_0px_10px_10px]">
+				<!-- Col -->
+        <div class="w-full h-auto lg:w-5/12 bg-cover rounded-l-lg flex justify-center items-center"
+            style="background-image: url('assets/images/aditya-chinchure-ZhQCZjr9fHo-unsplash.jpg')">
+            <div class="flex items-center justify-center h-[16rem] w-[15rem] p-8 relative z-10">
+                <div class="absolute inset-0 bg-black opacity-50"></div>
+                <h2 class="m-0 text-white capitalize relative font-cagliostro text-4xl lg:text-7xl text-center [text-shadow:0px_4px_4px_rgba(0,_0,_0,_0.25),_0px_5px_5px_rgba(0,_0,_0,_0.25),_0px_4px_4px_rgba(0,_0,_0,_0.25),_0px_4px_4px_rgba(0,_0,_0,_0.25),_0px_4px_4px_rgba(0,_0,_0,_0.25)]">
+                  Transforming your visions into unforgettable events, seamlessly
+                </h2>
+            </div>
+        </div>
+				<!-- Col -->
+				<div class="w-full lg:w-7/12 pt-3 px-4 rounded-lg lg:rounded-l-none">
+					<h3 class="py-4 text-5xl font-extrabold text-center">CREATE YOUR ACCOUNT!</h3>
+          <div class="flex flex-col justify-center items-center pb-3">
+              <div class="text-lg pt-3 pb-2 text-black">sign up with your account</div>
+              <div class="flex space-x-4 justify-center">
+                <img class="w-8 h-8 cursor-pointer" src="assets/images/icons8-google-144.png" alt="Google"/>
+                <img class="w-8 h-8 cursor-pointer" src="assets/images/icons8-github-256.png" alt="GitHub"/>
+                <img class="w-8 h-8 cursor-pointer" src="assets/images/icons8-facebook-150.png" alt="Facebook"/>
+              </div>
+            </div>
+          <div class="text-lg text-center pt-2 text-black">Or</div>
+
+          <!-- signup form starts here-->
+					<form class="px-8 pt-3 pb-8 mb-4 bg-white rounded" [formGroup]="registrationForm" (ngSubmit)="onSubmit()">
+            <!-- First Name and Last Name -->
+
+            <div class="flex flex-col gap-5 md:gap-10">
+                <div class="flex flex-col  md:flex-row md:justify-between gap-5 md:gap-0">
+                  <div class="relative h-10 w-full md:mr-5">
+                    <input type="text" formControlName="firstName" name="firstName"
+                        [ngClass]="{'border-red-600 placeholder-shown:border-red-600 focus:border-red-600': isFieldInvalid('firstName') }"
+                        class="peer h-full w-full rounded-md border border-blue-600 border-t-transparent bg-transparent px-3
+                        py-3 font-sans text-sm text-black transition-all placeholder-shown:border disabled:border-0
+                        placeholder-shown:border-gray-300 focus:border-2 font-semibold focus:border-blue-600
+                        focus:border-t-transparent disabled:bg-blue-700"
+                      placeHolder=" "
+                    />
+                    <label [ngClass]="{'before:border-red-600 after:border-red-600 peer-focus:text-red-600 text-red-600 \
+                      peer-focus:border-red-600  peer-focus:before:!border-red-600 peer-focus:after:!border-red-600': isFieldInvalid('firstName') }"
+                       class="before:content[' '] after:content[' '] pointer-events-none absolute left-0 font-semibold
+                        -top-1.5 flex h-full w-full select-none text-[11px] leading-tight text-blue-600
+                        transition-all before:pointer-events-none before:mt-[6.5px] before:mr-1 before:box-border
+                        before:block before:h-1.5 before:w-2.5 before:rounded-tl-md before:border-t before:border-l
+                        before:border-blue-600 before:transition-all after:pointer-events-none after:mt-[6.5px]
+                        after:ml-1 after:box-border after:block after:h-1.5 after:w-2.5 after:flex-grow after:rounded-tr-md
+                        after:border-t after:border-r after:border-blue-600 after:transition-all peer-placeholder-shown:text-sm
+                        peer-placeholder-shown:leading-[4.1] peer-placeholder-shown:text-gray-300 peer-focus:text-[11px]
+                        peer-placeholder-shown:before:border-transparent peer-placeholder-shown:after:border-transparent
+                        peer-focus:leading-tight peer-focus:text-blue-500 peer-focus:before:border-t-2 peer-focus:before:border-l-2
+                        peer-focus:before:!border-blue-600 peer-focus:after:border-t-2 peer-focus:after:border-r-2
+                        peer-focus:after:!border-blue-600 peer-disabled:text-transparent peer-disabled:before:border-transparent
+                        peer-disabled:after:border-transparent peer-disabled:peer-placeholder-shown:text-blue-600">
+                        First Name
+                    </label>
+                    <p class="text-red-600 text-[.75rem] text-left italic"
+                        *ngIf="isFieldInvalid('firstName')">Please enter a valid first name!
+                    </p>
+                  </div>
+
+
+                  <div class="relative h-10 w-full">
+                      <input type="text" formControlName="lastName" name="lastName"
+                        [ngClass]="{'border-red-600 placeholder-shown:border-red-600 focus:border-red-600': isFieldInvalid('lastName') }"
+                        class="peer h-full w-full rounded-md border border-blue-600 border-t-transparent bg-transparent px-3
+                        py-3 font-sans text-sm text-black transition-all placeholder-shown:border disabled:border-0
+                        placeholder-shown:border-gray-300 focus:border-2 font-semibold focus:border-blue-600
+                        focus:border-t-transparent disabled:bg-blue-700"
+                        placeHolder=" "
+                      />
+                      <label [ngClass]="{'before:border-red-600 after:border-red-600 peer-focus:text-red-600 text-red-600 \
+                        peer-focus:border-red-600  peer-focus:before:!border-red-600 peer-focus:after:!border-red-600': isFieldInvalid('lastName') }"
+                         class="before:content[' '] after:content[' '] pointer-events-none absolute left-0 font-semibold
+                          -top-1.5 flex h-full w-full select-none text-[11px] leading-tight text-blue-600
+                          transition-all before:pointer-events-none before:mt-[6.5px] before:mr-1 before:box-border
+                          before:block before:h-1.5 before:w-2.5 before:rounded-tl-md before:border-t before:border-l
+                          before:border-blue-600 before:transition-all after:pointer-events-none after:mt-[6.5px]
+                          after:ml-1 after:box-border after:block after:h-1.5 after:w-2.5 after:flex-grow after:rounded-tr-md
+                          after:border-t after:border-r after:border-blue-600 after:transition-all peer-placeholder-shown:text-sm
+                          peer-placeholder-shown:leading-[4.1] peer-placeholder-shown:text-gray-300 peer-focus:text-[11px]
+                          peer-placeholder-shown:before:border-transparent peer-placeholder-shown:after:border-transparent
+                          peer-focus:leading-tight peer-focus:text-blue-500 peer-focus:before:border-t-2 peer-focus:before:border-l-2
+                          peer-focus:before:!border-blue-600 peer-focus:after:border-t-2 peer-focus:after:border-r-2
+                          peer-focus:after:!border-blue-600 peer-disabled:text-transparent peer-disabled:before:border-transparent
+                          peer-disabled:after:border-transparent peer-disabled:peer-placeholder-shown:text-blue-600">
+                          Last Name
+                      </label>
+                      <p class="text-red-600 text-[.75rem] text-left italic"
+                          *ngIf="isFieldInvalid('lastName')">Please enter a valid last name!
+                      </p>
+                  </div>
+                </div>
+
+
+                <!-- Email -->
+                <div class="relative h-10 w-full">
+                  <input type="email" formControlName="email" name="email"
+                    [ngClass]="{'border-red-600 placeholder-shown:border-red-600 focus:border-red-600': isFieldInvalid('email') }"
+                    class="peer h-full w-full rounded-md border border-blue-600 border-t-transparent bg-transparent px-3
+                    py-3 font-sans text-sm text-black transition-all placeholder-shown:border disabled:border-0
+                    placeholder-shown:border-gray-300 focus:border-2 font-semibold focus:border-blue-600
+                    focus:border-t-transparent disabled:bg-blue-700"
+                    placeHolder=" "
+                  />
+                  <label [ngClass]="{'before:border-red-600 after:border-red-600 peer-focus:text-red-600 text-red-600 \
+                    peer-focus:border-red-600  peer-focus:before:!border-red-600 peer-focus:after:!border-red-600': isFieldInvalid('email') }"
+                     class="before:content[' '] after:content[' '] pointer-events-none absolute left-0 font-semibold
+                      -top-1.5 flex h-full w-full select-none text-[11px] leading-tight text-blue-600
+                      transition-all before:pointer-events-none before:mt-[6.5px] before:mr-1 before:box-border
+                      before:block before:h-1.5 before:w-2.5 before:rounded-tl-md before:border-t before:border-l
+                      before:border-blue-600 before:transition-all after:pointer-events-none after:mt-[6.5px]
+                      after:ml-1 after:box-border after:block after:h-1.5 after:w-2.5 after:flex-grow after:rounded-tr-md
+                      after:border-t after:border-r after:border-blue-600 after:transition-all peer-placeholder-shown:text-sm
+                      peer-placeholder-shown:leading-[4.1] peer-placeholder-shown:text-gray-300 peer-focus:text-[11px]
+                      peer-placeholder-shown:before:border-transparent peer-placeholder-shown:after:border-transparent
+                      peer-focus:leading-tight peer-focus:text-blue-500 peer-focus:before:border-t-2 peer-focus:before:border-l-2
+                      peer-focus:before:!border-blue-600 peer-focus:after:border-t-2 peer-focus:after:border-r-2
+                      peer-focus:after:!border-blue-600 peer-disabled:text-transparent peer-disabled:before:border-transparent
+                      peer-disabled:after:border-transparent peer-disabled:peer-placeholder-shown:text-blue-600">
+                      Email
+                  </label>
+                  <p class="text-red-600 text-[.75rem] text-left italic"
+                      *ngIf="isFieldInvalid('email')">Please enter a valid email!
+                  </p>
+                </div>
+
+
+                <!-- Password and Confirm Password -->
+                <div class="mb-4 md:flex md:justify-between">
+                  <div class="relative h-10 w-full md:mr-5">
+                    <input type="password" formControlName="password" name="password"
+                        [ngClass]="{'border-red-600 placeholder-shown:border-red-600 focus:border-red-600': isFieldInvalid('password') }"
+                        class="peer h-full w-full rounded-md border border-blue-600 border-t-transparent bg-transparent px-3
+                        py-3 font-sans text-sm text-black transition-all placeholder-shown:border disabled:border-0
+                        placeholder-shown:border-gray-300 focus:border-2 font-semibold focus:border-blue-600
+                        focus:border-t-transparent disabled:bg-blue-700"
+                      placeHolder=" "
+                    />
+                    <label [ngClass]="{'before:border-red-600 after:border-red-600 peer-focus:text-red-600 text-red-600 \
+                      peer-focus:border-red-600  peer-focus:before:!border-red-600 peer-focus:after:!border-red-600': isFieldInvalid('password') }"
+                       class="before:content[' '] after:content[' '] pointer-events-none absolute left-0 font-semibold
+                        -top-1.5 flex h-full w-full select-none text-[11px] leading-tight text-blue-600
+                        transition-all before:pointer-events-none before:mt-[6.5px] before:mr-1 before:box-border
+                        before:block before:h-1.5 before:w-2.5 before:rounded-tl-md before:border-t before:border-l
+                        before:border-blue-600 before:transition-all after:pointer-events-none after:mt-[6.5px]
+                        after:ml-1 after:box-border after:block after:h-1.5 after:w-2.5 after:flex-grow after:rounded-tr-md
+                        after:border-t after:border-r after:border-blue-600 after:transition-all peer-placeholder-shown:text-sm
+                        peer-placeholder-shown:leading-[4.1] peer-placeholder-shown:text-gray-300 peer-focus:text-[11px]
+                        peer-placeholder-shown:before:border-transparent peer-placeholder-shown:after:border-transparent
+                        peer-focus:leading-tight peer-focus:text-blue-500 peer-focus:before:border-t-2 peer-focus:before:border-l-2
+                        peer-focus:before:!border-blue-600 peer-focus:after:border-t-2 peer-focus:after:border-r-2
+                        peer-focus:after:!border-blue-600 peer-disabled:text-transparent peer-disabled:before:border-transparent
+                        peer-disabled:after:border-transparent peer-disabled:peer-placeholder-shown:text-blue-600">
+                        Password
+                    </label>
+                    <p class="text-red-600 text-[.75rem] text-left italic"
+                        *ngIf="isFieldInvalid('password')">Please enter a valid password!
+                    </p>
+                  </div>
+
+
+                  <div class="relative h-10 w-full">
+                      <input type="password" formControlName="confirmPassword" name="confirmPassword"
+                        [ngClass]="{'border-red-600 placeholder-shown:border-red-600 focus:border-red-600': isFieldInvalid('confirmPassword') }"
+                        class="peer h-full w-full rounded-md border border-blue-600 border-t-transparent bg-transparent px-3
+                        py-3 font-sans text-sm text-black transition-all placeholder-shown:border disabled:border-0
+                        placeholder-shown:border-gray-300 focus:border-2 font-semibold focus:border-blue-600
+                        focus:border-t-transparent disabled:bg-blue-700"
+                        placeHolder=" "
+                      />
+                      <label [ngClass]="{'before:border-red-600 after:border-red-600 peer-focus:text-red-600 text-red-600 \
+                        peer-focus:border-red-600  peer-focus:before:!border-red-600 peer-focus:after:!border-red-600': isFieldInvalid('confirmPassword') }"
+                         class="before:content[' '] after:content[' '] pointer-events-none absolute left-0 font-semibold
+                          -top-1.5 flex h-full w-full select-none text-[11px] leading-tight text-blue-600
+                          transition-all before:pointer-events-none before:mt-[6.5px] before:mr-1 before:box-border
+                          before:block before:h-1.5 before:w-2.5 before:rounded-tl-md before:border-t before:border-l
+                          before:border-blue-600 before:transition-all after:pointer-events-none after:mt-[6.5px]
+                          after:ml-1 after:box-border after:block after:h-1.5 after:w-2.5 after:flex-grow after:rounded-tr-md
+                          after:border-t after:border-r after:border-blue-600 after:transition-all peer-placeholder-shown:text-sm
+                          peer-placeholder-shown:leading-[4.1] peer-placeholder-shown:text-gray-300 peer-focus:text-[11px]
+                          peer-placeholder-shown:before:border-transparent peer-placeholder-shown:after:border-transparent
+                          peer-focus:leading-tight peer-focus:text-blue-500 peer-focus:before:border-t-2 peer-focus:before:border-l-2
+                          peer-focus:before:!border-blue-600 peer-focus:after:border-t-2 peer-focus:after:border-r-2
+                          peer-focus:after:!border-blue-600 peer-disabled:text-transparent peer-disabled:before:border-transparent
+                          peer-disabled:after:border-transparent peer-disabled:peer-placeholder-shown:text-blue-600">
+                          Confirm Password
+                      </label>
+                      <p class="text-red-600 text-[.75rem] text-left italic"
+                          *ngIf="isFieldInvalid('confirmPassword') && !isConfirmPasswordMismatch()">Please enter a valid confirm password!
+                      </p>
+                      <p class="text-red-600 text-[.75rem] text-left italic"
+                          *ngIf="isConfirmPasswordMismatch()">Passwords do not match!
+                      </p>
+                  </div>
+                </div>
+            </div>
+
+
+            <!-- Submit Button -->
+            <div class="mt-8 text-center">
+              <button [disabled]="!isEnabled"
+                type="submit" class="w-full px-4 py-2 font-bold text-white bg-royalblue-300 rounded-full
+                hover:bg-blue-700 dark:bg-blue-700 dark:text-white dark:hover:bg-blue-900
+                focus:outline-none focus:shadow-outline flex justify-center items-center">
+                <span>Register Account</span>
+                <span *ngIf="isLoading"
+                     class="ml-4 border-gray-200 h-6 w-6 inline-block animate-spin rounded-full border-4
+                    border-t-blue-600"></span>
+              </button>
+            </div>
+            <!-- Already have an account? -->
+            <div class="text-center">
+              <a class="inline-block font-semibold text-sm text-blue-500 dark:text-blue-500 align-baseline hover:text-blue-800"
+                [routerLink]="['/login']" routerLinkActive="router-link-active">Already have an account? Login!</a>
+            </div>
+          </form>
+
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+
+
+
+
+
+
+

@@ -1,0 +1,57 @@
+
+
+
+
+
+
+<div class="bg-[#F0F2F5] px-5 pt-4 pb-10"  *ngIf="venueData">
+
+  <app-upper-image-part
+      [CompanyInfo]="venueData"
+      [Menu]="allMenus"
+      [Title]="venueData.venueName"
+      [Folder]="folder">
+      <div class="mt-6 mb-4 bg-[#fff8f8] p-4 shadow-md">
+          <p *ngIf="venueData.platePrice?.vegPerPlate"
+             class="lg:text-sm flex items-center justify-center lg:justify-start py-2">
+            <span class="text-[#404041] font-medium text-[1.1rem]">
+              {{ venueData.platePrice?.vegPerPlate| currency:'INR':'symbol':'1.0-0'}}
+            </span>
+            <span class="text-[#6c6c6c] ms-1 text-[.8rem] font-medium">Veg price</span>
+          </p>
+          <p *ngIf="venueData.platePrice?.nonVegPerPlate"
+             class="lg:text-sm flex items-center justify-center lg:justify-start py-2">
+            <span class="text-[#404041] font-medium text-[1.1rem]">
+              {{ venueData.platePrice?.nonVegPerPlate | currency:'INR':'symbol':'1.0-0'}}
+            </span>
+            <span class="text-[#6c6c6c] ms-1 text-[.8rem] font-medium">Non-veg price</span>
+          </p>
+          <p *ngIf="venueData.decorStartingPrice"
+             class="lg:text-sm flex items-center justify-center lg:justify-start py-2">
+            <span class="text-[#404041] font-medium text-[1.1rem]">
+              {{ venueData.decorStartingPrice | currency:'INR':'symbol':'1.0-0'}}
+            </span>
+            <span class="text-[#6c6c6c] ms-1 text-[.8rem] font-medium">Decor starting price</span>
+          </p>
+          <p *ngIf="venueData.rooms?.roomStartingPrice"
+             class="lg:text-sm flex items-center justify-center lg:justify-start py-2">
+            <span class="text-[#404041] font-medium text-[1.1rem]">
+              {{ venueData.rooms.roomStartingPrice | currency:'INR':'symbol':'1.0-0'}}
+            </span>
+            <span class="text-[#6c6c6c] ms-1 text-[.8rem] font-medium">Room starting price</span>
+          </p>
+          <p class="lg:text-sm flex items-center justify-center lg:justify-start">
+            <span class="text-[#2c6ac0] font-semibold text-[1.5rem]">
+              {{ venueData.rent | currency:'INR':'symbol':'1.0-0' }}
+            </span>
+            <span class="text-[#6c6c6c] ms-1 text-[.8rem] font-medium">Rent</span>
+          </p>
+      </div>
+  </app-upper-image-part>
+
+  <div class="grid lg:grid-cols-12">
+      <div class="lg:col-span-12 ">
+          <app-venue-body-detail [venueData]="venueData" [folder]="portUrl"></app-venue-body-detail>
+      </div>
+  </div>
+</div>

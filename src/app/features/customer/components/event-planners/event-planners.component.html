@@ -1,0 +1,8 @@
+
+<app-loader *ngIf="!eventPlanners && isLoading"></app-loader>
+
+<app-vendor-card-wrap [subHeading]="'Event Planners'" *ngIf="eventPlanners">
+    <app-card *ngFor="let item of eventPlanners" [cardItems]="item"
+    [vendorType]="'EP'"></app-card>
+</app-vendor-card-wrap>
+

@@ -1,0 +1,99 @@
+
+
+
+<div class="py-8">
+  <button
+      (click)="toggleNotifications()"
+      class="flex mx-4 text-gray-600 focus:outline-none cursor-pointer relative ">
+      <i class="fa-regular fa-bell w-8 h-8 text-[1.3rem] text-white pt-1"></i>
+      <div class="px-2 bg-[#e13131] rounded-full text-center text-white text-[.8rem] absolute -top-3 -end-2">
+          {{ unreadCount }}
+      </div>
+  </button>
+</div>
+
+
+<!-- Overlay (clickable to close notifications) -->
+<div *ngIf="showNotifications" class="w-full h-full bg-black bg-opacity-50 top-0 fixed inset-0 z-[1000]"></div>
+
+<!-- Notification Panel (keep it in the DOM for smooth transitions) -->
+<div
+  class="w-3/12 fixed top-0 right-0 z-[1000] h-full overflow-x-hidden transition-transform ease-in-out duration-700"
+  [ngClass]="showNotifications ? 'translate-x-0' : 'translate-x-full'">
+
+  <div class=" bg-gray-50 h-screen overflow-y-auto p-5 absolute right-0 shadow-lg">
+    <div class="flex items-center justify-between">
+      <p tabindex="0" class="focus:outline-none text-2xl font-semibold leading-6 text-gray-800">Notifications</p>
+      <button (click)="toggleNotifications()" aria-label="close modal"
+              class="focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-500 rounded-md cursor-pointer">
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-gray-800" fill="none" viewBox="0 0 24 24"
+             stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
+        </svg>
+      </button>
+    </div>
+
+    <div class="mt-8 space-y-4">
+      <div *ngFor="let notification of AllNotifications; let i = index"
+         [@fadeOut]
+         class="w-full p-3 bg-white rounded flex items-center hover:cursor-pointer"
+         (click)="onRead(notification._id, notification.isRead, i)"
+         [ngStyle]="{ 'background-color': !notification.isRead ? '#f2debb' : 'white' }">
+        <div class="w-8 h-8 rounded-full flex items-center justify-center">
+            <!-- Switch for checking notification type and displaying icons accordingly -->
+            <ng-container [ngSwitch]="notification.notificationType">
+              <i *ngSwitchCase="'new_message'" class="fa-regular fa-comment text-blue-400"></i>
+              <i *ngSwitchCase="'booking_confirmation'" class="fa-regular fa-circle-check text-green"></i>
+              <i *ngSwitchCase="'signup'" class="fa-solid fa-user-plus text-blue-500"></i>
+              <i *ngSwitchCase="'advance_payment'" class="fa-solid fa-indian-rupee-sign text-green"></i>
+              <i *ngSwitchDefault class="fa-solid fa-info-circle text-blue-600"></i>
+            </ng-container>
+        </div>
+        <div class="pl-3">
+          <p class="text-sm leading-none">
+            <!-- <span class="text-indigo-700"></span> -->
+            <span [innerHTML]="notification.message"></span>
+          </p>
+          <p class="text-xs leading-3 pt-1 text-gray-500">{{ notification.createdAt | timeAgo}}</p>
+        </div>
+        <div (click)="onDeleteNotification(notification._id, i)"
+            class="w-8 h-8 ms-2 rounded-full opacity-70 hover:opacity-100 flex items-center justify-center">
+            <i class="fa-regular fa-circle-xmark text-[#fd4f4f] text-[1.2rem]"></i>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+
+
+
+<!--
+
+
+<div class="relative">
+  <button
+      (click)="toggleNotifications()"
+      class="flex mx-4 text-gray-600 focus:outline-none cursor-pointer relative ">
+      <i class="fa-regular fa-bell w-8 h-8 text-[1.3rem] text-white pt-1"></i>
+      <div class="px-1 bg-[#3b3b3b] rounded-full text-center text-white text-sm absolute -top-3 -end-2">
+        3
+      </div>
+  </button>
+
+  <div *ngIf="showNotifications"
+    class="absolute top-10 right-0 z-10 ">
+    <div class="overflow-hidden bg-white shadow-custom w-80 rounded-md border border-gray-200">
+      <a *ngFor="let notifcn of AllNotifications; let i = index;" (click)="onRead(notifcn?._id, notifcn.isRead, i)"
+          class="block px-4 py-3 text-gray-600 hover:text-white hover:bg-indigo-600
+            transition-colors duration-300 border border-[#e5e4e4]"
+          [ngClass]="{'bg-[#cedff4]': !notifcn.isRead}">
+        <p class="text-sm">
+          <span class="font-medium"> {{ notifcn.message }}</span>
+        </p>
+      </a>
+    </div>
+  </div>
+</div> -->

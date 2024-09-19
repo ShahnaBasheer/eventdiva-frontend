@@ -1,0 +1,12 @@
+
+
+  <span [ngClass]="{
+    'bg-[#D1FAE5] text-[#065F46]': status === 'Approved' || status === 'Confirmed',
+    'bg-[#FEF3C7] text-[#92400E]': status === 'Pending',
+    'bg-red-100 text-red-800': status === 'Rejected' || status === 'Cancelled',
+    'bg-[#ebf8ff] text-[#2b6cb0]': status === 'Completed',
+    }"
+      class="py-1 px-2.5 rounded font-medium">
+      {{ status }}
+  </span>
+

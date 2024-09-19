@@ -1,0 +1,41 @@
+
+
+
+<h3 class="text-[1.7rem] font-semibold text-gray-700">Service</h3>
+
+
+<div class="bg-white  rounded-md shadow-custom mt-4 p-5">
+  <div class="relative border-t border-gray-200 bg-gray-50">
+    <div class="absolute inset-0 h-36 opacity-90 lg:h-48"
+        >
+    </div>
+    <div class="relative mx-auto max-w-7xl px-6 pt-16 pb-12 sm:px-12 lg:pt-10">
+        <header class="mx-auto max-w-2xl text-center">
+            <h1 class="text-3xl font-extrabold tracking-tight text-slate-900 sm:text-4xl">
+              Welcome to the vibrant community of
+              <span class="bg-clip-text text-transparent bg-gradient-to-r from-indigo-600 to-teal-500
+               text-5xl font-black">EventDiva</span> vendors!</h1>
+            <p class="mt-2 text-sm font-semibold text-gray-400">
+              We're thrilled to have you.
+              Your expertise in creating memorable experiences is highly valued, and we are excited to
+              have you on board. To get started, we invite you to add your services to our platform.
+              By listing your offerings, you'll connect with clients who are looking for exceptional
+              services in your field.
+            </p>
+        </header>
+    </div>
+</div>
+  <div class="flex justify-center items-center h-60">
+      <button (click)="onAddService()"
+        class="w-auto text-center px-6 py-2 text-white transition-all
+          rounded-md shadow-md sm:w-auto bg-gradient-to-r from-blue-600 to-blue-500
+          hover:bg-gradient-to-b dark:shadow-blue-900 shadow-blue-200 hover:shadow-lg
+          hover:-tranneutral-y-px flex justify-center items-center">
+        <i class="fa-solid fa-circle-plus text-[1.5rem] text-white me-3"></i>
+        <span class="text-white">Add Your {{addText}}</span>
+      </button>
+  </div>
+</div>
+
+
+<ng-content></ng-content>

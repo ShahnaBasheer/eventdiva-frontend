@@ -1,0 +1,28 @@
+
+
+
+  <div class="inline-flex items-center rounded-md shadow-sm justify-center">
+      <button (click)="toggleDropdown()" *ngIf="!approval"
+          class="text-slate-800 hover:text-blue-600 text-sm bg-white hover:bg-slate-100 border
+          border-slate-200 rounded-l-lg font-medium p-2 inline-flex space-x-1 items-center
+          dropdown-button">
+          <i class="fa-regular fa-pen-to-square text-[1rem] py-0.5"></i>
+      </button>
+      <button [routerLink]="[_url, data]" [ngClass]="{'rounded-l-lg': approval}"
+          class="text-slate-800 hover:text-blue-600 text-sm bg-white hover:bg-slate-100 border
+          border-slate-200 font-medium p-2 inline-flex space-x-1 items-center">
+          <i class="fa-regular fa-eye text-[1rem] py-0.5"></i>
+      </button>
+      <button *ngIf="deleted" class="p-2 bg-white group transition-all duration-500 border
+         hover:bg-slate-100 border-slate-200 rounded-r-lg font-medium
+           inline-flex space-x-1 items-centerflex items-center justify-center">
+          <i class="fa-solid fa-ban text-[1rem] group-hover:text-white hover:text-red-600"></i>
+      </button>
+      <button *ngIf="!deleted" class="text-slate-800 hover:text-red-600 text-sm bg-white
+          border-slate-200 font-medium p-2 inline-flex space-x-1 items-center hover:bg-slate-100
+          border rounded-r-lg">
+          <i class="fa-regular fa-trash-can text-[1rem] group-hover:text-red-600 py-0.5"></i>
+      </button>
+  </div>
+
+

@@ -1,0 +1,98 @@
+<!-- <div class="flex flex-col lg:flex-row lg:flex-wrap items-start justify-start py-[0.562rem]
+      pr-[16.062rem] pl-[20.312rem] gap-[1.562rem] max-w-full z-[1]">
+    <div class="w-full lg:w-[27.669rem] shadow-[0px_4px_4px_rgba(0,_0,_0,_0.25)] rounded-[0.7rem] bg-gray-100
+        flex flex-row items-start justify-start py-[0.337rem] px-[0.437rem] gap-[0.687rem] z-[1]">
+        <span class="self-stretch w-[1.156rem] relative max-h-full object-cover min-h-[1.563rem] z-[1] ps-2 pe-3">
+          <i class="fa-solid fa-magnifying-glass" style="color: #686868;"></i>
+        </span>
+        <input class="relative w-full lg:w-[13.969rem] text-[1.125rem] bg-transparent text-gray-300
+           border-none outline-none text-left p-0 z-[1]" placeholder="Search..." type="text" />
+    </div>
+
+    <div class="w-full lg:w-[13.169rem] shadow-[0px_4px_4px_rgba(0,_0,_0,_0.25)] rounded-md bg-gray-100
+        flex flex-row items-start justify-start py-[0.337rem] px-[0.437rem] gap-[0.687rem] z-[1] mt-2 lg:mt-0">
+        <span class="self-stretch w-[1.156rem] relative max-h-full object-cover min-h-[1.563rem] z-[1] ps-2 pe-3">
+          <i class="fa-solid fa-location-dot" style="color: #2869bd;"></i>
+        </span>
+        <input class="relative w-full lg:w-[10.369rem] text-[1.125rem] bg-transparent text-gray-300
+           border-none outline-none text-left p-0 z-[1]" placeholder="Location..." type="text" />
+    </div>
+</div> -->
+
+
+<!--shadow-[0px_4px_4px_rgba(0,_0,_0,_0.25)]-->
+<form class="max-w-lg mx-auto shadow-[0px_4px_4px_rgba(0,_0,_0,_0.25)] rounded-[0.7rem]">
+  <div class="flex">
+    <div>
+        <label for="search-dropdown" class="mb-2 text-sm font-medium text-gray-900 sr-only dark:text-white">Your Email</label>
+        <button id="dropdown-button" data-dropdown-toggle="vendor-dropdown"
+            class="flex-shrink-0 z-10 inline-flex items-center py-2 px-4 w-full lg:w-[15.969rem] bg-white
+              font-medium text-center text-md text-black border-r border-gray-300  rounded-s-[0.7rem]"
+            type="button">Select Vendor
+            <svg class="w-2.5 h-2.5 ms-auto" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 10 6">
+                <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 1 4 4 4-4"/>
+            </svg>
+        </button>
+        <div id="vendor-dropdown" class="z-10 hidden bg-white divide-y divide-gray-100 rounded-lg shadow w-44 dark:bg-gray-700">
+            <ul class="py-2 text-sm text-gray-700 dark:text-gray-200" aria-labelledby="dropdown-button">
+            <li>
+                <button type="button" class="inline-flex w-full px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Mockups</button>
+            </li>
+            <li>
+                <button type="button" class="inline-flex w-full px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Templates</button>
+            </li>
+            <li>
+                <button type="button" class="inline-flex w-full px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Design</button>
+            </li>
+            <li>
+                <button type="button" class="inline-flex w-full px-4 py-2 hover:bg-gray-100
+                  dark:hover:bg-gray-600 dark:hover:text-white">Logos</button>
+            </li>
+            </ul>
+        </div>
+
+    </div>
+    <div>
+        <label for="search-dropdown" class="mb-2 text-sm font-medium text-gray-900 sr-only dark:text-white">Your Email</label>
+        <button id="dropdown-button" data-dropdown-toggle="city-dropdown" class="flex-shrink-0 z-10 inline-flex items-center
+            py-2 px-4 text-md lg:w-[13.969rem] font-medium text-center bg-white font-medium text-black"
+            type="button">Select City
+          <svg class="w-2.5 h-2.5 ms-auto" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 10 6">
+              <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 1 4 4 4-4"/>
+          </svg>
+        </button>
+        <div id="city-dropdown" class="z-10 hidden bg-white divide-y divide-gray-100 rounded-lg shadow w-44 dark:bg-gray-700">
+            <ul class="py-2 text-sm text-gray-700 dark:text-gray-200" aria-labelledby="dropdown-button">
+            <li>
+                <button type="button" class="inline-flex w-full px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Mockups</button>
+            </li>
+            <li>
+                <button type="button" class="inline-flex w-full px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Templates</button>
+            </li>
+            <li>
+                <button type="button" class="inline-flex w-full px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Design</button>
+            </li>
+            <li>
+                <button type="button" class="inline-flex w-full px-4 py-2 hover:bg-gray-100
+                  dark:hover:bg-gray-600 dark:hover:text-white">Logos</button>
+            </li>
+            </ul>
+        </div>
+    </div>
+    <div>
+        <button type="submit" class="p-2.5 text-sm font-medium h-full text-white
+            bg-blue-700 rounded-e-[0.7rem] border border-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none
+            focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
+            <svg class="w-4 h-4" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 20">
+                <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                d="m19 19-4-4m0-7A7 7 0 1 1 1 8a7 7 0 0 1 14 0Z"/>
+            </svg>
+            <span class="sr-only">Search</span>
+        </button>
+    </div>
+  </div>
+</form>
+
+
+
+

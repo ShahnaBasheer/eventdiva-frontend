@@ -1,0 +1,82 @@
+
+
+
+<div class="fixed bottom-0 end-0 z-[1000] h-[450px] me-2" *ngIf="showChatRoomModal">
+    <div class="w-full max-w-sm bg-gray-100 rounded-2xl shadow-chat p-6  h-[450px] space-y-6">
+      <!-- Chat header -->
+      <div class="flex items-center space-x-4">
+          <div class="w-11 h-12 rounded-full neo-shadow flex items-center justify-center">
+              <span class="text-xl font-semibold text-gray-700 dark:text-gray-300">
+                {{ title | slice:0:1 }}
+              </span>
+          </div>
+          <h1 class="text-2xl font-bold text-gray-800">Chat with {{ title }}</h1>
+          <button (click)="onCloseModal()"
+              type="button" class="bg-white rounded-md p-2 inline-flex items-center justify-center
+              text-indigo-500 shadow-custom
+              hover:text-gray-500 hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-inset
+               focus:ring-indigo-500">
+            <span class="sr-only">Close menu</span>
+            <!-- Heroicon name: outline/x -->
+            <i class="fa-solid fa-xmark text-2xl px-1"></i>
+          </button>
+      </div>
+
+      <!-- Chat messages area -->
+      <div class="overflow-y-auto neo-inset p-4 rounded-xl space-y-4 h-[250px]">
+        <div>
+          <div class="flex items-start space-x-2" *ngIf="AllMessages.length === 0">
+            <div class="w-8 h-8 rounded-full neo-shadow flex-shrink-0 flex items-center justify-center">
+                <span class="text-sm font-medium text-gray-700 dark:text-gray-300">JD</span>
+            </div>
+            <div class="bg-white dark:bg-gray-700 p-3 rounded-lg neo-shadow max-w-xs">
+                <p class="text-sm text-gray-700 dark:text-gray-300">Hey there! How's it going?</p>
+            </div>
+          </div>
+
+          <!-- Received message -->
+           <div *ngFor="let message of AllMessages"  #lastMessage>
+                <div class="flex items-start justify-end space-x-2"  *ngIf="message.senderType === 'Customer'">
+
+                  <div>
+                    <div class="bg-white dark:bg-gray-700 p-3 rounded-lg neo-shadow max-w-xs">
+                        <p class="text-sm text-gray-700 dark:text-gray-300">{{ message.content }}</p>
+                    </div>
+                    <div class="text-gray-400 text-[.85rem] font-medium">{{ message.updatedAt | date:'medium' }}</div>
+                  </div>
+                </div>
+
+                <div class="flex items-start space-x-2 " *ngIf="message.senderType === 'Vendor'">
+                    <div class="w-8 h-8 rounded-full neo-shadow flex-shrink-0 flex items-center justify-center">
+                        <span class="text-sm font-medium text-gray-700 dark:text-gray-300">
+                          {{ title | slice:0:1 }}
+                        </span>
+                    </div>
+                    <div>
+                      <div class="bg-blue-500 p-3 rounded-lg neo-shadow max-w-xs">
+                          <p class="text-sm text-white">{{ message.content }}</p>
+                      </div>
+                      <div class="text-gray-400 text-[.85rem] font-medium">{{ message.updatedAt | date:'medium' }}</div>
+                    </div>
+                </div>
+           </div>
+
+        </div>
+
+      </div>
+
+      <!-- Message input area -->
+      <div class="flex items-center space-x-4">
+          <div class="flex-grow">
+              <input type="text" placeholder="Type your message..." [(ngModel)]="newmessage"
+                class="w-full p-4 rounded-xl neo-inset bg-transparent text-gray-700 dark:text-gray-300 placeholder-gray-500 dark:placeholder-gray-400 focus:outline-none">
+          </div>
+          <button (click)="sendMessage()"
+              class="p-4 rounded-xl neo-shadow neo-button focus:outline-none">
+              <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-blue-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8" />
+              </svg>
+          </button>
+      </div>
+    </div>
+</div>

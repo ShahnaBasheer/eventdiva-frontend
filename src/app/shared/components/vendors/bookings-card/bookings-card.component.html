@@ -1,0 +1,38 @@
+
+
+
+<!-- component -->
+
+<div class="mx-auto bg-white rounded-xl shadow-md m-3">
+  <div class="p-4 flex items-center justify-between">
+    <div class="bg-white font-medium flex justify-start">
+      <app-date-calendar [eventDate]="item.eventDate.startDate"></app-date-calendar>
+      <div class="ms-6">
+        <div class="uppercase tracking-wide text-sm text-indigo-500 font-semibold">{{ item.eventName }}</div>
+        <p class="mt-2 text-gray-600 text-[.92rem]">{{ item.eventType }}</p>
+        <p class="mt-2 text-gray-600 text-[.92rem]">{{ item.eventDate.endDate | date:'mediumDate' }}
+            <span class="text-[.85rem] text-gray-500">(End Date)</span>
+        </p>
+        <p class="mt-2 text-gray-600 text-[.92rem]">
+          {{ item.eventDate.startTime }} - {{ item.eventDate.endTime }}
+        </p>
+      </div>
+    </div>
+
+    <div>
+      <div class="text-[#26852e] text-center px-2 py-0.5 font-semibold text-[.8rem] rounded-full
+          bg-[#d0ffda]">
+        {{ item.status }}
+      </div>
+
+      <button (click)="onViewDetails()"
+        class="mt-3 text-slate-800 hover:text-blue-600 text-[.85rem] bg-[#c9c9fb] hover:bg-slate-300
+          border-y border-slate-200 font-medium px-3 py-1 inline-flex space-x-1 items-center">
+        <span>
+          <i class="fa-regular fa-eye"></i>
+        </span>
+        <span class="hidden md:inline-block">View</span>
+      </button>
+    </div>
+  </div>
+</div>

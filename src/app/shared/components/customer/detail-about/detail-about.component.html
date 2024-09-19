@@ -1,0 +1,27 @@
+
+
+  <div class="px-6 py-8">
+    <div class="flex items-start gap-4 text-[1rem] text-darkslategray-200">
+        <div [innerHTML]="aboutHtml">
+        </div>
+    </div>
+  </div>
+
+  <div class="px-6 py-8" *ngIf="extraInfo">
+    <h3 class="font-semibold text-md text-darkslategray-300 uppercase pb-3">{{ Title }}</h3>
+    <div class="overflow-auto">
+      <ul class="grid grid-cols-2 gap-2 h-full">
+        <li *ngFor="let item of extraInfo" class="list-disc ml-4">
+          {{ item }}
+        </li>
+      </ul>
+    </div>
+  </div>
+
+
+
+  <div class="w-full">
+    <div class="bg-[#D3DCE4] w-full py-2 px-8 text-center">
+      <i class="fa-solid fa-angles-down"></i>
+    </div>
+  </div>

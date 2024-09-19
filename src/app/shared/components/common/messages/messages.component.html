@@ -1,0 +1,53 @@
+<div class="relative box-border">
+  <header class="bg-white p-4 text-gray-700 border-b border-gray-300">
+    <h1 class="text-2xl font-semibold">{{user.firstName }} {{user.lastName  }}</h1>
+  </header>
+
+  <div class="overflow-y-auto px-5 pt-5 bg-[#ededed] h-[calc(100vh-240px)]">
+    <div class="">
+      <!-- Chat Messages -->
+      <div *ngFor="let item of AllMessages" #lastMessage class="mb-4">
+        <!-- Incoming Message -->
+        <div class="flex" *ngIf="item.senderType === 'Customer'">
+          <div class="w-9 h-9 rounded-full mr-3 flex justify-center items-center bg-[#c4c4c4] shadow-md">
+            {{user.firstName | slice:0:1}}{{user.lastName | slice:0:1}}
+          </div>
+          <div>
+            <div class="flex max-w-96 bg-white rounded-lg p-3 gap-1 shadow-md">
+              <p class="text-gray-700">{{ item.content }}</p>
+            </div>
+            <div class="text-gray-300 text-[.75rem] font-medium pt-1">{{ item.updatedAt | date:'medium' }}</div>
+          </div>
+        </div>
+        <!-- Outgoing Message -->
+        <div class="flex justify-end" *ngIf="item.senderType === 'Vendor'">
+          <div>
+            <div class="flex max-w-96 bg-indigo-500 text-white rounded-lg p-3 gap-1 shadow-md">
+              <p>{{ item.content }}</p>
+            </div>
+            <div class="text-gray-300 text-[.75rem] font-medium pt-1">{{ item.updatedAt | date:'medium' }}</div>
+          </div>
+          <div class="w-9 h-9 rounded-full flex items-center justify-center ml-2 shadow-md bg-[#c4c4c4]">
+            {{ vendor }}
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+  <!-- Chat Input -->
+  <div class="bg-white border-t border-gray-300 p-4 flex items-center
+      shadow-custom">
+    <input type="text" placeholder="Type a message..." [(ngModel)]="newmessage"
+      class="flex-1 border border-gray-300 rounded-md px-4 py-2 focus:outline-none focus:ring-2 focus:ring-indigo-500">
+    <button (click)="sendMessage()"
+       class="ml-4 bg-indigo-500 hover:bg-indigo-600 text-white px-4 py-2 rounded-md">
+      Send
+    </button>
+  </div>
+
+</div>
+
+
+

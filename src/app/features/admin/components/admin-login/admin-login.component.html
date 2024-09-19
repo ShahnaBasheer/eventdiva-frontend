@@ -1,0 +1,45 @@
+
+
+<div class="flex h-screen items-center justify-center p-10">
+
+  <div class="xl:w-1/2 rounded-2xl border border-blue-800 shadow-xl bg-white">
+    <div class="grid md:grid-cols-2 p-5">
+      <div class="">
+        <img src="https://cdni.iconscout.com/illustration/premium/thumb/login-10299071-8333958.png?f=webp" alt="" />
+      </div>
+      <div class="flex items-center justify-center">
+        <form [formGroup]="adminLoginForm" (ngSubmit)="onSubmit()">
+          <h1 class="text-center font-extrabold uppercase text-blue-600 text-5xl">Admin login</h1>
+          <div *ngIf="errorMessage" class="bg-[#fce3e3] px-5 py-1 mt-10 rounded-md text-[.9rem] flex items-center">
+              <i class="fa-solid fa-circle-exclamation text-red-600 text-[1.1rem] me-2"></i>
+              <span class="text-red-600 text-[.83rem] font-semibold"> {{ errorMessage }}</span>
+          </div>
+          <br />
+          <div class="mt-0">
+              <input type="email" formControlName="email" name="email"
+                  class="w-full rounded-2xl bg-zinc-100 outline-rose-400 px-5 py-3" placeholder="email" />
+              <p class="text-red-600 text-[.75rem] text-left italic"
+                  *ngIf="isFieldInvalid('email')">Please enter a valid email!
+              </p>
+          </div>
+          <div class="my-5">
+              <input type="password" formControlName="password" name="password"
+                  class="w-full rounded-2xl bg-zinc-100 outline-rose-400 px-5 py-3" placeholder="password" />
+              <p class="text-red-600 text-[.75rem] text-left italic"
+                  *ngIf="isFieldInvalid('password')">Please enter a valid Password!
+              </p>
+          </div>
+
+          <button type="submit"
+              class="mb-3 w-full rounded-2xl bg-blue-800 px-5 py-3 font-semibold text-white">
+              <span>LOGIN</span>
+              <span *ngIf="isLoading"
+                  class="ml-3 border-gray-200 h-5 w-5 inline-block animate-spin rounded-full border-4
+                  border-t-blue-600">
+              </span>
+          </button>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>

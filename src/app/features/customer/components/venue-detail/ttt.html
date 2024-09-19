@@ -1,0 +1,145 @@
+<div class="bg-white p-8 rounded-lg shadow-lg w-full max-w-3xl">
+  <h1 class="text-2xl font-bold mb-6 text-gray-800">Venue Registration</h1>
+  <form action="/submit" method="post">
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+          <!-- Vendor ID -->
+          <div>
+              <label for="vendorId" class="block text-sm font-medium text-gray-700">Vendor ID</label>
+              <input type="text" id="vendorId" name="vendorId" class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm" required>
+          </div>
+
+
+          <!-- Venue Name -->
+          <div>
+              <label for="venueName" class="block text-sm font-medium text-gray-700">Venue Name</label>
+              <input type="text" id="venueName" name="venueName" class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm" required>
+          </div>
+
+          <!-- Venue Type -->
+          <div>
+              <label for="venueType" class="block text-sm font-medium text-gray-700">Venue Type</label>
+              <input type="text" id="venueType" name="venueType" class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm" required>
+          </div>
+
+          <!-- Established Year -->
+          <div>
+              <label for="establishedYear" class="block text-sm font-medium text-gray-700">Established Year</label>
+              <input type="number" id="establishedYear" name="establishedYear" class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm" required>
+          </div>
+
+
+          <!-- Description -->
+          <div class="col-span-2">
+              <label for="description" class="block text-sm font-medium text-gray-700">Description</label>
+              <textarea id="description" name="description" rows="4" class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm" required></textarea>
+          </div>
+
+          <!-- Amenities -->
+          <div class="col-span-2">
+              <label for="amenities" class="block text-sm font-medium text-gray-700">Amenities (comma separated)</label>
+              <input type="text" id="amenities" name="amenities" class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm" required>
+          </div>
+
+          <!-- Day Rent -->
+          <div>
+              <label for="dayRent" class="block text-sm font-medium text-gray-700">Day Rent</label>
+              <input type="number" id="dayRent" name="dayRent" class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
+          </div>
+
+          <!-- Services -->
+          <div class="col-span-2">
+              <label class="block text-sm font-medium text-gray-700">Services</label>
+              <div class="flex items-center">
+                  <input type="checkbox" id="catering" name="services[catering]" class="h-4 w-4 text-indigo-600 border-gray-300 rounded focus:ring-indigo-500">
+                  <label for="catering" class="ml-2 block text-sm text-gray-900">Catering</label>
+              </div>
+              <div class="flex items-center mt-2">
+                  <input type="checkbox" id="decoration" name="services[decoration]" class="h-4 w-4 text-indigo-600 border-gray-300 rounded focus:ring-indigo-500">
+                  <label for="decoration" class="ml-2 block text-sm text-gray-900">Decoration</label>
+              </div>
+              <div class="flex items-center mt-2">
+                  <input type="checkbox" id="alcohol" name="services[alcohol]" class="h-4 w-4 text-indigo-600 border-gray-300 rounded focus:ring-indigo-500">
+                  <label for="alcohol" class="ml-2 block text-sm text-gray-900">Alcohol</label>
+              </div>
+          </div>
+
+          <!-- Evening Rent -->
+          <div>
+              <label for="eveningRent" class="block text-sm font-medium text-gray-700">Evening Rent</label>
+              <input type="number" id="eveningRent" name="eveningRent" class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm" required>
+          </div>
+
+          <!-- Plate Price -->
+          <div>
+              <label for="vegPerPlate" class="block text-sm font-medium text-gray-700">Veg Per Plate</label>
+              <input type="number" id="vegPerPlate" name="platePrice[vegPerPlate]" class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
+          </div>
+          <div>
+              <label for="nonVegPerPlate" class="block text-sm font-medium text-gray-700">Non-Veg Per Plate</label>
+              <input type="number" id="nonVegPerPlate" name="platePrice[nonVegPerPlate]" class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
+          </div>
+
+          <!-- Policies -->
+          <div class="col-span-2">
+              <label for="policies" class="block text-sm font-medium text-gray-700">Policies</label>
+              <textarea id="policies" name="policies" rows="4" class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm" required></textarea>
+          </div>
+
+          <!-- Available Dates -->
+          <div class="col-span-2">
+              <label class="block text-sm font-medium text-gray-700">Available Dates</label>
+              <!-- Add fields dynamically with JavaScript if needed -->
+              <div class="space-y-4">
+                  <div class="flex items-center">
+                      <input type="date" name="availableDates[0][startDate]" class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm" required>
+                      <span class="mx-4 text-gray-600">to</span>
+                      <input type="date" name="availableDates[0][endDate]" class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm" required>
+                  </div>
+              </div>
+          </div>
+
+          <!-- Capacity -->
+          <div class="col-span-2">
+              <label for="totalSeats" class="block text-sm font-medium text-gray-700">Total Seats</label>
+              <input type="number" id="totalSeats" name="capacity[totalSeats]" class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm" required>
+          </div>
+          <div class="col-span-2">
+              <label for="totalFloats" class="block text-sm font-medium text-gray-700">Total Floats</label>
+              <input type="number" id="totalFloats" name="capacity[totalFloats]" class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm" required>
+          </div>
+          <div class="col-span-2">
+              <label for="areas" class="block text-sm font-medium text-gray-700">Areas</label>
+              <input type="text" id="areas" name="capacity[areas]" class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
+          </div>
+
+          <!-- Portfolios -->
+          <div class="col-span-2">
+              <label for="portfolios" class="block text-sm font-medium text-gray-700">Portfolios (comma separated)</label>
+              <input type="text" id="portfolios" name="portfolios" class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm" required>
+          </div>
+
+          <!-- Rating -->
+          <div>
+              <label for="rating" class="block text-sm font-medium text-gray-700">Rating</label>
+              <input type="number" id="rating" name="rating" min="0" max="5" step="0.1" class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
+          </div>
+
+          <!-- Advance Payments -->
+          <div>
+              <label for="advancePayments" class="block text-sm font-medium text-gray-700">Advance Payments</label>
+              <input type="number" id="advancePayments" name="advancePayments" class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm" required>
+          </div>
+
+          <!-- Document -->
+          <div>
+              <label for="document" class="block text-sm font-medium text-gray-700">Document</label>
+              <input type="text" id="document" name="document" class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm" required>
+          </div>
+
+      </div>
+
+      <div class="mt-6 flex justify-end">
+          <button type="submit" class="bg-indigo-600 text-white px-6 py-3 rounded-md shadow-sm hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">Submit</button>
+      </div>
+  </form>
+</div>

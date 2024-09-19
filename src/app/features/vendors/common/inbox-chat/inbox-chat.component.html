@@ -1,0 +1,44 @@
+<div class="grid grid-cols-12 shadow-custom my-3 h-full overflow-hidden">
+  <div class="col-span-3 bg-white border-r border-gray-300 h-full">
+    <header class="p-4 border-b border-gray-300 flex justify-between items-center bg-indigo-600 text-white">
+      <h1 class="text-2xl font-semibold">Chat Room</h1>
+      <div class="relative">
+        <button id="menuButton" class="focus:outline-none">
+          <i class="fa-solid fa-minus text-2xl"></i>
+        </button>
+        <div id="menuDropdown" class="absolute right-0 mt-2 w-48 bg-white border border-gray-300 rounded-md shadow-lg hidden">
+          <ul class="py-2 px-3">
+            <li><a href="#" class="block px-4 py-2 text-gray-800 hover:text-gray-400">Option 1</a></li>
+            <li><a href="#" class="block px-4 py-2 text-gray-800 hover:text-gray-400">Option 2</a></li>  
+
+          </ul>
+        </div>
+      </div>
+    </header>
+    <div class="h-[calc(100vh-170px)]  overflow-y-auto ">
+      <div *ngFor="let item of AllCustomers; let i = index;"
+         class="bg-[#ffffff] hover:bg-[#d0faff] hover:shadow-custom">
+        <div (click)="onSelectCustomer(i)"
+           class="flex items-center mb-4 cursor-pointer p-2 rounded-md">
+          <div class="w-12 h-12 rounded-full mr-3 flex justify-center items-center
+             bg-[#aeadad] shadow-md">
+            {{ item.customerId.firstName | slice:0:1  }}{{ item.customerId.lastName | slice:0:1  }}
+          </div>
+          <div class="flex-1">
+            <h2 class="text-lg font-semibold">{{ item.customerId.firstName }} {{ item.customerId.lastName }}</h2>
+          </div>
+        </div>
+        <hr class="border border-[#e4e4e4]">
+      </div>
+    </div>
+  </div>
+  <div class="col-span-9 flex flex-col h-full">
+    <app-messages *ngIf="chatroom"
+        [user]="chatroom.customerId">
+    </app-messages>
+
+    <div *ngIf="!chatroom" class="flex justify-center items-center h-full bg-white">
+      <p class="text-[1.3rem]">choose one</p>
+    </div>
+  </div>
+</div>

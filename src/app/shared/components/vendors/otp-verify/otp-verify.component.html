@@ -1,0 +1,50 @@
+
+
+
+
+<body class="bg-gray-200 flex flex-col items-center justify-center w-full py-14">
+  <div class="w-full max-w-md px-8 py-5 bg-white rounded-lg shadow-lg">
+    <h1 class="text-[1.7rem] font-semibold text-center mb-6">CONFIRM OTP</h1>
+    <p class="text-gray-600 text-center mb-10">Code sent to <b class="text-blue-700 text-lg">{{email}}</b></p>
+    <div class="max-w-md mx-auto border">
+
+      <form class="px-8" [formGroup]="otpVerificationForm" (ngSubmit)="onSubmit()">
+          <div class="mb-3">
+              <div>
+                <input formControlName="otp" name="otp" class="shadow appearance-none border rounded
+                    w-full py-2 px-3 text-gray-70 leading-tight focus:outline-none focus:shadow-outline"
+                    type="text" placeholder="Enter OTP">
+              </div>
+                <p class="text-red-600 text-[.75rem] text-left italic pt-0"
+                  *ngIf="isFieldInvalid('otp')">Please enter valid otp!
+              </p>
+          </div>
+
+          <div class="flex items-center justify-between mt-1">
+              <button [disabled]="!isEnabled" type="submit"
+                  class="bg-teal-500 hover:bg-teal-700 text-white font-bold py-2 px-4
+                  rounded focus:outline-none focus:shadow-outline">
+                  <span>Verify</span>
+                  <span *ngIf="isLoading"
+                      class="ml-3 border-gray-200 h-5 w-5 inline-block animate-spin rounded-full border-4
+                      border-t-blue-600">
+                  </span>
+               </button>
+              <a (click)="onResendOTP()" *ngIf="resendOtpCount > 0" class="inline-block align-baseline
+                  font-bold text-sm text-teal-500 hover:text-teal-800">
+                  Resend OTP ({{resendOtpCount}})
+              </a>
+              <p *ngIf="resendOtpCount === 0" class="inline-block align-baseline font-bold text-sm
+                text-teal-500">Request Again in 15 minutes</p>
+          </div>
+      </form>
+
+    </div>
+    <div class="flex items-center flex-col justify-between mb-6">
+      <div class="flex items-center space-x-2">
+        <button *ngIf="isTimerEnabled" class="px-3 py-2 text-sm font-medium text-center rounded text-gray-500
+          hover:text-blue-500">OTP expired in ({{countdown}})</button>
+      </div>
+    </div>
+  </div>
+</body>

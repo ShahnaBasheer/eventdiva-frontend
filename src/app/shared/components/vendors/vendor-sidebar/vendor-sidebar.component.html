@@ -1,0 +1,29 @@
+
+<!-- class="fixed inset-y-0 left-0 z-30 w-64 overflow-y-auto transition duration-300
+transform bg-[#2e3192eb] lg:translate-x-0 lg:static lg:inset-0 h-screen
+" -->
+ <!-- Sidebar -->
+ <div class="fixed top-0 left-0 z-40 w-64 h-screen transition-transform  duration-300
+     -translate-x-full md:translate-x-0  bg-[#2e3192eb]">
+     <h2 class="text-white text-[1.2rem] font-semibold text-center mt-5 "
+        style="text-shadow: 2px 2px 4px rgba(24, 24, 24, 0.5);">
+      <span>Event</span><span class="text-[rgb(124,220,255)]">DIVA</span>
+     </h2>
+  <div class="flex items-center justify-center mt-8">
+      <div class="flex items-center">
+          <span class="mx-2 text-2xl font-medium text-white uppercase">{{ vendorType | replaceChar:'-' }}</span>
+      </div>
+  </div>
+
+  <nav class="mt-10">
+      <a *ngFor="let item of menuItems" [routerLink]="item.route"
+          [routerLinkActive]="['active', 'bg-gray-800']"
+          class="flex items-center px-6 mx-5 py-2  text-white hover:bg-gray-700 hover:bg-opacity-25">
+          <span class="mx-3">{{ item.name }}</span>
+          <span *ngIf="item.name === 'Chat Room'">
+            <span *ngIf="isNewMessage"
+               class="bg-yellow-500 px-2 py-[.2rem] text-[.8rem] font-semibold rounded-sm text-white">New</span>
+          </span>
+      </a>
+  </nav>
+</div>

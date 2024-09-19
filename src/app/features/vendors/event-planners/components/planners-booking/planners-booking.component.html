@@ -1,0 +1,122 @@
+
+
+
+<h3 class="text-[1.7rem] font-semibold text-gray-700">Bookings</h3>
+
+
+
+
+<div class="mx-16">
+  <div class="my-5 flex justify-center gap-5">
+    <div class="shadow sm:rounded-lg dark:bg-steelblue-200">
+      <div class="px-4 py-5">
+        <dl>
+          <dt class="text-sm leading-5 font-medium truncate text-white">
+            <i class="fa-solid fa-calendar-check text-[1.3rem] me-2"></i>
+            <span class="text-[1.1rem]">Bookings</span>
+          </dt>
+          <dd class="mt-1 text-[2rem] text-center font-semibold text-white">19
+          </dd>
+        </dl>
+      </div>
+    </div>
+    <div class="bg-white overflow-hidden shadow sm:rounded-lg dark:bg-steelblue-200">
+      <div class="px-4 py-5 sm:p-6">
+        <dl>
+          <dt class="text-sm leading-5 font-medium truncate text-white">
+            <i class="fa-regular fa-circle-check text-[1.3rem] me-2"></i>
+            <span class="text-[1.1rem]">Completed</span>
+          </dt>
+          <dd class="mt-1 text-[2rem] text-center font-semibold text-white">100</dd>
+        </dl>
+      </div>
+    </div>
+  </div>
+  <div class="py-4 my-1 px-3 shadow-md bg-white rounded-md flex justify-between items-center">
+    <div class="flex justify-start">
+      <div class="me-5">
+        <button class="bg-[#f5f5f5] h-8 px-4 rounded-lg border border-[#3a3a3a]">
+          <i class="fa-solid fa-filter"></i>
+        </button>
+
+      </div>
+      <div class="flex items-center gap-2 rtl:space-x-reverse">
+        <select class="h-8 text-sm px-2 leading-none transition duration-75 border-gray-300
+                rounded-lg shadow-sm outline-none focus:border-yellow-500 focus:ring-1 focus:ring-inset
+                focus:ring-yellow-500 dark:border-gray-600 dark:focus:border-yellow-500">
+          <option value="5">5</option>
+          <option value="10">10</option>
+          <option value="25">25</option>
+          <option value="50">50</option>
+          <option value="-1">All</option>
+        </select>
+
+        <span class="text-sm font-medium">
+          per page
+        </span>
+      </div>
+    </div>
+    <div class="flex justify-center">
+      <div
+        class="flex overflow-x-auto items-center p-1 space-x-1 rtl:space-x-reverse text-sm text-gray-600 bg-gray-500/5 rounded-xl dark:bg-gray-500/20">
+        <button role="tab" type="button"
+          class="flex whitespace-nowrap items-center h-8 px-3 font-medium rounded-lg outline-none focus:ring-2 focus:ring-yellow-600 focus:ring-inset text-yellow-600 shadow bg-white dark:text-white dark:bg-yellow-600"
+          aria-selected="">
+          Pending
+        </button>
+
+        <button role="tab" type="button"
+          class="flex whitespace-nowrap items-center h-8 px-3 font-medium rounded-lg outline-none focus:ring-2 focus:ring-yellow-600 focus:ring-inset hover:text-gray-800 focus:text-yellow-600 dark:text-gray-400 dark:hover:text-gray-300 dark:focus:text-gray-400">
+          Confirmed
+        </button>
+        <button role="tab" type="button"
+          class="flex whitespace-nowrap items-center h-8 px-3 font-medium rounded-lg outline-none focus:ring-2 focus:ring-yellow-600 focus:ring-inset hover:text-gray-800 focus:text-yellow-600 dark:text-gray-400 dark:hover:text-gray-300 dark:focus:text-gray-400">
+          Cancelled
+        </button>
+        <button role="tab" type="button"
+          class="flex whitespace-nowrap items-center h-8 px-3 font-medium rounded-lg outline-none focus:ring-2 focus:ring-yellow-600 focus:ring-inset hover:text-gray-800 focus:text-yellow-600 dark:text-gray-400 dark:hover:text-gray-300 dark:focus:text-gray-400">
+          Completed
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <app-bookings-card *ngFor="let item of planners" [item]="item"></app-bookings-card>
+
+
+  <div class="flex justify-center items-center w-full">
+    <div class="mb-4 flex justify-center space-x-4" aria-label="Pagination">
+      <span class="rounded-lg border border-teal-500 px-2 py-2 text-gray-700">
+        <span class="sr-only">Previous</span>
+        <svg class="mt-1 h-5 w-5" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor"
+          aria-hidden="true">
+          <path fill-rule="evenodd"
+            d="M12.707 5.293a1 1 0 010 1.414L9.414 10l3.293 3.293a1 1 0 01-1.414 1.414l-4-4a1 1 0 010-1.414l4-4a1 1 0 011.414 0z"
+            clip-rule="evenodd">
+          </path>
+        </svg>
+      </span>
+
+      <span class="rounded-lg border border-teal-500 bg-teal-500 px-4 py-2 text-white">1</span>
+
+      <a class="rounded-lg border border-teal-500 px-4 py-2 text-gray-700" href="/page/2">2
+      </a>
+
+      <a class="rounded-lg border border-teal-500 px-4 py-2 text-gray-700" href="/page/3">3
+      </a>
+
+      <a class="rounded-lg border border-teal-500 px-2 py-2 text-gray-700" href="/page/2">
+        <span class="sr-only">Next</span>
+        <svg class="mt-1 h-5 w-5" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor"
+          aria-hidden="true">
+          <path fill-rule="evenodd"
+            d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z"
+            clip-rule="evenodd">
+          </path>
+        </svg>
+      </a>
+
+    </div>
+  </div>
+</div>
+

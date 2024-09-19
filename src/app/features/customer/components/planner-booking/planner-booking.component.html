@@ -1,0 +1,322 @@
+
+
+
+
+<app-loader  *ngIf="!plannerData && isLoading"></app-loader>
+
+
+
+<div class="w-full px-10 py-6 shadow-[0px_4px_4px_rgba(0,_0,_0,_0.25),_0px_4px_4px_rgba(0,_0,_0,_0.25)]
+    grid grid-cols-12" *ngIf="plannerData">
+    <div class="col-span-7">
+        <div class="flex justify-center items-center bg-[#285a9b] py-4">
+          <h1 class="text-2xl font-bold text-white ">Event Booking Form</h1>
+        </div>
+        <div class="w-full px-8 py-5 border-3 border-solid border-steelblue-200 text-[1.188rem] shadow-2xl">
+            <div class="max-w-2xl mx-auto bg-white p-6 rounded-lg">
+                <div class="my-5 mx-5">
+                  <div>
+                    <!-- Tabs Header -->
+                    <ul class="relative flex justify-between items-center px-0">
+                      <li *ngFor="let tab of tabs; let i = index"
+                          (click)="setActiveTab(i)"
+                          class="relative flex flex-col items-center w-1/4 text-center cursor-pointer">
+                        <!-- Number Circle -->
+                        <span class="w-12 h-12 flex items-center justify-center rounded-full font-bold
+                            transition-colors duration-300 z-[10]"
+                            [ngClass]="{'bg-blue-600 text-white': activeTab >= i, 'bg-[#d4d4d4]': activeTab < i}">
+                          {{ i + 1 }}
+                        </span>
+                        <span class="font-semibold mt-2">{{ tab }}</span>
+                        <!-- Line Connector -->
+                        <div *ngIf="i < tabs.length - 1"
+                             class="absolute w-full h-1 z-1"
+                             [ngClass]="{ 'bg-blue-600': activeTab > i, 'bg-[#e2e2e2]': activeTab <= i }"
+                             style="left: calc(50% + 1rem); top: 30%; transform: translateY(-50%);">
+                        </div>
+                      </li>
+                    </ul>
+
+                    <!-- Form Content -->
+                    <form class="py-10 px-6 mx-auto" [formGroup]="plannerBookingForm">
+                        <div *ngIf="activeTab === 0" class="py-4" formGroupName="eventInfo">
+                          <!-- Content for Tab 1 -->
+                            <div class="grid grid-cols-12 gap-6">
+                                <div class="col-span-6">
+                                  <label for="EventType" class="text-sm font-medium text-gray-900 block mb-2">Event Type
+                                  </label>
+                                  <select id="EventType" formControlName="eventType"
+                                      class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg block w-full
+                                        p-2 focus:ring-cyan-500 focus:border-cyan-500 dark:placeholder-gray-400
+                                        dark:focus:ring-blue-500 dark:focus:border-blue-500">
+                                        <option value="">Choose event type</option>
+                                        <option *ngFor="let item of eventTypes" [value]="item">{{ item }}</option>
+                                  </select>
+                                  <p class="text-red-600 text-[.75rem] text-left italic"
+                                      *ngIf="isFieldError('eventInfo', 'eventType')">Please choose event type!
+                                  </p>
+                                </div>
+                                <div class="col-span-6">
+                                  <label for="event-name" class="text-sm font-medium text-gray-900 block mb-2">Event Name
+                                  </label>
+                                  <input type="text" formControlName="eventName" id="event-name" placeholder="eg: Haldi, wedding"
+                                      class="shadow- border rounded-lg focus:border-cyan-500 block w-full p-2">
+                                  <p class="text-red-600 text-[.75rem] text-left italic"
+                                      *ngIf="isFieldError('eventInfo', 'eventName')">Please enter valid event name!
+                                  </p>
+                                </div>
+
+                                <div class="col-span-6 ">
+                                  <label for="email" class="text-sm font-medium text-gray-900 block mb-2">Email
+                                  </label>
+                                  <input type="email" formControlName="email" id="email" placeholder="abcd@gmail.com"
+                                      class="shadow-sm border rounded-lg focus:border-cyan-500 block w-full p-2">
+                                  <p class="text-red-600 text-[.75rem] text-left italic"
+                                      *ngIf="isFieldError('eventInfo', 'email')">Please enter valid email!
+                                  </p>
+                                </div>
+                                <div class="col-span-6">
+                                  <label for="mobile" class="text-sm font-medium text-gray-900 block mb-2">Mobile Number
+                                  </label>
+                                  <input type="number" formControlName="mobile" id="mobile" placeholder="9374774772"
+                                      class="shadow-sm border rounded-lg focus:border-cyan-500 block w-full p-2">
+                                  <p class="text-red-600 text-[.75rem] text-left italic"
+                                      *ngIf="isFieldError('eventInfo', 'mobile')">Please enter valid mobile number!
+                                  </p>
+                                </div>
+                                <div class="col-span-12">
+                                  <fieldset class="border border-[#787879] p-4">
+                                      <legend class="text-sm font-medium">Event Date</legend>
+
+                                      <div class="flex items-center justify-between mb-8">
+                                        <label class="w-1/3 text-sm font-medium text-gray-900 block mb-2">Days</label>
+                                          <label class="flex items-center pe-14">
+                                              <input type="radio" name="isMultipleDays" formControlName="isMultipleDays"
+                                                   [value]="false" class="text-blue-500 focus:border-blue-300">
+                                              <span class="ml-2 text-gray-700 text-sm">Single Day</span>
+                                          </label>
+                                          <label class="flex items-center">
+                                              <input type="radio" name="isMultipleDays" formControlName="isMultipleDays" [value]="true"
+                                               class="text-blue-500 focus:border-blue-300">
+                                              <span class="ml-2 text-gray-700 text-sm">Multiple Days</span>
+                                          </label>
+                                        </div>
+                                        <div formGroupName="eventDate">
+                                            <div class="grid grid-cols-12 gap-x-3 gap-y-6">
+                                              <div class="col-span-6">
+                                                  <label for="email" class="text-sm font-medium text-gray-900 block mb-2">Start Date</label>
+                                                  <input type="date" name="startDate" formControlName="startDate"
+                                                        class="w-full rounded-md border border-[#e0e0e0] bg-white py-1.5
+                                                          px-2 text-[#6B7280] outline-none focus:border-cyan-500 focus:shadow-md text-sm" />
+                                                  <p class="text-red-600 text-[.75rem] text-left italic"
+                                                      *ngIf="isFieldError('eventInfo.eventDate', 'startDate')">Please select valid start date!
+                                                  </p>
+                                              </div>
+                                              <div class="col-span-6">
+                                                  <label for="email" class="text-sm font-medium text-gray-900 block mb-2">End Date</label>
+                                                  <input type="date" name="endDate" formControlName="endDate"
+                                                      class="w-full rounded-md border border-[#e0e0e0] bg-white py-1.5
+                                                        px-2 text-[#6B7280] outline-none focus:border-cyan-500 focus:shadow-md text-sm" />
+                                                  <p class="text-red-600 text-[.75rem] text-left italic"
+                                                      *ngIf="isFieldError('eventInfo.eventDate', 'endDate')">Please select valid dates!
+                                                  </p>
+                                              </div>
+                                              <div class="col-span-6">
+                                                  <label for="email" class="text-sm font-medium text-gray-900 block mb-2">Start Time</label>
+                                                  <input type="time" name="startTime" formControlName="startTime"
+                                                       class="w-full rounded-md border border-[#e0e0e0] bg-white py-1.5
+                                                        px-2 text-[#6B7280] outline-none focus:border-cyan-500 focus:shadow-md text-sm" />
+                                                  <p class="text-red-600 text-[.75rem] text-left italic"
+                                                    *ngIf="isFieldError('eventInfo.eventDate', 'startTime')">Please select valid start time!
+                                                  </p>
+                                              </div>
+                                              <div class="col-span-6">
+                                                  <label for="email" class="text-sm font-medium text-gray-900 block mb-2">End Time</label>
+                                                  <input type="time" name="endTime" formControlName="endTime"
+                                                      class="w-full rounded-md border border-[#e0e0e0] bg-white py-1.5
+                                                        px-2 text-[#6B7280] outline-none focus:border-cyan-500 focus:shadow-md text-sm" />
+                                                  <p class="text-red-600 text-[.75rem] text-left italic"
+                                                      *ngIf="isFieldError('eventInfo.eventDate', 'endTime')">Please select valid end time!
+                                                  </p>
+                                              </div>
+                                            </div>
+                                        </div>
+                                  </fieldset>
+                                </div>
+                                <div class="col-span-6">
+                                  <label for="guests" class="text-sm font-medium text-gray-900 block mb-2">Guests
+                                  </label>
+                                  <input type="number" formControlName="guests" id="guests" placeholder="no.of guests"
+                                      class="shadow-sm border rounded-lg focus:border-cyan-500 block w-full p-2">
+                                  <p class="text-red-600 text-[.75rem] text-left italic"
+                                      *ngIf="isFieldError('eventInfo', 'guests')">Please enter valid guests count!
+                                  </p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div *ngIf="activeTab === 1" class="py-4">
+                          <div formGroupName="addressInfo">
+                            <app-booking-address [addressFormGroup]="addressInfoFormGroup"></app-booking-address>
+                          </div>
+                        </div>
+
+                        <div *ngIf="activeTab === 2" class="py-4" formGroupName="paymentInfo">
+                            <div class="grid grid-cols-12 gap-3">
+                              <div class="col-span-12">
+                                <div class="flex items-center">
+                                  <label class="w-1/3 text-sm font-medium text-gray-900 block mb-2">Payment Options</label>
+                                  <select formControlName="paymentMode" class="w-3/6 border text-sm border-gray-300
+                                      shadow-sm rounded-lg focus:border-cyan-500 block p-2">
+                                      <option value="">Choose a Payment Mode</option>
+                                      <option value="Razorpay">Razorpay</option>
+                                  </select>
+                                  <p class="text-red-600 text-[.75rem] text-left italic"
+                                      *ngIf="isFieldError('paymentInfo', 'paymentMode')">Please choose a paymentMode!
+                                  </p>
+                                </div>
+                              </div>
+
+                              <div class="col-span-12">
+                                <div class="flex items-center">
+                                  <label class="w-1/3 text-sm font-medium text-gray-900 block my-3">Platform Fee</label>
+                                  <p class="text-md font-medium">Rs.50</p>
+                                </div>
+                              </div>
+
+                              <div class="col-span-12">
+                                <div class="flex items-center">
+                                  <label class="w-1/3 text-sm font-medium text-gray-900 block mb-2">Additional Comments</label>
+                                   <textarea formControlName="additionalNeeds"
+                                       class="w-3/6 border border-gray-300 px-3 py-5 shadow-sm rounded-lg focus:border-cyan-500 block p-2">
+                                   </textarea>
+                                   <p class="text-red-600 text-[.75rem] text-left italic"
+                                      *ngIf="isFieldError('paymentInfo', 'additionalNeeds')">Please choose a paymentMode!
+                                  </p>
+                               </div>
+                              </div>
+                            </div>
+                        </div>
+
+                        <div *ngIf="activeTab === 3" class="py-4">
+                          <div class="flex justify-center items-center">
+                            <div class="card b-0">
+                              <div class="row d-flex justify-center text-center">
+                                  <div class="confirm">
+                                      <h4 class="mb-2">Thank You !</h4>
+                                      <p>An estimation will be sent on your email address.</p>
+                                  </div>
+                                  <div class="row d-flex justify-center mt-3">
+                                    <div class="check">
+                                        <i class="fa-regular fa-circle-check check-mark text-[4rem] text-cyan-500"></i>
+                                    </div>
+                                </div>
+                              </div>
+                            </div>
+
+                          </div>
+                        </div>
+                    </form>
+
+                    <!-- Navigation Buttons -->
+                    <div class="flex gap-4 justify-center border-t p-4">
+                      <button (click)="prevTab()"  *ngIf="activeTab !== 3"
+                          class="py-2 px-4 border rounded-md border-blue-600 text-blue-600 cursor-pointer uppercase text-sm font-bold hover:bg-blue-500 hover:text-white hover:shadow"
+                          [disabled]="activeTab === 0">Back
+                      </button>
+                      <button *ngIf="activeTab === 2"
+                          class="py-2 px-4 border rounded-md border-blue-600 text-white cursor-pointer uppercase text-sm
+                              font-bold bg-blue-600 hover:shadow"
+                           (click)="onSubmit()" type="submit">Book Now
+                      </button>
+
+                      <button *ngIf="activeTab < 2"
+                          (click)="nextTab()"
+                          class="py-2 px-4 border rounded-md border-blue-600 text-blue-600 cursor-pointer uppercase text-sm font-bold
+                             hover:bg-blue-500 hover:text-white hover:shadow">
+                          Next
+                      </button>
+                    </div>
+                  </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-span-5">
+        <div class="bg-steelblue-200 flex flex-col items-start justify-start py-5
+            pr-[2.937rem] pl-[3rem] gap-[0.762rem] max-w-full h-full">
+            <div class="shadow-[0px_4px_4px_rgba(0,_0,_0,_0.25),_0px_-4px_4px_rgba(0,_0,_0,_0.25)]
+                bg-white p-3
+                max-w-full">
+                <div class=" flex flex-row items-start justify-center py-0">
+                  <div class="flex flex-row items-start justify-start mt-[-0.007rem] ">
+                    <a class="[text-decoration:none] inline-block text-[1.2rem]
+                    [text-shadow:0.3px_0_0_#1285b6,_0_0.3px_0_#1285b6,_-0.3px_0_0_#1285b6,_0_-0.3px_0_#1285b6]">
+                      {{plannerData.company}}
+                    </a>
+                  </div>
+                </div>
+
+                <div class="text-center text-red-600 text-[.9rem]">
+                  {{plannerData.address.city}},{{plannerData.address.state}}
+                </div>
+                <div class="px-3 my-3">
+                  <img class="h-auto object-cover" alt="" [src]="imgUrl" />
+                </div>
+
+            </div>
+
+            <div class="bg-white w-full text-black max-w-full">
+                <h3 class="text-[1.188rem] bg-silver w-full text-center p-2">PRICE DETAILS</h3>
+
+                <div class="bg-white flex flex-row items-start justify-between pt-[1.268rem]
+                    pb-[0.187rem] pr-[3.062rem] pl-[1.875rem] max-w-full gap-[1rem] text-center border-b-[0.5px]
+                    border-solid border-darkslategray-100">
+                    <div class="grid grid-cols-12 gap-6">
+                        <div class="col-span-7">Minimum Planning Fee</div>
+                        <div class="col-span-5 text-left">
+                          <a class="[text-decoration:none] font-bold text-green inline-block whitespace-nowrap">
+                            {{plannerData.planningFee.minPrice | currency:'INR':'symbol':'1.0-0'}}
+                          </a>
+                        </div>
+                    </div>
+                </div>
+                <div class="bg-white flex flex-row items-start justify-between pt-[1.268rem]
+                    pb-[0.187rem] pr-[3.062rem] pl-[1.875rem] max-w-full gap-[1.25rem] text-center border-b-[0.5px]
+                    border-solid border-darkslategray-100">
+                    <div class="grid grid-cols-12 gap-6">
+                      <div class="col-span-7">Maximum Planning Fee</div>
+                      <div class="col-span-5 text-left">
+                        <a class="[text-decoration:none] font-bold text-green inline-block whitespace-nowrap">
+                          {{plannerData.planningFee.maxPrice | currency:'INR':'symbol':'1.0-0'}}
+                        </a>
+                      </div>
+                  </div>
+                </div>
+                <div class="bg-white  flex flex-row flex-wrap items-start justify-start
+                    pt-[0.518rem] px-[2.562rem] pb-[0.812rem] gap-[5.45rem] max-w-full border-b-[0.5px]
+                    border-solid border-darkslategray-100">
+                    <div class="grid grid-cols-12 gap-6">
+                      <div class="col-span-8">Service Charge</div>
+                      <div class="col-span-4 text-left">
+                        <a class="[text-decoration:none] text-[1.25rem] font-bold text-blue-600 inline-block whitespace-nowrap">
+                          ₹50
+                        </a>
+                      </div>
+                    </div>
+                </div>
+                <!-- <div class="bg-black flex flex-row items-start justify-between pt-[0.406rem] pb-[0.468rem]
+                    pr-[3.937rem] pl-[2.562rem]  max-w-full gap-[1.25rem] text-[1.5rem] text-white">
+                    <div class="h-[2.688rem] w-[25.831rem] bg-steelblue-200 hidden max-w-full"></div>
+                    <div class="inline-block">Total</div>
+                    <div class="inline-block whitespace-nowrap">₹ 1530</div>
+                </div> -->
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+

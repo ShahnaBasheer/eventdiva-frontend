@@ -1,0 +1,142 @@
+
+
+<!-- Top header bar -->
+<div class="w-full bg-white flex items-center justify-center py-1" id="header-brand">
+  <div class="font-extrabold font-josefin text-xl text-white">EventDiva</div>
+</div>
+
+
+<section class="container mx-auto p-6 flex justify-center items-center">
+  <div class="grid grid-cols-1 lg:grid-cols-11">
+      <!-- First Column -->
+      <div class="col-span-1 lg:col-span-3 flex items-center">
+          <div class="bg-gradient-to-l [background:linear-gradient(270deg,_rgba(20,_104,_164,_0.9),_rgba(148,_10,_143,_0.9))]
+              p-8 h-auto w-full lg:h-[24rem] flex flex-col justify-center items-center">
+              <div class="text-white font-semibold text-lg py-3 text-center">Don't Have an Account?</div>
+              <div class="flex justify-center py-4">
+                  <button [routerLink]="['/vendor', 'signup']" routerLinkActive="router-link-active"
+                    class="text-lg px-10 py-2 bg-black text-white uppercase shadow-xl">SIGN UP</button>
+              </div>
+              <div class="text-white font-semibold text-lg py-3 text-center">Or</div>
+              <div class="flex justify-center py-4">
+                  <button [routerLink]="['/login']"
+                      class="text-lg px-6 py-2 bg-black text-white uppercase shadow-xl">
+                      <i class="fa-solid fa-right-to-bracket text-white me-3"></i>Login As Customer
+                  </button>
+              </div>
+          </div>
+      </div>
+
+      <!-- Second Column -->
+      <div class="col-span-1 lg:col-span-4 z-[10]">
+        <div class="bg-white p-8 lg:h-[32rem] text-gray-700 shadow-[rgba(0,0,0,0.25)_0px_14px_28px,_rgba(0,0,0,0.22)_0px_10px_10px] h-auto">
+          <h1 class="text-5xl lg:text-11xl font-extrabold text-center mb-16
+              [text-shadow:0px_4px_4px_rgba(0,_0,_0,_0.25)]">VENDOR LOGIN
+          </h1>
+
+          <!-- login form starts here-->
+          <form [formGroup]="vendorLoginForm" (ngSubmit)="onSubmit()">
+              <div class="form-body px-6">
+                 <div *ngIf="errorMessage" class="bg-[#fce3e3] px-5 py-1 my-5 rounded-md text-[.9rem] flex items-center">
+                      <i class="fa-solid fa-circle-exclamation text-red-600 text-[1.1rem] me-2"></i>
+                      <span class="text-red-600 text-[.83rem] font-semibold"> {{ errorMessage }}</span>
+                  </div>
+                  <div class="flex flex-col gap-y-8">
+                    <div class="relative h-10 w-full">
+                      <input type="email" formControlName="email" name="email"
+                        [ngClass]="{'border-red-600 placeholder-shown:border-red-600 focus:border-red-600': isFieldInvalid('email') }"
+                        class="peer h-full w-full rounded-md border border-blue-600 border-t-transparent bg-transparent px-3
+                        py-3 font-sans text-sm text-black transition-all placeholder-shown:border disabled:border-0
+                        placeholder-shown:border-gray-300 focus:border-2 font-semibold focus:border-blue-600
+                        focus:border-t-transparent disabled:bg-blue-700"
+                        placeHolder=" "
+                      />
+                      <label [ngClass]="{'before:border-red-600 after:border-red-600 peer-focus:text-red-600 text-red-600 \
+                        peer-focus:border-red-600  peer-focus:before:!border-red-600 peer-focus:after:!border-red-600': isFieldInvalid('email') }"
+                         class="before:content[' '] after:content[' '] pointer-events-none absolute left-0 font-semibold
+                          -top-1.5 flex h-full w-full select-none text-[11px] leading-tight text-blue-600
+                          transition-all before:pointer-events-none before:mt-[6.5px] before:mr-1 before:box-border
+                          before:block before:h-1.5 before:w-2.5 before:rounded-tl-md before:border-t before:border-l
+                          before:border-blue-600 before:transition-all after:pointer-events-none after:mt-[6.5px]
+                          after:ml-1 after:box-border after:block after:h-1.5 after:w-2.5 after:flex-grow after:rounded-tr-md
+                          after:border-t after:border-r after:border-blue-600 after:transition-all peer-placeholder-shown:text-sm
+                          peer-placeholder-shown:leading-[4.1] peer-placeholder-shown:text-gray-300 peer-focus:text-[11px]
+                          peer-placeholder-shown:before:border-transparent peer-placeholder-shown:after:border-transparent
+                          peer-focus:leading-tight peer-focus:text-blue-500 peer-focus:before:border-t-2 peer-focus:before:border-l-2
+                          peer-focus:before:!border-blue-600 peer-focus:after:border-t-2 peer-focus:after:border-r-2
+                          peer-focus:after:!border-blue-600 peer-disabled:text-transparent peer-disabled:before:border-transparent
+                          peer-disabled:after:border-transparent peer-disabled:peer-placeholder-shown:text-blue-600">
+                          Email
+                      </label>
+                      <p class="text-red-600 text-[.75rem] text-left italic"
+                          *ngIf="isFieldInvalid('email')">Please enter a valid email!
+                      </p>
+                    </div>
+
+                    <div>
+                        <div class="relative h-10 w-full">
+                          <input type="password" formControlName="password" name="password"
+                             [ngClass]="{'border-red-600 placeholder-shown:border-red-600 focus:border-red-600': isFieldInvalid('password') }"
+                             class="peer h-full w-full rounded-md border border-blue-600 border-t-transparent bg-transparent px-3
+                              py-3 font-sans text-sm text-black transition-all placeholder-shown:border disabled:border-0
+                              placeholder-shown:border-gray-300 focus:border-2 font-semibold focus:border-blue-600
+                              focus:border-t-transparent disabled:bg-blue-700"
+                            placeHolder=" "
+                          />
+                          <label [ngClass]="{'before:border-red-600 after:border-red-600 peer-focus:text-red-600 text-red-600 \
+                            peer-focus:border-red-600  peer-focus:before:!border-red-600 peer-focus:after:!border-red-600': isFieldInvalid('password') }"
+                             class="before:content[' '] after:content[' '] pointer-events-none absolute left-0 font-semibold
+                              -top-1.5 flex h-full w-full select-none text-[11px] leading-tight text-blue-600
+                              transition-all before:pointer-events-none before:mt-[6.5px] before:mr-1 before:box-border
+                              before:block before:h-1.5 before:w-2.5 before:rounded-tl-md before:border-t before:border-l
+                              before:border-blue-600 before:transition-all after:pointer-events-none after:mt-[6.5px]
+                              after:ml-1 after:box-border after:block after:h-1.5 after:w-2.5 after:flex-grow after:rounded-tr-md
+                              after:border-t after:border-r after:border-blue-600 after:transition-all peer-placeholder-shown:text-sm
+                              peer-placeholder-shown:leading-[4.1] peer-placeholder-shown:text-gray-300 peer-focus:text-[11px]
+                              peer-placeholder-shown:before:border-transparent peer-placeholder-shown:after:border-transparent
+                              peer-focus:leading-tight peer-focus:text-blue-500 peer-focus:before:border-t-2 peer-focus:before:border-l-2
+                              peer-focus:before:!border-blue-600 peer-focus:after:border-t-2 peer-focus:after:border-r-2
+                              peer-focus:after:!border-blue-600 peer-disabled:text-transparent peer-disabled:before:border-transparent
+                              peer-disabled:after:border-transparent peer-disabled:peer-placeholder-shown:text-blue-600">
+                              Password
+                          </label>
+                          </div>
+                          <p class="text-red-600 text-[.75rem] text-left italic"
+                             *ngIf="isFieldInvalid('password')">Please enter a valid Password!
+                          </p>
+                      </div>
+                  </div>
+
+                    <a class="text-[#377bf1] block text-[.8rem] font-semibold text-right pt-0 hover:underline">Forgot your password?</a>
+                    <div class="flex justify-center mt-8 mb-5">
+                      <button type="submit" class="cursor-pointer bg-royalblue-300 flex items-center shadow-md
+                          justify-center box-border px-8 hover:bg-dodgerblue fw-bold text-white py-1.5 rounded-md
+                          transition duration-500 ease-in-out  transform hover:-translate-x hover:scale-105">
+                          <span>LOGIN</span>
+                          <span *ngIf="isLoading"
+                              class="ml-3 border-gray-200 h-5 w-5 inline-block animate-spin rounded-full border-4
+                              border-t-blue-600">
+                          </span>
+                      </button>
+                    </div>
+              </div>
+          </form>
+        </div>
+      </div>
+
+      <!-- Third Column -->
+      <div class="col-span-1 lg:col-span-4 flex items-center">
+          <div class="relative w-full background-image shadow-[rgba(0,0,0,0.25)_0px_14px_28px,_rgba(0,0,0,0.22)_0px_10px_10px] h-auto lg:h-[24rem] p-8 flex justify-center items-center">
+              <img class="absolute inset-0 w-full h-full object-cover z-0" src="assets/images/aditya-chinchure-ZhQCZjr9fHo-unsplash.jpg" alt="Background Image"/>
+              <div class="relative z-10 p-8 h-[18.063rem] w-[15.1rem] flex items-center justify-center">
+                  <div class="absolute inset-0 bg-black opacity-50 z-1"></div>
+                  <h2 class="m-0 w-[16.1rem] relative text-white capitalize font-normal font-inherit inline-block font-cagliostro text-4xl lg:text-7xl [text-shadow:0px_4px_4px_rgba(0,_0,_0,_0.25),_0px_5px_5px_rgba(0,_0,_0,_0.25),_0px_4px_4px_rgba(0,_0,_0,_0.25),_0px_4px_4px_rgba(0,_0,_0,_0.25),_0px_4px_4px_rgba(0,_0,_0,_0.25)]">
+                      Transforming your visions into unforgettable events, seamlessly
+                  </h2>
+              </div>
+          </div>
+      </div>
+  </div>
+</section>
+
+

@@ -1,0 +1,88 @@
+
+
+
+<div class="flex flex-col justify-center py-4">
+	<div class="relative flex flex-col md:flex-row md:space-x-5 space-y-3 md:space-y-0 rounded-xl
+        shadow-lg p-3 max-w-xs md:max-w-3xl mx-auto border border-white bg-white shadow-neutral-300">
+		  <div class="w-full md:w-1/3 bg-white grid place-items-center">
+		  	<img [src]="imgUrl"
+           alt="booking_img" class="rounded-xl" />
+      </div>
+
+			<div class="w-full md:w-2/3 bg-white flex flex-col space-y-2 p-3">
+          <div class="flex justify-between items-center">
+              <p class="font-bold text-[.8rem] text-cyan-500">Booking ID : <span class="ps-1">{{item?.bookingId}}</span>
+              <div class="flex justify-center items-center">
+                <p class="text-[.72rem] text-gray-400 font-semibold pe-1">(1044 reveiws)</p>
+                <div class="inline-flex items-center justify-center rounded-lg bg-indigo-700 px-2 py-1 shadow-md">
+                  <i class="fa-solid fa-star text-white"></i>
+                  <span class="ps-1 text-sm text-white font-semibold">4.9</span>
+                </div>
+              </div>
+          </div>
+
+				  <h3 class="font-black md:text-3xl text-lg  py-2">{{ item?.venueId?.venueName }}
+            {{ item?.eventPlannerId?.company }}
+          </h3>
+          <!--text-cyan-500-->
+
+          <p class="text-[.95rem]">{{ item?.eventType }}
+            <span class="text-gray-300 font-bold text-[.75rem]"> Event Type</span>
+				  </p>
+          <p class="text-[.95rem]">{{ item?.eventName }}
+            <span class="text-gray-300 font-bold text-[.75rem]"> Event Name</span>
+				  </p>
+          <p class="text-[.95rem]">{{ item?.guests }}
+            <span class="text-gray-300 font-bold text-[.75rem]"> Guests</span>
+				  </p>
+          <p *ngIf="item?.venueId?.rent" class="text-xl font-extrabold text-blue-600">₹{{ item?.venueId?.rent }}
+            <span class="text-gray-300 font-bold text-[.75rem]">Rental Cost</span>
+				  </p>
+          <div class="py-2" *ngIf="item?.eventPlannerId?.planningFee">
+            <div class="flex items-center">
+                <p class="text-lg font-bold text-blue-600">
+                  {{item?.eventPlannerId?.planningFee.minPrice | currency:'INR':'symbol':'1.0-0'}} -
+                  {{item?.eventPlannerId?.planningFee.maxPrice | currency:'INR':'symbol':'1.0-0'}}</p>
+                <span class="text-gray-300 text-[.77rem] font-semibold ps-2">Planning Fee</span>
+            </div>
+          </div>
+				  <!-- <p class="text-xl font-extrabold text-blue-600">₹{{ item?.venueId?.rent }}
+            <span class="text-gray-300 font-bold text-[.75rem]">Advance Payment</span>
+				  </p> -->
+
+
+          <!-- <div class="absolute right-6 top-32">
+            <span class="bg-green font-bold text-white text-center py-1 px-2 text-xs rounded">Success</span>
+          </div> -->
+
+          <div class="pt-3">
+            <hr class="border-gray-300 py-1">
+            <div class="flex justify-between">
+              <div class="flex items-center gap-3">
+                <div class="bg-[#d5f4d5] rounded-full px-4 py-3">
+                  <i class="fa-solid fa-calendar-days text-green text-lg"></i>
+                </div>
+                <div>
+                  <p class="text-[.85rem]">Event Starts on</p>
+                  <p class="text-[.85rem]">{{ item?.eventDate.startDate | date:'mediumDate' }}</p>
+                </div>
+              </div>
+              <div class="flex items-center gap-3">
+                <div class="bg-[#d5f4d5] rounded-full px-4 py-3">
+                  <i class="fa-solid fa-calendar-days text-green text-lg"></i>
+                </div>
+                <div>
+                  <p class="text-[.85rem]">Event Ends on</p>
+                  <p class="text-[.85rem]">{{ item?.eventDate.endDate | date:'mediumDate' }}</p>
+                </div>
+              </div>
+              <div class="flex items-center">
+                 <span class="bg-green font-bold text-white text-center py-1 px-2 text-xs rounded">
+                  {{ item?.status }}
+                 </span>
+              </div>
+            </div>
+          </div>
+			</div>
+		</div>
+	</div>

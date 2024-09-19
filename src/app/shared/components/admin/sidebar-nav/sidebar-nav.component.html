@@ -1,0 +1,112 @@
+
+
+
+
+  <!-- sidebar -->
+
+
+
+<div class="fixed top-0 left-0 z-40 w-64 h-screen transition-transform
+    -translate-x-full md:translate-x-0 " aria-label="Sidebar">
+    <div class="h-full px-3 py-4 overflow-y-auto bg-adminBlue">
+        <div class="flex items-center justify-center h-16 ">
+            <span class="text-white font-bold uppercase">EventDiva</span>
+        </div>
+        <div class="flex flex-col flex-1 overflow-y-auto">
+            <nav class="flex-1 px-3 py-4 bg-adminBlue z-[100] shadow-md">
+                <a [routerLink]="['/admin/dashboard']" [routerLinkActive]="['active', 'bg-gray-600']"
+                  [routerLinkActiveOptions]="{ exact: true }"
+                  class="flex items-center px-4 py-2 text-gray-100 hover:bg-[#d4e1e160]">
+                  <span class="inline-block w-6 h-6 me-3"><i class="fa-solid fa-house text-white"></i></span>
+                  Dashboard
+                </a>
+                <a [routerLink]="['/admin/customers']" [routerLinkActive]="['active', 'bg-gray-600']"
+                  [routerLinkActiveOptions]="{ exact: true }"
+                  class="flex items-center px-4 py-2 text-gray-100 hover:bg-[#d4e1e160]">
+                  <span class="inline-block w-6 h-6 me-3">
+                      <i class="fa-solid fa-user text-white"></i>
+                  </span>
+                  Customers
+                </a>
+                <a [routerLink]="['/admin/vendors']" [routerLinkActive]="['active', 'bg-gray-600']"
+                  [routerLinkActiveOptions]="{ exact: true }"
+                  class="flex items-center px-4 py-2 text-gray-100 hover:bg-[#d4e1e160]">
+                  <span class="inline-block w-6 h-6 me-3">
+                      <i class="fa-solid fa-user text-white"></i>
+                  </span>
+                  Vendors
+                </a>
+
+                <ul class="flex flex-col max-w-[280px] mx-auto">
+                  <li>
+                    <details class="group">
+                      <summary class="flex items-center justify-between font-medium marker:content-none
+                           hover:cursor-pointer text-gray-100 hover:bg-[#d4e1e160]">
+                          <div class="flex items-center px-4 py-2 text-gray-100 hover:bg-[#d4e1e160]">
+                              <span class="inline-block w-6 h-6 me-3"><i class="fa-solid fa-store text-white"></i></span>
+                              Services
+                          </div>
+                          <i class="fa-solid fa-angle-right text-white font-extrabold transition group-open:rotate-90 me-4"></i>
+                      </summary>
+                      <article class="px-4">
+                          <a [routerLink]="['/admin/venues']" [routerLinkActive]="['active', 'bg-gray-600']"
+                            [routerLinkActiveOptions]="{ exact: true }"
+                            class="flex items-center px-4 py-2 text-gray-100 hover:bg-[#d4e1e160]">
+                            <span class="inline-block w-6 h-6 me-3"><i class="fa-solid fa-building-columns text-white"></i></span>
+                            Venues
+                          </a>
+                          <a [routerLink]="['/admin/event-planners']" [routerLinkActive]="['active', 'bg-gray-600']"
+                             [routerLinkActiveOptions]="{ exact: true }"
+                             class="flex items-center px-4 py-2 text-gray-100 hover:bg-[#d4e1e160]">
+                            <span class="inline-block w-6 h-6 me-3"><i class="fa-brands fa-elementor text-white"></i></span>
+                            Event Planners
+                          </a>
+                          <!-- <a class="flex items-center px-4 py-2 text-gray-100 hover:bg-[#d4e1e160]">
+                            <span class="inline-block w-6 h-6 me-3"><i class="fa-solid fa-utensils text-white"></i></span>
+                            Food Vendors
+                          </a> -->
+                      </article>
+                    </details>
+                  </li>
+                </ul>
+
+                <ul class="flex flex-col max-w-[280px] mx-auto">
+                  <li>
+                    <details class="group">
+                      <summary class="flex items-center justify-between font-medium marker:content-none
+                           hover:cursor-pointer text-gray-100 hover:bg-[#d4e1e160]">
+                          <div class="flex items-center px-4 py-2 text-gray-100 hover:bg-[#d4e1e160]">
+                              <span class="inline-block w-6 h-6 me-3"><i class="fa-solid fa-list-check text-white"></i></span>
+                               Bookings
+                          </div>
+                          <i class="fa-solid fa-angle-right text-white font-extrabold transition group-open:rotate-90 me-4"></i>
+                      </summary>
+                      <article class="px-4">
+                          <a [routerLink]="['/admin/venues/bookings']" [routerLinkActive]="['active', 'bg-gray-600']"
+                            [routerLinkActiveOptions]="{ exact: true }"
+                            class="flex items-center px-4 py-2 text-gray-100 hover:bg-[#d4e1e160]">
+                            <span class="inline-block w-6 h-6 me-3">
+                              <i class="fa-solid fa-building-columns text-white"></i>
+                            </span>
+                            Venue Bookings
+                          </a>
+                          <a [routerLink]="['/admin/event-planners/bookings']" [routerLinkActive]="['active', 'bg-gray-600']"
+                            [routerLinkActiveOptions]="{ exact: true }"
+                            class="flex items-center px-4 py-2 text-gray-100 hover:bg-[#d4e1e160]">
+                            <span class="inline-block w-6 h-6 me-3"><i class="fa-brands fa-elementor text-white"></i></span>
+                            Event Planner Bookings
+                          </a>
+                          <!-- <a class="flex items-center px-4 py-2 text-gray-100 hover:bg-[#d4e1e160]">
+                            <span class="inline-block w-6 h-6 me-3"><i class="fa-solid fa-utensils text-white"></i></span>
+                            Food Vendor Bookings
+                          </a> -->
+                      </article>
+                    </details>
+                  </li>
+                </ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+

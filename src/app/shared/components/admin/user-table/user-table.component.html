@@ -1,0 +1,65 @@
+
+
+
+<table class="min-w-full" *ngIf="users">
+  <thead class="bg-gray-700">
+      <tr>
+          <th *ngFor="let item of headers"
+             scope="col" class="p-3 text-left text-sm font-semibold text-white uppercase tracking-wider">
+              {{ item }}
+          </th>
+      </tr>
+  </thead>
+  <tbody class="bg-white divide-y divide-gray-200">
+
+    <tr *ngFor="let user of users; let i = index" class="hover:bg-[#e8e8e8]">
+
+      <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
+        {{ i + 1 }}
+      </td>
+      <td class="px-3 py-4 text-sm whitespace-nowrap  text-gray-900">
+        {{ user.firstName }} {{ user.lastName }}
+      </td>
+      <td *ngIf="user.vendorType" class="px-3 py-4 whitespace-nowrap">
+        <div class="text-sm text-gray-900">{{ user.vendorType }}</div>
+        <!-- <div class="text-sm text-gray-500">Optimization</div> -->
+      </td>
+      <td class="px-3 py-4 whitespace-nowrap text-center" *ngIf="user?.role === 'customer' ">
+        <div class="text-sm text-gray-900">
+          <i class="fa-solid fa-circle-info"></i>
+        </div>
+        <!-- <div class="text-sm text-gray-500">Optimization</div> -->
+      </td>
+      <td class="px-3 py-4 whitespace-nowrap text-sm text-gray-900">
+        {{ user.mobile }}
+      </td>
+      <td class="px-3 py-4 whitespace-nowrap text-sm text-gray-900">
+        {{ user.email }}
+      </td>
+      <td class="px-3 py-4 whitespace-nowrap">
+        <label class="relative mb-5 cursor-pointer">
+          <input type="checkbox" (change)="onBlockChange(user._id, user.role, !!user.isBlocked)"
+             [checked]="user.isBlocked" checked
+            class="peer sr-only">
+
+          <div class="peer h-5 w-9 rounded-full bg-gray-400 after:absolute after:top-[2px] after:left-[2px]
+                after:h-4 after:w-4 after:rounded-full after:border after:border-gray-300 after:bg-white
+                after:transition-all after:content-[''] peer-checked:bg-[#b74242] peer-checked:after:translate-x-full
+                peer-checked:after:border-white peer-focus:outline-none">
+          </div>
+        </label>
+      </td>
+      <td class="px-3 py-4 whitespace-nowrap  text-sm font-medium">
+        <button *ngIf="user.isDeleted"
+          class="p-2 rounded-full bg-white group transition-all duration-500 hover:bg-red-600 flex items-center justify-center">
+          <i class="fa-solid fa-ban text-[1.2rem] group-hover:text-white text-red-600"></i>
+        </button>
+        <button *ngIf="!user.isDeleted"
+          class="p-2 rounded-full bg-white group transition-all duration-500 hover:bg-red-600 flex items-center justify-center">
+          <i class="fa-regular fa-trash-can text-[1.2rem] group-hover:text-white text-red-600"></i>
+        </button>
+      </td>
+
+    </tr>
+  </tbody>
+</table>

@@ -1,0 +1,153 @@
+
+
+<header class="flex items-center justify-between px-6 py-4 bg-white border-b-4 border-indigo-600">
+  <div class="flex items-center">
+      <button class="text-gray-500 focus:outline-none lg:hidden">
+          <svg class="w-6 h-6" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M4 6H20M4 12H20M4 18H11" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                  stroke-linejoin="round"></path>
+          </svg>
+      </button>
+
+      <div class="relative mx-4 lg:mx-0">
+          <span class="absolute inset-y-0 left-0 flex items-center pl-3">
+              <svg class="w-5 h-5 text-gray-500" viewBox="0 0 24 24" fill="none">
+                  <path
+                      d="M21 21L15 15M17 10C17 13.866 13.866 17 10 17C6.13401 17 3 13.866 3 10C3 6.13401 6.13401 3 10 3C13.866 3 17 6.13401 17 10Z"
+                      stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  </path>
+              </svg>
+          </span>
+
+          <input class="w-32 pl-10 pr-4 rounded-md form-input sm:w-64 focus:border-indigo-600" type="text"
+              placeholder="Search">
+      </div>
+
+  </div>
+
+  <div class="flex items-center">
+    <button (click)="startCall()" [disabled]="!isIncomingCall" class="relative inline-flex items-center justify-around
+       bg-green px-5 py-2 text-white me-6
+        rounded-full focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-300">
+        <div class="relative w-4 h-4 me-3" *ngIf="isIncomingCall">
+          <div class="absolute inset-0 w-4 h-4 bg-yellow-300 rounded-full animate-ping"></div>
+          <div class="absolute inset-0 w-4 h-4 bg-yellow-300 rounded-full animate-pulse"></div>
+        </div>
+      <span>Video Call</span>
+    </button>
+      <h4>{{ firstname }}</h4>
+      <div class="relative">
+        <button (click)="toggleNotifications()"id="notification-btn"
+          class="flex mx-4 text-gray-600 focus:outline-none cursor-pointer">
+          <i class="fa-regular fa-bell w-8 h-8 text-[1.3rem] pt-1"></i>
+          <div class="px-1 bg-[#e13131] rounded-full text-center text-white text-[.8rem] absolute -top-3 end-4">
+            {{ unreadCount }}
+          </div>
+        </button>
+
+        <div *ngIf="showNotifications" id="notification-content"
+          class="absolute top-10 right-0 z-10 shadow-2xl">
+          <div class="overflow-y-auto overflow-x-hidden bg-white shadow-custom w-80 h-[400px]  px-3 py-2 rounded-md border border-gray-200">
+            <div *ngFor="let notification of AllNotifications; let i = index"
+                  [@fadeOut]
+                  class="w-full px-3 py-1 rounded flex items-center hover:cursor-pointer
+                     hover:text-white hover:bg-indigo-500 transition-colors duration-300"
+                  (click)="onRead(notification._id, notification.isRead, i)"
+                  [ngStyle]="!notification.isRead ? { 'background-color': '#f2debb' } : null">
+              <div class="w-8 h-8 rounded-full flex items-center justify-center">
+                <!-- Switch for checking notification type and displaying icons accordingly -->
+                <ng-container [ngSwitch]="notification.notificationType">
+                  <i *ngSwitchCase="'new_message'" class="fa-regular fa-comment text-blue-400"></i>
+                  <i *ngSwitchCase="'booking_confirmation'" class="fa-regular fa-circle-check text-green"></i>
+                  <i *ngSwitchCase="'signup'" class="fa-solid fa-user-plus text-blue-500"></i>
+                  <i *ngSwitchCase="'advance_payment'" class="fa-solid fa-indian-rupee-sign text-green"></i>
+                  <i *ngSwitchCase="'missed_call'" class="fa-solid fa-phone text-red-600"></i>
+                  <i *ngSwitchDefault class="fa-solid fa-info-circle text-blue-600"></i>
+                </ng-container>
+              </div>
+              <a class="block px-4 py-3 text-gray-600">
+                  <p class="text-sm">
+                    <span class="" [innerHTML]="notification.message"></span>
+                  </p>
+              </a>
+              <div (click)="onDeleteNotification(notification._id, i)"
+                  class="w-8 h-8 me-4 rounded-full opacity-70 hover:opacity-100 flex items-center justify-center">
+                  <i class="fa-solid fa-xmark text-[#fd4f4f] text-[1rem]"></i>
+              </div>
+            </div>
+
+          </div>
+        </div>
+      </div>
+
+      <!-- <div x-data="{ dropdownOpen: false }" class="relative mx-2">
+          <button class="relative block w-8 h-8 overflow-hidden rounded-full shadow focus:outline-none">
+              <img class="object-cover w-full h-full" alt="Your avatar">
+          </button>
+      </div> -->
+      <button (click)="onLogout()" class="flex mx-4 text-gray-600 focus:outline-none">
+          <i class="fa-solid fa-right-from-bracket text-[1.3rem]"></i>
+      </button>
+  </div>
+</header>
+
+
+
+
+<!-- <div *ngIf="incomingCall">
+  <div class="incoming-call">
+    <p>Incoming call from: {{ incomingCall.from }}</p>
+    <button (click)="acceptCall()">Accept</button>
+    <button (click)="rejectCall()">Reject</button>
+  </div>
+</div>
+
+<div>
+  <video #localVideo autoplay muted></video>
+  <video #remoteVideo autoplay></video>
+  <button (click)="endCall()">End Call</button>
+</div> -->
+
+
+<div *ngIf="showModal" class="fixed inset-0 z-50 flex items-center justify-center overflow-hidden bg-black bg-opacity-50">
+
+  <div class="relative w-full max-w-sm bg-white rounded-xl shadow-lg px-10 py-8">
+      <div class="flex justify-between items-start">
+          <h1 class="text-xl font-bold text-indigo-500 mb-4">
+            Are you sure you want to join this video call?
+          </h1>
+          <button type="button" (click)="onCloseModal()"
+            class="p-1 border border-transparent hover:border-red-600">
+            <i class="fa-solid fa-xmark cursor-pointer text-gray-400 hover:text-red-600"></i>
+          </button>
+      </div>
+
+      <div class="">
+        <p class="text-gray-500 text-left mb-4 text-[.9rem]">
+          This will initiate a video call with the selected user.
+        </p>
+
+        <div class="flex justify-center gap-3">
+            <button (click)="onAcceptVideoCall()"
+                class="inline-block bg-indigo-600 py-2 px-4 text-white rounded-md
+                   font-semibold uppercase text-sm ">
+                <i class="fa-solid fa-phone-volume me-2"></i>
+                Accept
+            </button>
+            <button (click)="onRejecteVideoCall()"
+                class="inline-block bg-[#de2421] py-2 px-4 text-white rounded-md
+                   font-semibold uppercase text-sm ">
+                <i class="fa-solid fa-phone-volume me-2"></i>
+                Reject
+            </button>
+        </div>
+    </div>
+  </div>
+</div>
+
+
+
+
+<div *ngIf="showVideoCallModal">
+  <app-reciever-video-call (hideVideoCallModal)="onCloseVideoCall()"></app-reciever-video-call>
+</div>
