@@ -4,6 +4,7 @@ import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angula
 import { isFieldInvalidator } from '../../../../core/validators/forms.validator';
 import { CommonService } from '../../../../features/vendors/services/common.service';
 import { OtpVerificationComponent } from '../../../../features/customer/components/otp-verification/otp-verification.component';
+import { ToastrService } from 'ngx-toastr';
 
 
 @Component({
@@ -26,7 +27,10 @@ export class EditProfileModalComponent {
 
   editProfileForm: FormGroup;
 
-  constructor(private fb: FormBuilder, private commonService: CommonService) {
+  constructor(private fb: FormBuilder,
+    private commonService: CommonService,
+    private toastr: ToastrService
+  ) {
     this.editProfileForm = this.fb.group({
       firstName: ['', Validators.required],
       lastName: ['', Validators.required],
@@ -55,27 +59,18 @@ export class EditProfileModalComponent {
       return;
     }
 
-     // Check if the email has been changed
-     const newEmail = this.editProfileForm.get('email')?.value;
-     const oldEmail = this.profileInfo?.email;
-
-     if(newEmail !== oldEmail){
-        // Trigger OTP verification
-        this.showOtpModal = true;
-        return;
-     }
-
     // Perform the PATCH request to update the profile
     this.commonService.updateProfile(this.editProfileForm.value).subscribe({
       next: (response) => {
         // Handle success
         console.log('Profile updated successfully', response);
-
+        this.toastr.success('Profile updated successfully');
         this.closeModal(); // Close the modal after successful update
       },
       error: (error) => {
         // Handle error
         console.error('Error updating profile', error);
+        this.toastr.error(error.error.message);
       }
     });
   }

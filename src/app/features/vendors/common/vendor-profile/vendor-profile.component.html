@@ -42,23 +42,42 @@
               <div class="text-gray-700 p-4">
                 <div class="grid gap-4 text-sm">
                   <div class="grid grid-cols-12">
-                    <div class="col-span-6 font-semibold">First Name</div>
-                    <div class="col-span-6">{{ profileInfo.firstName }}</div>
+                    <div class="col-span-5 font-semibold">First Name</div>
+                    <div class="col-span-7">{{ profileInfo.firstName }}</div>
                   </div>
 
                   <div class="grid grid-cols-12">
-                    <div class="col-span-6 font-semibold">Last Name</div>
-                    <div class="col-span-6">{{ profileInfo.lastName }}</div>
+                    <div class="col-span-5 font-semibold">Last Name</div>
+                    <div class="col-span-7">{{ profileInfo.lastName }}</div>
                   </div>
 
                   <div class="grid grid-cols-12">
-                    <div class="col-span-6 font-semibold">Email</div>
-                    <div class="col-span-6">
-                      <a class="text-blue-800 me-5" href="mailto:{{ profileInfo.email }}">
-                        {{ profileInfo.email }}
-                      </a>
-                      <button (click)="onEmailChange()"
-                       class="bg-blue-600 shadow-sm text-white px-4 py-1">edit</button>
+                    <!-- Static Email Display -->
+                    <div class="col-span-5 font-semibold">Email</div>
+                    <div class="col-span-7">
+                      <!-- If not editing, show the email and edit button -->
+                      <div *ngIf="!isEditing">
+                        <a class="text-blue-800 me-5" href="mailto:{{ profileInfo.email }}">
+                          {{ profileInfo.email }}
+                        </a>
+                        <button (click)="onEmailChange()" class="bg-blue-600 shadow-sm text-white px-4 py-1">Edit</button>
+                      </div>
+
+                      <!-- If editing, show input field and Save/Cancel buttons -->
+                      <div *ngIf="isEditing">
+                        <form [formGroup]="emailForm">
+                          <input formControlName="email" name="email"
+                             type="email" class="border border-gray-300 px-2 py-1 me-2 w-full" />
+                          <p class="text-red-600 text-[.75rem] text-left italic"
+                              *ngIf="isFieldInvalid(emailForm, 'email')">Email is required.
+                          </p>
+                          <div class="py-2">
+                            <button (click)="saveEmail()" class="bg-blue-600 shadow-sm text-white px-4 py-1 me-3">Save</button>
+                            <button (click)="cancelEdit()" class="bg-red-600 shadow-sm text-white px-4 py-1">Cancel</button>
+                          </div>
+                        </form>
+
+                      </div>
                     </div>
                   </div>
 
@@ -96,17 +115,17 @@
                     >
                       Change Password
                     </button>
-                    <button
+                    <!-- <button
                       (click)="forgotPassword()"
                       class="col-span-6 bg-gray-400 hover:bg-gray-500 text-white px-4 py-2 rounded"
                     >
                       Forgot Password
-                    </button>
+                    </button> -->
                   </div>
 
                   <!-- Change Password Form -->
                   <div *ngIf="showChangePassword">
-                    <form [formGroup]="changePasswordForm" (ngSubmit)="onSubmitChangePassword()">
+                    <form [formGroup]="changePasswordForm" >
                       <div class="grid grid-cols-12 gap-4 mt-4">
                         <div class="col-span-12">
                           <label class="block text-gray-700 text-sm font-medium">Current Password</label>
@@ -145,8 +164,8 @@
                           </div>
                         </div>
                       </div>
-                      <button
-                        type="submit"
+                      <button (click)="onSubmitPassword()"
+                        type="button"
                         class="mt-4 bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded text-sm"
                       >
                         Update Password
@@ -172,3 +191,40 @@
 </app-edit-profile-modal>
 
 
+
+<!-- Modal for OTP verification -->
+<div *ngIf="showOtpModal" class="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50">
+  <div class="w-full max-w-lg bg-white p-8 mx-auto rounded-md shadow-lg">
+    <div class="py-2">
+      <h3 class="font-semibold text-lg py-3">OTP Verification</h3>
+
+      <form [formGroup]="otpForm">
+        <div class="mb-4">
+          <label for="otpOld">OTP for {{profileInfo.email}} email</label>
+          <input formControlName="otpOld" type="text" id="otpOld" maxlength="6" minlength="6"
+            class="border border-gray-300 px-2 text-sm py-1 w-full" />
+          <!-- Error message -->
+          <p class="text-red-600 text-[.75rem] text-left italic"
+              *ngIf="isFieldInvalid(otpForm,'otpOld')">Old OTP is required and must be 6 digits
+          </p>
+        </div>
+
+        <div class="mb-4">
+          <label for="otpNew">OTP for {{ emailForm.get('email')?.value }}</label>
+          <input formControlName="otpNew" type="text" id="otpNew" maxlength="6" minlength="6"
+            class="border border-gray-300 px-2 text-sm py-1 w-full" />
+          <!-- Error message -->
+          <p class="text-red-600 text-[.75rem] text-left italic"
+              *ngIf="isFieldInvalid(otpForm, 'otpNew')">New OTP is required and must be 6 digits
+          </p>
+        </div>
+
+        <div class="text-right">
+          <button type="button" (click)="verifyOtp()" [disabled]="otpForm.invalid"
+            class="bg-blue-600 text-white px-4 py-1 me-3">Verify</button>
+          <button type="button" (click)="closeOtpModal()" class="bg-gray-600 text-white px-4 py-1">Cancel</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>

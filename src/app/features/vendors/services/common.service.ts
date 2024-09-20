@@ -40,4 +40,16 @@ export class CommonService {
     updateProfile(profileData: any): Observable<any> {
       return this.http.patch(`${environment.vendorUrl}/profile/update`, profileData);
     }
+
+    sendOtpForEmail(email: string):Observable<any>{
+      return this.http.patch(`${environment.vendorUrl}/profile/email`, { email });
+    }
+
+    verifyOTPForEmail(formValue: any):Observable<any>{
+      return this.http.patch(`${environment.vendorUrl}/profile/email-update`, { formValue });
+    }
+
+    passwordChange(formValue: any){
+      return this.http.patch(`${environment.vendorUrl}/profile/password-change`, { formValue });
+    }
 }

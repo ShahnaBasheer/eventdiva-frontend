@@ -34,13 +34,16 @@ export class EventPlannerDashboardComponent {
   loadDashboard(){
     this.eventPlannerService.getDashboard().subscribe({
       next: (res) => {
-        this.totalBookings = res.data.totalBookings[0].totalBookings || 0;
-        this.totalRevenue = res.data.totalRevenue[0].totalRevenue || 0;
-        this.AllBookings = res.data.AllBookings || [];
-        this.revenueOverTime = res.data.revenueOverTime|| [];
+        const data = res.data;
+        if(data.totalBookings && data?.totalRevenue && data?.AllBookings && data?.revenueOverTime){
+          this.totalBookings = data?.totalBookings[0]?.totalBookings ?? 0;
+          this.totalRevenue = data?.totalRevenue[0]?.totalRevenue ?? 0;
+          this.AllBookings = data?.AllBookings ?? [];
+          this.revenueOverTime = data?.revenueOverTime ?? [];
 
-        const events = this.AllBookings.find(booking => booking.status === 'completed');
-        this.completedEvents = events? events.count: 0 ;
+          const events = this.AllBookings.find(booking => booking?.status === 'completed');
+          this.completedEvents = events? events?.count: 0 ;
+        }
 
         this.isLoading = false;
       },

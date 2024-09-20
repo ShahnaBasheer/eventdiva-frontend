@@ -3,13 +3,16 @@ import { CommonService } from '../../services/common.service';
 import { Router } from '@angular/router';
 import { Vendor } from '../../../../core/models/vendor.model';
 import { CommonModule } from '@angular/common';
-import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
+import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { EditProfileModalComponent } from '../../../../shared/components/common/edit-profile-modal/edit-profile-modal.component';
+import { isFieldInvalidator } from '../../../../core/validators/forms.validator';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-vendor-profile',
   standalone: true,
-  imports: [CommonModule, ReactiveFormsModule, EditProfileModalComponent],
+  imports: [CommonModule, ReactiveFormsModule,
+    EditProfileModalComponent, FormsModule ],
   templateUrl: './vendor-profile.component.html',
   styleUrls: ['./vendor-profile.component.css']
 })
@@ -21,13 +24,15 @@ export class VendorProfileComponent implements OnInit {
   profileInfo!: Vendor;
   showEditProfileModal: boolean = false;
   emailForm!: FormGroup;
-  isEditingEmail = false;
+  otpForm!: FormGroup;
+  isEditing: boolean = false;
   showOtpModal = false;
 
   constructor(
     private commonService: CommonService,
     private router: Router,
-    private fb: FormBuilder
+    private fb: FormBuilder,
+    private toastr: ToastrService
   ) {}
 
   ngOnInit(): void {
@@ -38,22 +43,32 @@ export class VendorProfileComponent implements OnInit {
     this.changePasswordForm = this.fb.group({
       currentPassword: ['', [Validators.required]],
       newPassword: ['', [Validators.required, Validators.minLength(6)]],
-      confirmNewPassword: ['', [Validators.required]]
+      confirmNewPassword: ['', [Validators.required, Validators.minLength(6)]]
     }, {
       // Custom validator to match new password and confirm password
       validators: this.passwordsMatchValidator
     });
 
-
     this.emailForm = this.fb.group({
+      email: ['', [Validators.required, Validators.email]]
+    });
+
+    // Initialize the OTP form
+    this.otpForm = this.fb.group({
+      otpOld: ['', [Validators.required, Validators.minLength(6), Validators.maxLength(6)]],
+      otpNew: ['', [Validators.required, Validators.minLength(6), Validators.maxLength(6)]],
       email: ['', [Validators.required, Validators.email]]
     });
   }
 
-  loadProfilePage(url: string): void {
+ loadProfilePage(url: string): void {
     this.commonService.getProfilePage().subscribe({
       next: (response) => {
         this.profileInfo = response.data.vendorDetail;
+        this.emailForm.patchValue({
+          email: this.profileInfo.email
+        });
+
       },
       error: (error) => {
         console.error('Error loading profile page:', error);
@@ -61,10 +76,11 @@ export class VendorProfileComponent implements OnInit {
     });
   }
 
-  // Toggle the visibility of the change password form
-  toggleChangePassword(): void {
-    this.showChangePassword = !this.showChangePassword;
+
+  isFieldInvalid(fieldgroup: FormGroup, fieldName: string): boolean {
+    return isFieldInvalidator(fieldgroup, fieldName);
   }
+
 
   // Handle the form submission
   onSubmitChangePassword(): void {
@@ -107,22 +123,93 @@ export class VendorProfileComponent implements OnInit {
     this.toggleEditProfileModal();
   }
 
-  cancelEdit() {
-    this.isEditingEmail = false;
-    this.emailForm.patchValue({ email: this.profileInfo.email });
-  }
-
   onEmailChange() {
-    this.isEditingEmail = true;
+    this.isEditing = true;
   }
 
+   // When "Save" button is clicked
   saveEmail() {
-    if (this.emailForm.invalid) {
+    console.log(this.emailForm.get('email')?.value);
+    const newEmail = this.emailForm.get('email')?.value;
+
+    if(!this.emailForm.valid){
       this.emailForm.markAllAsTouched();
       return;
     }
-    // Show OTP modal
-    this.showOtpModal = true;
+
+    if (newEmail !== this.profileInfo.email && this.emailForm.valid) {
+      this.commonService.sendOtpForEmail(newEmail).subscribe({
+        next: (res) => {
+            console.log(res, "response");
+            this.toastr.success('OTP has been sent Succesfully!');
+            this.otpForm.patchValue({
+              email: newEmail
+            });
+            this.showOtpModal = true;
+        },
+        error: (err) => {
+            console.log(err.error.message, "error in sending OTP");
+            this.toastr.error(err.error.message);
+        }
+      });
+
+
+    } else {
+      this.isEditing = false;
+    }
+  }
+
+  // When "Cancel" button is clicked
+  cancelEdit() {
+    this.isEditing = false;
+  }
+
+  // Close the OTP modal
+  closeOtpModal() {
+    this.showOtpModal = false;
+  }
+
+  // OTP verification logic (this should integrate with backend API)
+  verifyOtp() {
+    if (this.otpForm.valid) {
+      this.commonService.verifyOTPForEmail(this.otpForm.value).subscribe({
+        next: (res) => {
+          console.log(res,"jbfhdfjjb");
+          this.profileInfo = res.data.vendorDetail;
+          this.isEditing = false;
+          this.showOtpModal = false;
+          this.toastr.error("Email has been successfully changed!");
+        },
+        error: (err) => {
+          console.log(err.error.message,'Error in verify OTP');
+          this.toastr.error(err.error.message);
+        }
+      })
+    } else {
+      // Handle error if OTP fields are empty or invalid
+      this.otpForm.markAllAsTouched();
+    }
+  }
+
+  toggleChangePassword(){
+     this.showChangePassword = !this.showChangePassword;
+  }
+
+  onSubmitPassword(){
+    if(this.changePasswordForm.valid){
+        this.commonService.passwordChange(this.changePasswordForm.value).subscribe({
+          next: (res) => {
+            this.toastr.success("Password has been Successfully Changed");
+            this.showChangePassword = false;
+          }, 
+          error: (err) => {
+            console.log(err);
+            this.toastr.error(err.error.message);
+          }
+        })
+    } else {
+      this.changePasswordForm.markAllAsTouched();
+    }
   }
 
 }
