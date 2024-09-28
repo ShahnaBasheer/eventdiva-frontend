@@ -437,7 +437,7 @@ export class VenueRegistrationComponent {
 
       this.venueVendorService.submitVenuForm(formData).subscribe({
         next: (res) => {
-          this.toastr.success("Your service has been successfully registered!", 'Success');
+          this.toastr.success("Your service has been successfully registered!");
           this.router.navigate(['/vendor/venue-vendor/service'], { replaceUrl: true });
         },
         error: (err: any) => {
@@ -447,7 +447,7 @@ export class VenueRegistrationComponent {
           } else if (err.status === 400) {
             this.toastr.error(err.message, 'Error');
           } else {
-            this.toastr.error("Error registering the service. Please try again.", 'Error');
+            this.toastr.error("Error registering the service. Please try again.");
           }
         }
       });

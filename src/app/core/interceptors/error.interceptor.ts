@@ -1,5 +1,5 @@
 import { HttpEvent, HttpInterceptorFn, HttpRequest, HttpHandlerFn, HttpErrorResponse } from '@angular/common/http';
-import { Observable } from 'rxjs';
+import { Observable, throwError } from 'rxjs';
 import { catchError } from 'rxjs/operators';
 import { inject } from '@angular/core';
 import { Store } from '@ngrx/store';
@@ -62,7 +62,8 @@ export const ErrorInterceptor: HttpInterceptorFn = (req: HttpRequest<any>, next:
 
             }
             // throwError(() => new Error(errorMessage))
-            return next(req);
+
+            return throwError(() => error);
         })
     );
 };

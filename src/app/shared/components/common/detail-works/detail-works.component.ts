@@ -13,12 +13,6 @@ import { environment } from '../../../../../environments/environment';
 })
 
 
-export class DetailWorksComponent implements OnInit{
+export class DetailWorksComponent{
    @Input() portfolios: string[] = [];
-   @Input({ required: true })folder: string = '';
-   imageUrl: string = `${environment.baseUrl}`;
-
-   ngOnInit(){
-       this.imageUrl += this.folder;
-   }
 }

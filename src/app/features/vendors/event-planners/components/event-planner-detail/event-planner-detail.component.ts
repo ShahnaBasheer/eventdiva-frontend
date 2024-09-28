@@ -5,7 +5,7 @@ import { CommonModule } from '@angular/common';
 import IEventPlanner from '../../../../../core/models/eventPlanner.model';
 import { Router } from '@angular/router';
 import { PlannerBodyDetailComponent } from "../../../../../shared/components/common/planner-body-detail/planner-body-detail.component";
-import { environment } from '../../../../../../environments/environment';
+
 
 @Component({
   selector: 'app-event-planner-detail',
@@ -24,9 +24,6 @@ export class EventPlannerDetailComponent implements OnInit{
     allMenus = ['ABOUT', 'ADDRESS' ,'SERVICES', 'WORKS'];
     eventPlannerData!: IEventPlanner;
     venueData!: string;
-    folder = environment.ep_coverpic_url;
-
-
 
     constructor(
       private eventPlannerService: EventPlannerService,

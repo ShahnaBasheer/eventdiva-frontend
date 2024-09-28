@@ -51,10 +51,8 @@ export class HeaderComponent {
 
   ngOnInit() {
     this.store.select(isLoggedIn).subscribe( data => {
-      console.log(data, "notificagtion in header")
       if(data){
         this.notificationservice.fetchNotifications('/vendor').subscribe(res => {
-          console.log(res.data, "data dlow here");
           this.notificationservice.addNotifications(res.data?.notifications);
           this.unreadCount = res.data?.readCount;
         });
@@ -63,7 +61,9 @@ export class HeaderComponent {
 
     const notificationsSubscription = this.notificationservice.notifications$.subscribe( data => {
       this.AllNotifications =  data;
-      this.unreadCount++;
+      if(this.AllNotifications.length > 0){
+        this.unreadCount++;
+      }
     })
 
     // Add first subscription
@@ -126,12 +126,12 @@ export class HeaderComponent {
     this.showModal = false; // Close the modal
     this.webrtcservices.rejectCall(); // Reject the call
     this.isIncomingCall = false;
-    this.toastr.error('Call is rejected', 'error');
+    this.toastr.error('Call is rejected');
   }
 
   onRead(id: string, isRead: boolean, index: number){
     if(!isRead){
-        this.notificationservice.onIsReadChange(id).subscribe({
+        this.notificationservice.onIsReadChange(id,'/vendor').subscribe({
             next: (res: any) => {
               if(res?.data){
                 this.AllNotifications[index].isRead = true;
@@ -143,13 +143,14 @@ export class HeaderComponent {
   }
 
   onDeleteNotification(id: string, index: number){
-      this.notificationservice.ondeleteNotification(id).subscribe({
+      this.notificationservice.ondeleteNotification(id, '/vendor').subscribe({
           next: (res) => {
               if(!this.AllNotifications[index].isRead) this.unreadCount--;
               this.AllNotifications.splice(index, 1);
           },
           error: (err) => {
-
+              console.log(err)
+              this.toastr.error("Soemthing went wrong. Try again later!")
           }
       })
   }

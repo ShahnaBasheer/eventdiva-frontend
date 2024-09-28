@@ -45,7 +45,7 @@
           </div>
         </button>
 
-        <div *ngIf="showNotifications" id="notification-content"
+        <div *ngIf="showNotifications && AllNotifications.length > 0" id="notification-content"
           class="absolute top-10 right-0 z-10 shadow-2xl">
           <div class="overflow-y-auto overflow-x-hidden bg-white shadow-custom w-80 h-[400px]  px-3 py-2 rounded-md border border-gray-200">
             <div *ngFor="let notification of AllNotifications; let i = index"

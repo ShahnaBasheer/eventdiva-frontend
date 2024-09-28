@@ -19,8 +19,6 @@ import { VenueBodyDetailComponent } from '../../../../../shared/components/commo
 export class VenueDetailComponent {
   allMenus = ['AREAS', 'ABOUT', 'ADDRESS' ,'MORE', 'WORKS'];
   venueData!: IVenue;
-  folder = environment.vv_coverpic_url;
-  portUrl = environment.vv_portfolio_url;
 
   constructor(
     private venueVendorService: VenueVendorService,

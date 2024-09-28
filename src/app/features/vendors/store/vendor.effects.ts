@@ -57,7 +57,7 @@ export class VendorEffects {
                 }
               }));
             } else if(error?.status !== 403){
-              this.toastr.error("An error occurred during login", 'Failed');
+              this.toastr.error("An error occurred during login");
             }
             return of(VendorActions.vendorLoginFailure({ error: error?.message }));
           })

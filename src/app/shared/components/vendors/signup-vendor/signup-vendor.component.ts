@@ -63,17 +63,17 @@ export class SignupVendorComponent implements OnInit{
       this.isEnabled = false;
       this.vendorAuthService.vendorRegistration(this.vendorSignupForm.value).subscribe({
         next: (response: any) => {
-            this.toastr.success('OTP sent successfully for Signup verification!', 'Success');
+            this.toastr.success('OTP sent successfully for Signup verification!');
             this.router.navigate(['/vendor/otpverification']);
         },
         error: (error: any) => {
           this.isLoading = false;
           this.isEnabled = false;
           if (error.status === 409) {
-            this.toastr.warning("You have already signed up. Please log in!", 'Warning');
+            this.toastr.warning("You have already signed up. Please log in!");
             this.router.navigate(['/vendor/login']);
           } else {
-            this.toastr.error("An error occurred during registration", 'Failed');
+            this.toastr.error("An error occurred during registration");
           }
         },
         complete: () => {

@@ -1,6 +1,5 @@
 import { Component } from '@angular/core';
-import IEventPlanner from '../../../../../core/models/eventPlanner.model';
-import { IPlannerBooking } from '../../../../../core/models/IPlannerBooking.model';
+import { PlannerBooking } from '../../../../../core/models/plannerBooking.model';
 import { PlannerBookingService } from '../../services/planner-booking.service';
 import { ToastrService } from 'ngx-toastr';
 import { CommonModule } from '@angular/common';
@@ -16,7 +15,7 @@ import { BookingsCardComponent } from '../../../../../shared/components/vendors/
 
 
 export class PlannersBookingComponent {
-  planners: IPlannerBooking[] = [];
+  planners: PlannerBooking[] = [];
   constructor(private plannerBookingService: PlannerBookingService, private toastr: ToastrService){}
 
   ngOnInit(): void {
@@ -30,7 +29,7 @@ export class PlannersBookingComponent {
       },
       error: (err) => {
         console.log('Error loading Venue Bookings:',err.message);
-        this.toastr.error("Error loading Venue Bookings", 'Failed');
+        this.toastr.error("Error loading Venue Bookings");
       },
     })
   }

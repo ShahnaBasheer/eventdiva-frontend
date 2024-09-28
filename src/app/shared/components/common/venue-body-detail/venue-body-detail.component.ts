@@ -7,6 +7,7 @@ import { DetailReviewsComponent } from '../../customer/detail-reviews/detail-rev
 import { DetailHeadersComponent } from '../detail-headers/detail-headers.component';
 import { DetailAddressComponent } from '../detail-address/detail-address.component';
 import { DetailServicesComponent } from '../detail-services/detail-services.component';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-venue-body-detail',
@@ -19,7 +20,8 @@ import { DetailServicesComponent } from '../detail-services/detail-services.comp
     DetailHeadersComponent,
     DetailAddressComponent,
     DetailServicesComponent,
-    DetailAreasComponent
+    DetailAreasComponent,
+    CommonModule
   ],
   templateUrl: './venue-body-detail.component.html',
   styleUrl: './venue-body-detail.component.css'
@@ -27,8 +29,5 @@ import { DetailServicesComponent } from '../detail-services/detail-services.comp
 
 
 export class VenueBodyDetailComponent {
-  @Input({required: true}) folder: string = '';
-  @Input({required: true}) venueData!: IVenue;
-
-
+  @Input() venueData: IVenue | null = null;
 }

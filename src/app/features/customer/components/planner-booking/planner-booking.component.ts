@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, Input } from '@angular/core';
+import { Component, Input, NgZone } from '@angular/core';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { BookingAddressComponent } from '../../../../shared/components/customer/booking-address/booking-address.component';
 import { LoaderComponent } from '../../../../shared/components/common/loader/loader.component';
@@ -36,7 +36,6 @@ export class PlannerBookingComponent {
   isLoading: boolean = true;
   activeTab: number = 0;
   isSubmitForm = false;
-  imgUrl: string = '';
   eventTypes: string[] = [];
 
 
@@ -48,6 +47,7 @@ export class PlannerBookingComponent {
     private toastr: ToastrService,
     private router: Router,
     private snackBar: MatSnackBar,
+    private ngZone: NgZone
    ) {
     this.plannerBookingForm = this.fb.group({
       eventInfo: this.fb.group({
@@ -86,7 +86,6 @@ export class PlannerBookingComponent {
     this.plannerService.getPlannerBookingPage(this.slug).subscribe({
       next: (res) => {
           this.plannerData = res?.data?.plannerData;
-          this.imgUrl = `${environment.baseUrl}${environment.ep_coverpic_url}${this.plannerData?.coverPic}`;
           this.eventTypes = res?.data?.plannerData?.services;
           this.isLoading = false;
       },
@@ -207,35 +206,36 @@ export class PlannerBookingComponent {
                 description: 'Test Transaction',
                 order_id: data?.razorpayOrderData.id,
                 handler: (response: any) => {
-                  this.plannerService.confirmRazorpayPayment(response).subscribe({
-                     next: (res)=> {
-                       if(res.data?.bookedData){
-                          this.activeTab++;
-                          this.router.navigate(['/vendors/event-planners'], { replaceUrl: true });
-                          this.toastr.success('Booking is Successfull!');
-                       }
-                     },
-                     error: (err) => {
-                        this.toastr.error(err.message, 'Error');
-                     }
+                  this.ngZone.run(() => {
+                    this.plannerService.confirmRazorpayPayment(response).subscribe({
+                      next: (res)=> {
+                        if(res.data?.bookedData){
+                           this.activeTab++;
+                           this.router.navigate(['/vendors/event-planners'], { replaceUrl: true });
+                           this.toastr.success('Booking is Successfull!');
+                        }
+                      },
+                      error: (err) => {
+                         this.toastr.error(err.message, 'Error');
+                      }
+                   })
                   })
                 },
-
             };
             let rzp = new Razorpay(options);
             (rzp as any).open();
         } else {
-          this.toastr.error('Failed to create payment order. Please try again.', 'Error');
+          this.toastr.error('Failed to create payment order. Please try again.');
         }
         },
         error: (err: any) => {
           console.error("Submission error", err.message);
           if (err.status === 409) {
-            this.toastr.error(err.message, 'Error');
+            this.toastr.error(err.message);
           } else if (err.status === 400) {
-            this.toastr.error(err.message, 'Error');
+            this.toastr.error(err.message);
           } else {
-            this.toastr.error("Error booking the planner. Please try again.", 'Error');
+            this.toastr.error("Error booking the planner. Please try again.");
           }
         }
       });

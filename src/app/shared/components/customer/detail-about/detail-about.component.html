@@ -2,8 +2,7 @@
 
   <div class="px-6 py-8">
     <div class="flex items-start gap-4 text-[1rem] text-darkslategray-200">
-        <div [innerHTML]="aboutHtml">
-        </div>
+        <div class="break-words w-full" [innerHTML]="aboutHtml"></div>
     </div>
   </div>
 
@@ -11,7 +10,7 @@
     <h3 class="font-semibold text-md text-darkslategray-300 uppercase pb-3">{{ Title }}</h3>
     <div class="overflow-auto">
       <ul class="grid grid-cols-2 gap-2 h-full">
-        <li *ngFor="let item of extraInfo" class="list-disc ml-4">
+        <li *ngFor="let item of extraInfo" class="list-disc ml-4 break-words">
           {{ item }}
         </li>
       </ul>

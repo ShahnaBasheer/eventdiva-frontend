@@ -46,6 +46,7 @@ import { PlannerBookingDetailsComponent } from './features/vendors/event-planner
 import { ServiceDetailsComponent } from './features/admin/components/service-details/service-details.component';
 import { FullcalendarComponent } from './features/vendors/common/fullcalendar/fullcalendar.component';
 import { InboxChatComponent } from './features/vendors/common/inbox-chat/inbox-chat.component';
+import { BookingDetailsComponent } from './shared/components/customer/booking-details/booking-details.component';
 
 
 
@@ -64,6 +65,8 @@ export const routes: Routes = [
       { path: 'bookings', component: BookingsComponent },
       { path: 'venues/:slug/booking', component: VenueBookingComponent },
       { path: 'event-planners/:slug/booking', component: PlannerBookingComponent },
+      { path: 'bookings/event-planner/details/:bookingId', component: BookingDetailsComponent, data: { type: 'planner' } },
+      { path: 'bookings/venue/details/:bookingId', component: BookingDetailsComponent, data: { type: 'venue' } },
       { path: '', redirectTo: 'home', pathMatch: 'full' }
     ]
   },
@@ -79,7 +82,7 @@ export const routes: Routes = [
           { path: 'event-planners', component: EventPlannersListComponent },
           { path: 'event-planners/details/:slug', component: ServiceDetailsComponent, data: { type: 'planner' }},
           { path: 'venues/bookings', component: VenuesBookingListComponent },
-          { path: 'event-planners/bookings', component: PlannersBookingListComponent },
+          { path: 'event-planners/bookings', component: PlannersBookingListComponent},
           { path: '', redirectTo: 'dashboard', pathMatch: 'full' }
         ]},
       { path: 'login', component: AdminLoginComponent },

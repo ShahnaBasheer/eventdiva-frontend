@@ -40,4 +40,14 @@ export class VenueBookingService {
       });
     }
 
+
+    generateFullPayment(fullPaymentCharges: {
+      venueRental: number;
+      charges: { chargeName: string, amount: number}[] },
+      bookingId: string){
+      return this.http.patch<any>(`${this.APIBASE_URL}/bookings/full-payment/`, { fullPaymentCharges, bookingId }, {
+        withCredentials: true,
+      });
+    }
+
   }

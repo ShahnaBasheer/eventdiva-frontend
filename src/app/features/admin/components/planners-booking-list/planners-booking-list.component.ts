@@ -1,5 +1,5 @@
 import { Component, HostListener } from '@angular/core';
-import { IPlannerBooking } from '../../../../core/models/IPlannerBooking.model';
+import { PlannerBooking } from '../../../../core/models/plannerBooking.model';
 import { CommonModule } from '@angular/common';
 import { environment } from '../../../../../environments/environment';
 import { ToastrService } from 'ngx-toastr';
@@ -10,52 +10,67 @@ import { StatusBadgeComponent } from '../../../../shared/components/common/statu
 @Component({
   selector: 'app-planners-booking-list',
   standalone: true,
-  imports: [ CommonModule, ActionBtnsComponent, StatusBadgeComponent ],
+  imports: [CommonModule, ActionBtnsComponent, StatusBadgeComponent],
   templateUrl: './planners-booking-list.component.html',
-  styleUrl: './planners-booking-list.component.css'
+  styleUrl: './planners-booking-list.component.css',
 })
-
-
 export class PlannersBookingListComponent {
-  planners: IPlannerBooking[] = [];
-  headers = [ 'SL.No', 'BookingId' ,'Customer', 'EventType', 'EventName', 'Company',
-       'Guests', 'Email', 'Mobile', 'Payment Modes' ,'Status', 'Payment Status', 'Action'];
-  imgUrl =  `${environment.baseUrl}${environment.ep_coverpic_url}`;
+  planners: PlannerBooking[] = [];
+  headers = [
+    'SL.No',
+    'BookingId',
+    'Customer',
+    'EventType',
+    'EventName',
+    'Company',
+    'Guests',
+    'Email',
+    'Mobile',
+    'Payment Modes',
+    'Status',
+    'Payment Status',
+    'Action',
+  ];
   activeDropdownIndex: number | null = null;
 
-  constructor(private plannerAdminService: EventPlannerAdminService, private toastr: ToastrService){}
+  constructor(
+    private plannerAdminService: EventPlannerAdminService,
+    private toastr: ToastrService
+  ) {}
   ngOnInit(): void {
-     this.loadVendors();
+    this.loadVendors();
   }
 
-  loadVendors(){
+  loadVendors() {
     this.plannerAdminService.getPlannerBookings().subscribe({
       next: (response) => {
-          this.planners = response.data.bookings;
+        this.planners = response.data.bookings;
       },
       error: (err) => {
-        console.log('Error loading Venue Lists:',err.message);
-        this.toastr.error("Error loading Venue Lists", 'Failed');
+        console.log('Error loading Venue Lists:', err.message);
+        this.toastr.error('Error loading Venue Lists', 'Failed');
       },
-    })
+    });
   }
 
-  onCancelled(bookingId: string){
+  onCancelled(bookingId: string) {
     console.log(bookingId);
   }
 
   toggleDropdown(index: number) {
-    this.activeDropdownIndex = this.activeDropdownIndex === index ? null : index;
+    this.activeDropdownIndex =
+      this.activeDropdownIndex === index ? null : index;
   }
 
   @HostListener('document:click', ['$event'])
   handleClickOutside(event: Event): void {
     const target = event.target as HTMLElement;
 
-    if (!target.closest('.dropdown-container') && !target.closest('.dropdown-button')) {
+    if (
+      !target.closest('.dropdown-container') &&
+      !target.closest('.dropdown-button')
+    ) {
       this.activeDropdownIndex = null;
     }
   }
-
-
 }

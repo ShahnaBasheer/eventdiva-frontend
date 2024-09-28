@@ -26,7 +26,6 @@ type EventServiceOption =
 
 
 interface IEventPlanner{
-    _id?: string;
     slug: string;
     vendorId: string;
     contact: {

@@ -19,14 +19,9 @@ export class UpperImagePartComponent implements OnInit{
     @Input({required: true}) CompanyInfo!: IEventPlanner | IVenue;
     @Input({required: true}) Menu: string[] = [];
     @Input({required: true}) Title: string = '';
-    @Input({required: true}) Folder: string = '';
     imageUrl: string = '';
 
     ngOnInit(): void {
-      if (this.CompanyInfo?.portfolios[0]) {
-        this.imageUrl = `${environment.baseUrl}${this.Folder}${this.CompanyInfo.coverPic}`
-
-      }
     }
 
 

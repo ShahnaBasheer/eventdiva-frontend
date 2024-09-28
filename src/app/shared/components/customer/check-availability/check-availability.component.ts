@@ -4,8 +4,10 @@ import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } 
 import { venueService } from '../../../../features/customer/services/venue.service';
 import { ToastrService } from 'ngx-toastr';
 import { checkEndDateValidator, isFieldInvalid } from '../../../../core/validators/forms.validator';
-import { CommonService } from '../../../../core/services/common.service';
 import { PlannerService } from '../../../../features/customer/services/planner.service';
+import { isLoggedIn } from '../../../../features/customer/store/customer.selectors';
+import { Store } from '@ngrx/store';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-check-availability',
@@ -20,6 +22,7 @@ export class CheckAvailabilityComponent implements OnInit{
   @Output() availabilityChecked = new EventEmitter<boolean>();
   checkAvailabilityForm!: FormGroup;
   isCheckingLoding = false;
+  isLoggedIn: boolean = false;
   @Input({required: true}) vendorId: string = '';
   @Input({required: true}) role: string = '';
 
@@ -29,6 +32,8 @@ export class CheckAvailabilityComponent implements OnInit{
     private fb: FormBuilder,
     private toastr: ToastrService,
     private plannerService: PlannerService,
+    private store: Store,
+    private router: Router
   ){
 
     this.checkAvailabilityForm = this.fb.group({
@@ -42,6 +47,7 @@ export class CheckAvailabilityComponent implements OnInit{
   }
 
   ngOnInit(): void{
+      this.store.select(isLoggedIn).subscribe(data => this.isLoggedIn = data)
       this.checkAvailabilityForm.get('isMultipleDays')?.valueChanges.subscribe((isMultipleDays) => {
         const endDateControl = this.checkAvailabilityForm.get('endDate');
 
@@ -61,6 +67,11 @@ export class CheckAvailabilityComponent implements OnInit{
 
   onCheckAvailability(){
       console.log(this.checkAvailabilityForm.valid)
+      if(!this.isLoggedIn){
+          this.router.navigate(['/login']);
+          this.toastr.error('Please Login to Check Availability');
+          return;
+      }
       if(this.checkAvailabilityForm.valid){
           this.isCheckingLoding = true;
 
@@ -102,9 +113,9 @@ export class CheckAvailabilityComponent implements OnInit{
 
   private isAvailable(isAvailable: boolean){
     if(isAvailable){
-      this.toastr.success('Slot is Available! You can proceed to book', 'success')
+      this.toastr.success('Slot is Available! You can proceed to book')
     } else {
-        this.toastr.warning('Slot is Unavailable!', 'warning')
+        this.toastr.warning('Slot is Unavailable!')
     }
     this.isCheckingLoding = false;
     this.availabilityChecked.emit(isAvailable);

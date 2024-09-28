@@ -49,4 +49,22 @@ export class PlannerService {
     })
   }
 
+  bookingDetails(bookingId: string){
+    return this.http.get<any>(`${environment.baseUrl}/bookings/event-planner/details/${bookingId}`, {
+      withCredentials: true,
+    })
+  }
+
+  payAdvancepayment(bookingId: string){
+    return this.http.get<any>(`${environment.baseUrl}/bookings/event-planner/advancepayment/${bookingId}`, {
+      withCredentials: true,
+    })
+  }
+
+  payFullpayment(bookingId: string){
+    return this.http.get<any>(`${environment.baseUrl}/bookings/event-planner/fullpayment/${bookingId}`, {
+      withCredentials: true,
+    })
+  }
+
 }

@@ -39,4 +39,13 @@ export class PlannerBookingService {
         withCredentials: true,
       });
     }
+
+    generateFullPayment(fullPaymentCharges: {
+      planningFee: number;
+      charges: { chargeName: string, amount: number}[] },
+      bookingId: string){
+      return this.http.patch<any>(`${this.APIBASE_URL}/bookings/full-payment/`, { fullPaymentCharges, bookingId }, {
+        withCredentials: true,
+      });
+    }
   }

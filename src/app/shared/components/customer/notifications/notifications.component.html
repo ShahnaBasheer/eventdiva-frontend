@@ -14,7 +14,8 @@
 
 
 <!-- Overlay (clickable to close notifications) -->
-<div *ngIf="showNotifications" class="w-full h-full bg-black bg-opacity-50 top-0 fixed inset-0 z-[1000]"></div>
+<div *ngIf="showNotifications && AllNotifications.length > 0"
+    class="w-full h-full bg-black bg-opacity-50 top-0 fixed inset-0 z-[1000]"></div>
 
 <!-- Notification Panel (keep it in the DOM for smooth transitions) -->
 <div

@@ -50,7 +50,6 @@ export class PlannerDetailComponent implements OnInit{
   showModal = false;
   showVideoCallModal = false;
   showChatRoomModal = false;
-  portUrl = environment.vv_portfolio_url;
   eventTypes = this.commonservice.getEventTypes();
 
 
@@ -69,7 +68,6 @@ export class PlannerDetailComponent implements OnInit{
       next: (res) => {
         if (res.data?.eventPlannerData) {
           this.eventPlannerData = res.data.eventPlannerData;
-          this.imageUrl = `${environment.baseUrl}${environment.ep_coverpic_url}${this.eventPlannerData.coverPic}`
         }
         this.isLoading = false;
       },

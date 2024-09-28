@@ -19,9 +19,5 @@ export class VenueCardComponent {
   imageUrl!: string;
 
 
-  ngOnInit(): void {
-    if (this.cardItems?.coverPic) {
-      this.imageUrl = `${environment.baseUrl}${environment.vv_coverpic_url}${this.cardItems.coverPic}`
-    }
-  }
+
 }

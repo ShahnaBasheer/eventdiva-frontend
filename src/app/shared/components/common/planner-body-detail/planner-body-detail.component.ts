@@ -6,7 +6,8 @@ import { DetailHeadersComponent } from '../detail-headers/detail-headers.compone
 import { DetailAddressComponent } from '../detail-address/detail-address.component';
 import { DetailServicesComponent } from '../detail-services/detail-services.component';
 import IEventPlanner from '../../../../core/models/eventPlanner.model';
-import { environment } from '../../../../../environments/environment';
+import { CommonModule } from '@angular/common';
+
 
 @Component({
   selector: 'app-planner-body-detail',
@@ -18,18 +19,17 @@ import { environment } from '../../../../../environments/environment';
     DetailHeadersComponent,
     DetailAddressComponent,
     DetailServicesComponent,
+    CommonModule
   ],
   templateUrl: './planner-body-detail.component.html',
-  styleUrl: './planner-body-detail.component.css'
+  styleUrl: './planner-body-detail.component.css',
 })
 
 
-export class PlannerBodyDetailComponent implements OnInit{
-  @Input({required: true}) eventPlannerData!: IEventPlanner;
-  portUrl = environment.ep_portfolio_url;
+export class PlannerBodyDetailComponent {
+  @Input() eventPlannerData: IEventPlanner | null = null;
 
-
-  ngOnInit(): void {
-
+  ngOnInit(){
+    console.log(this.eventPlannerData, "heyyy")
   }
 }

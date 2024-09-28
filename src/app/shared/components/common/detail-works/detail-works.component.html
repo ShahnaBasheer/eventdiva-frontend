@@ -3,7 +3,7 @@
 
 
     <div class="p-8">
-        <div class="w-[19.625rem] flex flex-row items-start justify-center">
+        <!-- <div class="w-[19.625rem] flex flex-row items-start justify-center">
             <div class="flex-1 bg-gray-600 flex items-center justify-center py-2 px-4
                hover:bg-gray-700 hover:text-white transition-colors">
               <a class="text-white hover:text-white cursor-pointer">PORTFOLIO (3)</a>
@@ -13,12 +13,12 @@
                 cursor-pointer text-black hover:text-white">
               <a class="">ALBUMS (2)</a>
             </div>
-        </div>
+        </div> -->
         <div class="border-[.12rem] border-[#d4d2d2] px-6 py-10">
           <ul class="grid grid-cols-3 gap-3">
-            <li *ngFor="let img of portfolios">
+            <li *ngFor="let img of portfolios;  let i = index;">
               <img class="w-[13.031rem] h-[10.125rem] object-cover transition duration-300 hover:scale-105"
-                 alt="" [src]="imageUrl + img"/>
+                 [alt]="'portfolio_'+ i " [src]="img"/>
             </li>
           </ul>
         </div>

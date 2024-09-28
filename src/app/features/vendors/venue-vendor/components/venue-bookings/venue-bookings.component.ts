@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { BookingsCardComponent } from '../../../../../shared/components/vendors/bookings-card/bookings-card.component';
 import { CommonModule } from '@angular/common';
 import { VenueBookingService } from '../../services/venue-booking.service';
-import { IVenueBooking } from '../../../../../core/models/IvenueBooking.model';
+import { VenueBooking } from '../../../../../core/models/venueBooking.model';
 import { ToastrService } from 'ngx-toastr';
 
 @Component({
@@ -15,7 +15,7 @@ import { ToastrService } from 'ngx-toastr';
 
 
 export class VenueBookingsComponent {
-  venues: IVenueBooking[] = [];
+  venues: VenueBooking[] = [];
   constructor(private venueBookingService: VenueBookingService, private toastr: ToastrService){}
 
   ngOnInit(): void {
@@ -29,7 +29,7 @@ export class VenueBookingsComponent {
       },
       error: (err) => {
         console.log('Error loading Venue Bookings:',err.message);
-        this.toastr.error("Error loading Venue Bookings", 'Failed');
+        this.toastr.error("Error loading Venue Bookings");
       },
     })
   }

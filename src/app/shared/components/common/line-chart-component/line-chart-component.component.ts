@@ -26,8 +26,6 @@ export class LineChartComponentComponent {
     const labels = filledRevenueData.map(data => `${data.year}-${data.month}`);
     const revenues = filledRevenueData.map(data => data.revenue);
 
-    console.log(filledRevenueData)
-
     new Chart(this.revenueCanvas.nativeElement, {
       type: 'line',
       data: {

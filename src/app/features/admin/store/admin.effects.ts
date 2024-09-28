@@ -37,7 +37,7 @@ export class AdminEffects {
             return AdminActions.adminLoginSuccess({user: response?.data?.user});
           }),
           tap(() => {
-            this.toastr.success('Login successfully!', 'Success');
+            this.toastr.success('Login successfully!');
             this.router.navigate(['/admin/dashboard'], {replaceUrl: true});
           }),
           catchError(error => {
@@ -49,7 +49,7 @@ export class AdminEffects {
                 }
               }));
             } else {
-              this.toastr.error("An error occurred during login", 'Failed');
+              this.toastr.error("An error occurred during login");
             }
             return of(AdminActions.adminLoginFailure({ error }));
           })
@@ -112,7 +112,7 @@ export class AdminEffects {
       ofType(AdminActions.adminSessionExpired),
       tap(() => {
         this.adminbroadcast.sendMessage({ type: 'ADMIN_LOGOUT' })
-        this.toastr.warning("Session Expired! Please Login again!", 'Warning');
+        this.toastr.warning("Session Expired! Please Login again!");
       }),
       map(() => AdminActions.logOutSuccess()),
     ),

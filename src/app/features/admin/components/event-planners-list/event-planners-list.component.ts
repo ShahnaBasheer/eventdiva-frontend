@@ -7,7 +7,7 @@ import { RouterModule } from '@angular/router';
 import IEventPlanner from '../../../../core/models/eventPlanner.model';
 import { ActionBtnsComponent } from '../../../../shared/components/common/action-btns/action-btns.component';
 import { StatusBadgeComponent } from '../../../../shared/components/common/status-badge/status-badge.component';
-
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-event-planners-list',
@@ -19,53 +19,66 @@ import { StatusBadgeComponent } from '../../../../shared/components/common/statu
     StatusBadgeComponent,
   ],
   templateUrl: './event-planners-list.component.html',
-  styleUrl: './event-planners-list.component.css'
+  styleUrl: './event-planners-list.component.css',
 })
-
-
 export class EventPlannersListComponent {
   planners: IEventPlanner[] = [];
-  headers = [ 'SL.No', 'CoverPic' ,'Company', 'Start Year',
-       'Mobile', 'Email', 'planning Fee', 'Approval' ,'Action'];
-  imgUrl =  `${environment.baseUrl}${environment.ep_coverpic_url}`;
+  headers = [
+    'SL.No',
+    'CoverPic',
+    'Company',
+    'Start Year',
+    'Mobile',
+    'Email',
+    'planning Fee',
+    'Approval',
+    'Action',
+  ];
   activeDropdownIndex: number | null = null;
 
-
-  constructor(private eventPlannerService: EventPlannerAdminService, private toastr: ToastrService){}
+  constructor(
+    private eventPlannerService: EventPlannerAdminService,
+    private toastr: ToastrService,
+    private snackBar: MatSnackBar,
+  ) {}
   ngOnInit(): void {
-     this.loadVendors();
+    this.loadVendors();
   }
 
-  loadVendors(){
+  loadVendors() {
     this.eventPlannerService.getPlannersPage().subscribe({
       next: (response) => {
-          this.planners = response.data.eventPlanners;
-          console.log(response.data)
+        this.planners = response.data.eventPlanners;
+        console.log(response.data);
       },
       error: (err) => {
-        console.log('Error loading Event Planner Lists:',err.message);
-        this.toastr.error("Error loading Event Planner Lists", 'Failed');
+        console.log('Error loading Event Planner Lists:', err.message);
+        this.toastr.error('Error loading Event Planner Lists', 'Failed');
       },
-    })
+    });
   }
 
-
-  onStatusChange(index: number, slug: string, status: string){
+  onStatusChange(index: number, slug: string, status: string) {
     this.eventPlannerService.plannerStatusChange(slug, status).subscribe({
       next: (res) => {
-          console.log(res.data, "ffffffffff")
-          if(status === 'approved' || status === 'rejected'){
-            this.planners[index].approval = status;
-          }
+        if (status === 'approved' || status === 'rejected') {
+          this.planners[index].approval = status;
+          // Show an alert or a pop-up
+          this.snackBar.open(`${this.planners[index].company} has been Approved`, 'OK', {
+            duration: 2000,
+            panelClass: ['snackbar-warning'],
+          });
+          this.activeDropdownIndex  = -1;
+        }
       },
       error: (err) => {
-           console.log(err, "eroorrr")
-      }
-    })
+        console.log(err, 'eroorrr');
+      },
+    });
   }
 
-  onRejected(slug: string){
-      console.log(slug);
+  onRejected(slug: string) {
+    console.log(slug);
   }
 
   toggleDropdown(index: number) {
@@ -76,9 +89,11 @@ export class EventPlannersListComponent {
   handleClickOutside(event: Event): void {
     const target = event.target as HTMLElement;
 
-    if (!target.closest('.dropdown-container') && !target.closest('.dropdown-button')) {
+    if (
+      !target.closest('.dropdown-container') &&
+      !target.closest('.dropdown-button')
+    ) {
       this.activeDropdownIndex = null;
     }
   }
-
 }

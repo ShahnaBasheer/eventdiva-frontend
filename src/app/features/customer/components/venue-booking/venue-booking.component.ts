@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, NgZone, OnInit } from '@angular/core';
 import { FormArray, FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { BookingAddressComponent } from '../../../../shared/components/customer/booking-address/booking-address.component';
 import { venueService } from '../../services/venue.service';
@@ -35,7 +35,6 @@ export class VenueBookingComponent implements OnInit{
   isLoading: boolean = true;
   activeTab: number = 0;
   isSubmitForm = false;
-  imgUrl: string = '';
   eventTypes = this.commonservice.getEventTypes();
   servicesOptions: string[] = [];
   servicesHalfLength = this.servicesOptions.length;
@@ -48,6 +47,7 @@ export class VenueBookingComponent implements OnInit{
     private commonservice: CommonService,
     private toastr: ToastrService,
     private router: Router,
+    private ngZone: NgZone
    ) {
     this.venueBookingForm = this.fb.group({
       eventInfo: this.fb.group({
@@ -88,7 +88,6 @@ export class VenueBookingComponent implements OnInit{
     this.venueService.getVenueBookingPage(this.slug).subscribe({
       next: (res) => {
           this.venueData = res?.data?.venueData;
-          this.imgUrl = `${environment.baseUrl}${environment.vv_coverpic_url}${this.venueData.coverPic}`;
           this.servicesOptions = res?.data?.venueData?.services;
           this.servicesOptions.forEach((value) => {
             const control = this.fb.control({name: value, selected: false});
@@ -221,17 +220,19 @@ export class VenueBookingComponent implements OnInit{
                 description: 'Test Transaction',
                 order_id: data?.razorpayOrderData.id,
                 handler: (response: any) => {
-                  this.venueService.confirmRazorpayPayment(response).subscribe({
-                     next: (res)=> {
-                       if(res.data?.bookedData){
-                          this.activeTab++;
-                          this.router.navigate(['/vendors/venues'], { replaceUrl: true });
-                       }
-                     },
-                     error: (err) => {
-                        this.toastr.error(err.message, 'Error');
-                     }
-                  })
+                  this.ngZone.run(() => {
+                    this.venueService.confirmRazorpayPayment(response).subscribe({
+                      next: (res)=> {
+                        if(res.data?.bookedData){
+                           this.activeTab++;
+                           this.router.navigate(['/vendors/venues'], { replaceUrl: true });
+                        }
+                      },
+                      error: (err) => {
+                         this.toastr.error(err.message, 'Error');
+                      }
+                   })
+                  });
                 },
 
             };

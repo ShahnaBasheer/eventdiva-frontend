@@ -43,11 +43,11 @@ export class UserTableComponent {
       next: (res) => {
         console.log('Customer blocked successfully:', res);
         this.updateUserStatus(id, true, 'customer');
-        this.toastr.success('Customer blocked successfully!', 'Success');
+        this.toastr.success('Customer blocked successfully!');
       },
       error: (err) => {
         console.error('Error blocking customer:', err?.message);
-        this.toastr.error("failed to Block Customer", 'Failed')
+        this.toastr.error("failed to Block Customer")
       }
     });
   }
@@ -57,11 +57,11 @@ export class UserTableComponent {
       next: (res) => {
         console.log('Customer unblocked successfully:', res);
         this.updateUserStatus(id, false, 'customer');
-        this.toastr.success('Customer unblocked successfully!', 'Success');
+        this.toastr.success('Customer unblocked successfully!');
       },
       error: (err) => {
         console.error('Error unblocking customer:', err?.message);
-        this.toastr.error("failed to unblock Customer", 'Failed')
+        this.toastr.error("failed to unblock Customer")
       }
     });
   }
@@ -72,11 +72,11 @@ export class UserTableComponent {
       next: (res) => {
         console.log('Vendor blocked successfully:', res);
         this.updateUserStatus(id, true, 'vendor');
-        this.toastr.success('Vendor blocked successfully!', 'Success');
+        this.toastr.success('Vendor blocked successfully!');
       },
       error: (err) => {
         console.error('Error blocking Vendor:', err?.message);
-        this.toastr.error("failed to block Vendor", 'Failed')
+        this.toastr.error("failed to block Vendor")
       }
     });
   }
@@ -86,11 +86,11 @@ export class UserTableComponent {
       next: (res) => {
         console.log('Vendor unblocked successfully:', res);
         this.updateUserStatus(id, false, 'vendor');
-        this.toastr.success('Vendor unblocked successfully!', 'Success');
+        this.toastr.success('Vendor unblocked successfully!');
       },
       error: (err) => {
         console.error('Error unblocking Vendor:', err?.message);
-        this.toastr.error("failed to unblock Vendor", 'Failed')
+        this.toastr.error("failed to unblock Vendor")
       }
     });
   }

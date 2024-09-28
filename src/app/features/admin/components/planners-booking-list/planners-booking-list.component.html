@@ -1,36 +1,37 @@
-
 <div class="">
   <h1 class="text-[1.5rem] font-bold ps-6 pb-6">Event Planners Bookings</h1>
 
-  <input type="text" class="block h-10 pr-5 pl-12 py-2.5 text-base font-normal m-6 ms-auto
-      shadow-xs text-gray-900 bg-transparent border border-gray-300 rounded-full placeholder-gray-400
-      focus:outline-none" placeholder="Search">
+  <input
+    type="text"
+    class="block h-10 pr-5 pl-12 py-2.5 text-base font-normal m-6 ms-auto shadow-xs text-gray-900 bg-transparent border border-gray-300 rounded-full placeholder-gray-400 focus:outline-none"
+    placeholder="Search"
+  />
   <div class="flex justify-center">
     <div class="overflow-x-auto mb-8 shadow-lg rounded-lg w-full mx-10">
-
-
-
-
       <table class="min-w-full" *ngIf="planners">
         <thead class="bg-gray-700">
           <tr>
-            <th *ngFor="let item of headers" scope="col"
-              class="p-3 text-left text-sm font-semibold text-white uppercase tracking-wider">
+            <th
+              *ngFor="let item of headers"
+              scope="col"
+              class="p-3 text-left text-sm font-semibold text-white uppercase tracking-wider"
+            >
               {{ item }}
             </th>
           </tr>
         </thead>
         <tbody class="bg-white divide-y divide-gray-200">
-
-          <tr *ngFor="let user of planners; let i = index" class="hover:bg-[#e8e8e8]">
-
+          <tr
+            *ngFor="let user of planners; let i = index"
+            class="hover:bg-[#e8e8e8]"
+          >
             <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
               {{ i + 1 }}
             </td>
-            <td class="px-3 py-4 text-sm whitespace-nowrap  text-gray-900">
+            <td class="px-3 py-4 text-sm whitespace-nowrap text-gray-900">
               {{ user.bookingId }}
             </td>
-            <td class="px-3 py-4 text-sm whitespace-nowrap  text-gray-900">
+            <td class="px-3 py-4 text-sm whitespace-nowrap text-gray-900">
               {{ user.customerId.firstName }} {{ user.customerId.lastName }}
             </td>
             <td *ngIf="user.eventType" class="px-3 py-4 whitespace-nowrap">
@@ -43,7 +44,10 @@
               <!-- <div class="text-sm text-gray-500">Optimization</div> -->
             </td>
             <td class="px-3 py-4 whitespace-nowrap text-sm text-gray-900">
-              <img [src]="imgUrl + '/' + user.eventPlannerId.coverPic" class="w-[5rem] h-auto object-cover">
+              <img
+                [src]="user.eventPlannerId.coverPic"
+                class="w-[5rem] h-auto object-cover"
+              />
             </td>
             <td class="px-3 py-4 whitespace-nowrap text-sm text-gray-900">
               {{ user.guests }}
@@ -57,7 +61,7 @@
             <td class="px-3 py-4 whitespace-nowrap text-sm text-gray-900">
               <ul>
                 <li *ngFor="let item of user.payments">
-                  {{item.type}} - {{ item.amount }} - {{item.status}}
+                  {{ item.type }} - {{ item.amount }} - {{ item.status }}
                 </li>
               </ul>
             </td>
@@ -65,24 +69,39 @@
               <app-status-badge [status]="user.status"></app-status-badge>
             </td>
             <td class="px-3 py-4 whitespace-nowrap text-sm text-gray-900">
-              <app-status-badge [status]="user.paymentStatus"></app-status-badge>
+              <app-status-badge
+                [status]="user.paymentStatus"
+              ></app-status-badge>
             </td>
 
-            <td class="px-3 py-4 whitespace-nowrap text-sm font-medium relative">
-              <app-action-btns [data]="user?.bookingId" [deleted]="!!user.isDeleted"
-                  [_url]="'/admin/event-planners/details'" [approval]="true"
-                  (_statusEvent)="toggleDropdown(i)">
+            <td
+              class="px-3 py-4 whitespace-nowrap text-sm font-medium relative"
+            >
+              <app-action-btns
+                [data]="user?.bookingId"
+                [deleted]="!!user.isDeleted"
+                [_url]="'/admin/event-planners/details'"
+                [approval]="true"
+                (_statusEvent)="toggleDropdown(i)"
+              >
               </app-action-btns>
 
               <!-- Dropdown menu -->
-              <div *ngIf="activeDropdownIndex === i"
-                  class="absolute right-24 top-16 z-10 bg-white divide-y divide-gray-100
-                    rounded-lg shadow dark:bg-gray-600 dropdown-container">
-                  <ul class="p-2 text-sm text-white" aria-labelledby="dropdownHoverButton">
-                    <li (click)="onCancelled(user.bookingId)">
-                      <a class="block px-5 py-2 hover:bg-[#bdbdbd] hover:text-black">Cancel</a>
-                    </li>
-                  </ul>
+              <div
+                *ngIf="activeDropdownIndex === i"
+                class="absolute right-24 top-16 z-10 bg-white divide-y divide-gray-100 rounded-lg shadow dark:bg-gray-600 dropdown-container"
+              >
+                <ul
+                  class="p-2 text-sm text-white"
+                  aria-labelledby="dropdownHoverButton"
+                >
+                  <li (click)="onCancelled(user.bookingId)">
+                    <a
+                      class="block px-5 py-2 hover:bg-[#bdbdbd] hover:text-black"
+                      >Cancel</a
+                    >
+                  </li>
+                </ul>
               </div>
             </td>
           </tr>
@@ -96,10 +115,13 @@
           </span>
           <div class="inline-flex mt-2 xs:mt-0">
             <button
-              class="text-sm bg-[#c4c4c4] border-r hover:bg-gray-400 text-gray-800 font-semibold py-1 px-4 rounded-l">
+              class="text-sm bg-[#c4c4c4] border-r hover:bg-gray-400 text-gray-800 font-semibold py-1 px-4 rounded-l"
+            >
               Prev
             </button>
-            <button class="text-sm bg-[#c4c4c4] hover:bg-gray-400 text-gray-800 font-semibold py-1 px-4 rounded-r">
+            <button
+              class="text-sm bg-[#c4c4c4] hover:bg-gray-400 text-gray-800 font-semibold py-1 px-4 rounded-r"
+            >
               Next
             </button>
           </div>
@@ -107,11 +129,12 @@
       </div>
     </div>
 
-
-
     <!-- Dropdown menu -->
-    <div *ngFor="let item of planners; let i = index" id="dropdown-epbooking-{{i}}"
-      class="z-10 hidden bg-white divide-y divide-gray-100 rounded-lg shadow w-44 dark:bg-gray-600">
+    <div
+      *ngFor="let item of planners; let i = index"
+      id="dropdown-epbooking-{{ i }}"
+      class="z-10 hidden bg-white divide-y divide-gray-100 rounded-lg shadow w-44 dark:bg-gray-600"
+    >
       <ul class="py-2 text-sm text-white" aria-labelledby="dropdownHoverButton">
         <li (click)="onCancelled(item.bookingId)">
           <a class="block px-4 py-2">Cancel</a>
@@ -119,3 +142,4 @@
       </ul>
     </div>
   </div>
+</div>

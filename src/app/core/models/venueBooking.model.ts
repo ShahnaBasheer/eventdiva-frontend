@@ -1,4 +1,5 @@
 import { IAddress } from "./address.model";
+import { EventDate, Payment } from "./bookingdetails.model";
 import { Customer } from "./customer.model";
 import { IVenue } from "./venue.model";
 
@@ -14,38 +15,19 @@ interface AreaBooked {
   areaName: string;
 }
 
-interface Service {
-  cost: number;
-  service: string;
-}
-
-interface Charges {
+interface VenueCharges {
   platformCharge: number;
   advancePayments?: number;
-  venueRental?: number;
-  servicesChrges?: Service[],
-  additionalFees?: any;
+  fullPayment: {
+    venueRental?: number;
+    servicesCharges:  {
+      cost: number;
+      service: string;
+    }[],
+  }
 }
 
-interface EventDate {
-  startDate: Date;
-  endDate: Date;
-  startTime: string;
-  endTime: string;
-}
-
-interface Payment {
-  type: 'Platform Fee'| 'Advance Payment'| 'Full Payment'
-  amount: number;
-  date: string;
-  status: string;
-  mode: string;
-  createdAt: Date;
-  updatedAt: Date;
-  paymentInfo: any; // Adjust as per structure
-}
-
-interface IVenueBooking {
+interface VenueBooking {
   bookingId: string;
   venueId: IVenue;
   customerId: Customer;
@@ -65,7 +47,7 @@ interface IVenueBooking {
   status: string;
   address: IAddress;
   paymentStatus: string;
-  charges: Charges;
+  charges: VenueCharges;
   reason?: string;
   additionalNeeds?: string;
   notes?: string;
@@ -79,10 +61,8 @@ interface IVenueBooking {
 
 
 export {
-  IVenueBooking,
-  Payment,
-  Charges,
+  VenueBooking,
   AreaBooked,
   Room,
-  EventDate
+  VenueCharges
 }

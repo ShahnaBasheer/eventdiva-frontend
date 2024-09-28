@@ -27,13 +27,14 @@ export class EventPlannerAdminService {
         });
     }
 
-    getPlannerBookings(){
+    getPlannerBookings(): Observable<any>{
       return this.http.get<any>(`${this.APIBASE_URL}/bookings`, {
         withCredentials: true,
       });
   }
 
-  getPlannerDetails(slug: string){
+  getPlannerDetails(slug: string): Observable<any>{
+    console.log("heyyy i am called")
     return this.http.get<any>(`${this.APIBASE_URL}/details/${slug}`, {
       withCredentials: true,
     });

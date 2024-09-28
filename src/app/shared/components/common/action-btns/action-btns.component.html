@@ -8,7 +8,7 @@
           dropdown-button">
           <i class="fa-regular fa-pen-to-square text-[1rem] py-0.5"></i>
       </button>
-      <button [routerLink]="[_url, data]" [ngClass]="{'rounded-l-lg': approval}"
+      <button (click)="onSelect()" [ngClass]="{'rounded-l-lg': approval}"
           class="text-slate-800 hover:text-blue-600 text-sm bg-white hover:bg-slate-100 border
           border-slate-200 font-medium p-2 inline-flex space-x-1 items-center">
           <i class="fa-regular fa-eye text-[1rem] py-0.5"></i>

@@ -56,6 +56,7 @@ export class NotificationService {
   private initializeSocketListeners(role: string, id: string) {
     this.socket?.on('loaded-notification', (data: { notification: Notification;  }) => {
       const currentNotifications = this.notificationsSubject.getValue();
+      console.log(data.notification, "NOtification Arrived Here")
       this.notificationsSubject.next([data.notification, ...currentNotifications]);
     });
 
@@ -93,14 +94,14 @@ export class NotificationService {
     return this.notificationsSubject.next(data);
   }
 
-  public onIsReadChange(id: string){
-      return this.http.patch(`${environment.baseUrl}/notifications/read`, { id  }, {
+  public onIsReadChange(id: string, url: string = ''){
+      return this.http.patch(`${environment.baseUrl}${url}/notifications/read`, { id  }, {
         withCredentials: true
       });
   }
 
-  public ondeleteNotification(id: string){
-    return this.http.delete(`${environment.baseUrl}/notifications/delete/${id}`, {
+  public ondeleteNotification(id: string, url: string = ''){
+    return this.http.delete(`${environment.baseUrl}${url}/notifications/delete/${id}`, {
       withCredentials: true
     });
   }

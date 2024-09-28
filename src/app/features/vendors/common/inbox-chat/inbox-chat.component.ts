@@ -53,7 +53,7 @@ export class InboxChatComponent implements OnInit{
       console.log(this.chatroom.customerId._id, "joinchatroom");
       this.chatroomservice.joinChatRoom(this.chatroom.customerId._id)
     } else {
-      this.toastr.error('Something Went Wrong! Please try again Later!', 'error');
+      this.toastr.error('Something Went Wrong! Please try again Later!');
     }
 
   }

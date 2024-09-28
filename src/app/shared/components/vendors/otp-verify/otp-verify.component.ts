@@ -57,14 +57,14 @@ export class OtpVerifyComponent {
         this.isEnabled = false;
         this.vendorService.verifyOTP(this.email, this.otpVerificationForm.value.otp).subscribe({
           next: (response) => {
-            this.toastr.success('Signed Up successfully!', 'Success');
+            this.toastr.success('Signed Up successfully!');
             console.log("otp verification 60")
             this.router.navigate(['/vendor/login']);
           },
           error: (error) => {
             this.isLoading = false;
             this.isEnabled = true;
-            this.toastr.error("An error occurred during OTP verification", 'Failed');
+            this.toastr.error("An error occurred during OTP verification");
           },
           complete: () => {
             this.isLoading = false;
@@ -99,16 +99,16 @@ export class OtpVerifyComponent {
           this.isTimerEnabled = true;
           this.startCountdown();
           if(response){
-            this.toastr.success('Resend OTP successfully!', 'Success');
+            this.toastr.success('Resend OTP successfully!');
           }
         },
         error: (error: any) => {
           if (error.status === 409) {
-            this.toastr.warning('You have already signed up. Please log in!', 'Failed');
+            this.toastr.warning('You have already signed up. Please log in!');
             this.router.navigate(['/vendors/login']);
           } else {
             console.log(error,"errors from signupcomponent")
-            this.toastr.error(error.error?.message || 'An error occurred during registration', 'Failed')
+            this.toastr.error(error.error?.message || 'An error occurred during registration')
 
           }
         }

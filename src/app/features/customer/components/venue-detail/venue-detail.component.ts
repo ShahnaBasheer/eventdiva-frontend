@@ -36,25 +36,23 @@ import { ChatRoomService } from '../../../../core/services/chatRoom.service';
     VenueBodyDetailComponent,
     LoaderComponent,
     VideoCallComponent,
-    ChatRoomComponent
+    ChatRoomComponent,
   ],
   templateUrl: './venue-detail.component.html',
-  styleUrl: './venue-detail.component.css'
+  styleUrl: './venue-detail.component.css',
 })
 
 
-export class VenueDetailComponent implements OnInit{
+export class VenueDetailComponent implements OnInit {
   venueData!: IVenue;
-  allMenus = ['AREAS', 'ABOUT', 'ADDRESS' ,'SERVICES', 'WORKS'];
-  @Input({required: true}) slug: string = '';
+  allMenus = ['AREAS', 'ABOUT', 'ADDRESS', 'SERVICES', 'WORKS'];
+  @Input({ required: true }) slug: string = '';
   imageUrl: string = '';
   isLoading: boolean = true;
   showCallAlertModal = false;
   showVideoCallModal = false;
   showChatRoomModal = false;
-  portUrl = environment.vv_portfolio_url;
   eventTypes = this.commonservice.getEventTypes();
-
 
   constructor(
     private commonservice: CommonService,
@@ -62,14 +60,13 @@ export class VenueDetailComponent implements OnInit{
     private venueService: venueService,
     private webrtcservices: CustomerWebRTCService,
     private chatroomservice: ChatRoomService
-  ){}
+  ) {}
 
   ngOnInit(): void {
     this.venueService.getVenueDetails(this.slug).subscribe({
       next: (res) => {
         if (res.data?.venueData) {
           this.venueData = res.data.venueData;
-          this.imageUrl = `${environment.baseUrl}${environment.vv_coverpic_url}${this.venueData.coverPic}`;
         }
         this.isLoading = false;
       },
@@ -77,7 +74,7 @@ export class VenueDetailComponent implements OnInit{
         console.error('Error:', err.message);
         this.isLoading = false;
         this.toastr.error('something went wrong!', 'error');
-      }
+      },
     });
   }
 
@@ -86,8 +83,8 @@ export class VenueDetailComponent implements OnInit{
   }
 
   async startChat() {
-    if(!this.showChatRoomModal){
-      await this.chatroomservice.joinChatRoom(this.venueData.vendorId)
+    if (!this.showChatRoomModal) {
+      await this.chatroomservice.joinChatRoom(this.venueData.vendorId);
     }
     this.showChatRoomModal = !this.showChatRoomModal;
   }
@@ -96,7 +93,7 @@ export class VenueDetailComponent implements OnInit{
     this.showCallAlertModal = false;
   }
 
-  async onConfirmVideoCall(){
+  async onConfirmVideoCall() {
     try {
       await this.webrtcservices.startCall(this.venueData.vendorId);
       this.showCallAlertModal = false;
@@ -107,11 +104,11 @@ export class VenueDetailComponent implements OnInit{
     }
   }
 
-  onCloseVideoCall(){
+  onCloseVideoCall() {
     this.showVideoCallModal = false;
   }
 
-  async onCloseChatRoom(){
+  async onCloseChatRoom() {
     this.showChatRoomModal = false;
     await this.chatroomservice.leaveChatRoom(environment.customer);
   }

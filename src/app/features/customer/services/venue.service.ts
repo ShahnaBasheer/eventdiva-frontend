@@ -72,4 +72,22 @@ export class venueService {
       withCredentials: true,
     })
   }
+
+  bookingDetails(bookingId: string){
+    return this.http.get<any>(`${environment.baseUrl}/bookings/venue/details/${bookingId}`, {
+      withCredentials: true,
+    })
+  }
+
+  payAdvancepayment(bookingId: string){
+    return this.http.get<any>(`${environment.baseUrl}/bookings/venue/advancepayment/${bookingId}`, {
+      withCredentials: true,
+    })
+  }
+
+  payFullpayment(bookingId: string){
+    return this.http.get<any>(`${environment.baseUrl}/bookings/venue/fullpayment/${bookingId}`, {
+      withCredentials: true,
+    })
+  }
 }

@@ -58,17 +58,17 @@ export class SignupComponent {
         this.isEnabled = false;
         this.customerAuthService.customerRegistration(this.registrationForm.value).subscribe({
           next: (response: any) => {
-              this.toastr.success('Verification Code has been sent Successfully!', 'Success');
+              this.toastr.success('Verification Code has been sent Successfully!');
               this.router.navigate(['/otpverification']);
           },
           error: (error: any) => {
             this.isLoading = false;
             this.isEnabled = false;
             if (error.status === 409) {
-              this.toastr.warning('You have already signed up. Please log in!', 'Warning');
+              this.toastr.warning('You have already signed up. Please log in!');
               this.router.navigate(['/login']);
             } else {
-              this.toastr.error(error.error?.message || "An error occurred during registration", 'Failed')
+              this.toastr.error(error.error?.message || "An error occurred during registration")
             }
           },
           complete: () => {

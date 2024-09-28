@@ -17,16 +17,11 @@ import { environment } from '../../../../../environments/environment';
 })
 
 
-export class CardComponent implements OnInit{
+export class CardComponent {
   @Input({required: true}) cardItems!: IEventPlanner;
   @Input({required: true}) vendorType!: string;
   imageUrl!: string;
 
 
-  ngOnInit(): void {
-    if (this.cardItems?.coverPic) {
-      this.imageUrl = `${environment.baseUrl}${environment.ep_coverpic_url}${this.cardItems.coverPic}`
-    }
-  }
 
 }
