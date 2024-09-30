@@ -4,7 +4,8 @@
 export const environment = {
   production: true,
   google_client_id: '1064683432489-6jae1gj7ej8ljr5jd04pi2ucgihuivgb.apps.googleusercontent.com',
-  baseUrl: 'https://backend.eventdiva.online/api',
+  baseUrl: 'https://backend.eventdiva.online/',
+  customerUrl: 'https://backend.eventdiva.online/api',
   vendorUrl: 'https://backend.eventdiva.online/vendor',
   adminUrl: 'https://backend.eventdiva.online/admin',
   ad_accessKey: 'ad_access',
