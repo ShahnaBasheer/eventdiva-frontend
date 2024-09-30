@@ -16,8 +16,24 @@ export class PlannerBookingService {
 
     APIBASE_URL = `${environment.vendorUrl}/event-planner`
 
-    getPlannerBookings(){
+
+    getPlannerBookings(page: number, limit:number,
+      status: string,
+      filters: {
+      selectedMonth: number | null;
+      selectedYear: number | null;
+      selectedEventType: string | null;
+      selectedDays: string | null;
+    }){
       return this.http.get<any>(`${this.APIBASE_URL}/bookings/`, {
+        params: {
+          page: page.toString(), limit: limit.toString(),
+          status: status.toString() ,
+          selectedMonth: filters.selectedMonth?.toString() || '',
+          selectedYear: filters.selectedYear?.toString() || '',
+          selectedEventType: filters.selectedEventType || '',
+          selectedDays: filters.selectedDays || '',
+        },
         withCredentials: true,
       })
     }

@@ -47,6 +47,8 @@ import { ServiceDetailsComponent } from './features/admin/components/service-det
 import { FullcalendarComponent } from './features/vendors/common/fullcalendar/fullcalendar.component';
 import { InboxChatComponent } from './features/vendors/common/inbox-chat/inbox-chat.component';
 import { BookingDetailsComponent } from './shared/components/customer/booking-details/booking-details.component';
+import { ContactComponent } from './shared/components/common/contact/contact.component';
+import { AboutComponent } from './shared/components/common/about/about.component';
 
 
 
@@ -57,9 +59,11 @@ export const routes: Routes = [
       { path: 'login', component: LoginComponent },
       { path: 'signup', component: SignupComponent },
       { path: 'otpverification', component: OtpVerificationComponent },
-      { path: 'forgot-password', component:ForgotPasswordComponent },
+      { path: 'forgot-password', component: ForgotPasswordComponent },
+      { path: 'contact', component: ContactComponent },
+      { path: 'about', component: AboutComponent },
       { path: 'vendors/venues', component: VenuesComponent },
-      { path: 'vendors/venues/:slug', component:  VenueDetailComponent },
+      { path: 'vendors/venues/:slug', component: VenueDetailComponent },
       { path: 'vendors/event-planners', component: AllEventPlannersComponent },
       { path: 'vendors/event-planners/:slug', component: PlannerDetailComponent },
       { path: 'bookings', component: BookingsComponent },
@@ -97,6 +101,7 @@ export const routes: Routes = [
           { path: 'otpverification', component: OtpVerifyComponent },
           { path: 'event-planner', component: AllVendorsComponent,
              children: [
+              { path: '',  redirectTo: 'dashboard', pathMatch: 'full' },
               { path: 'dashboard', component: EventPlannerDashboardComponent},
               { path: 'profile', component: VendorProfileComponent},
               { path: 'service', component: EventPlannerDetailComponent},
@@ -109,6 +114,7 @@ export const routes: Routes = [
           ] },
           { path: 'venue-vendor', component: AllVendorsComponent,
             children: [
+             { path: '',  redirectTo: 'dashboard', pathMatch: 'full' },
              { path: 'dashboard', component: VenueDashboardComponent},
              { path: 'profile', component: VendorProfileComponent},
              { path: 'service', component: VenueVendorComponent},

@@ -51,8 +51,6 @@ export class NotificationService {
     }
   }
 
-
-
   private initializeSocketListeners(role: string, id: string) {
     this.socket?.on('loaded-notification', (data: { notification: Notification;  }) => {
       const currentNotifications = this.notificationsSubject.getValue();
@@ -74,7 +72,7 @@ export class NotificationService {
 
 
   public fetchNotifications(url: string = ''): Observable<any> {
-    return this.http.get(`${environment.baseUrl}${url}/notifications`, {
+    return this.http.get(`${url}/notifications`, {
         withCredentials: true
     });
   }
@@ -95,13 +93,13 @@ export class NotificationService {
   }
 
   public onIsReadChange(id: string, url: string = ''){
-      return this.http.patch(`${environment.baseUrl}${url}/notifications/read`, { id  }, {
+      return this.http.patch(`${url}/notifications/read`, { id  }, {
         withCredentials: true
       });
   }
 
   public ondeleteNotification(id: string, url: string = ''){
-    return this.http.delete(`${environment.baseUrl}${url}/notifications/delete/${id}`, {
+    return this.http.delete(`${url}/notifications/delete/${id}`, {
       withCredentials: true
     });
   }

@@ -26,7 +26,7 @@ import { checkEventPlanner, checkVenue } from '../../../../core/helpers/helper.f
 export class ServiceDetailsComponent implements OnInit{
   allMenus = ['ABOUT', 'ADDRESS' ,'SERVICES', 'WORKS'];
   @Input({required: true}) slug!: string;
-  item: IEventPlanner | IVenue | null = null;
+  item!: IEventPlanner | IVenue ;
   venueItem: IVenue | null = null;
   plannerItem: IEventPlanner | null = null;
   name: string = '';

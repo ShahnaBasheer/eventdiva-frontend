@@ -10,6 +10,7 @@ import { NotificationService } from '../../../../core/services/notification.serv
 import { trigger, state, style, animate, transition } from '@angular/animations';
 import { Notification } from '../../../../core/models/notification.model';
 import { Subscription } from 'rxjs';
+import { environment } from '../../../../../environments/environment';
 
 
 @Component({
@@ -52,7 +53,7 @@ export class HeaderComponent {
   ngOnInit() {
     this.store.select(isLoggedIn).subscribe( data => {
       if(data){
-        this.notificationservice.fetchNotifications('/vendor').subscribe(res => {
+        this.notificationservice.fetchNotifications(environment.vendorUrl).subscribe(res => {
           this.notificationservice.addNotifications(res.data?.notifications);
           this.unreadCount = res.data?.readCount;
         });
@@ -99,8 +100,6 @@ export class HeaderComponent {
     this.showModal = true;
   }
 
-
-
   onCloseModal() {
     this.showModal = false;
   }
@@ -131,9 +130,9 @@ export class HeaderComponent {
 
   onRead(id: string, isRead: boolean, index: number){
     if(!isRead){
-        this.notificationservice.onIsReadChange(id,'/vendor').subscribe({
-            next: (res: any) => {
-              if(res?.data){
+        this.notificationservice.onIsReadChange(id, environment.vendorUrl).subscribe({
+            next: (res) => {
+              if(res){
                 this.AllNotifications[index].isRead = true;
                 this.unreadCount--;
               }
@@ -143,7 +142,7 @@ export class HeaderComponent {
   }
 
   onDeleteNotification(id: string, index: number){
-      this.notificationservice.ondeleteNotification(id, '/vendor').subscribe({
+      this.notificationservice.ondeleteNotification(id, environment.vendorUrl).subscribe({
           next: (res) => {
               if(!this.AllNotifications[index].isRead) this.unreadCount--;
               this.AllNotifications.splice(index, 1);

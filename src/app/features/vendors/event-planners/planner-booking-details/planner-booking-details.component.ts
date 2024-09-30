@@ -107,7 +107,7 @@ export class PlannerBookingDetailsComponent {
     if(this.item.payments.length < 1){
       this.snackBar.open('Please Generate Advance Payment Atfirst!', 'OK', {
         duration: 2000,
-        panelClass: ['snackbar-warning'],
+        panelClass: ['mat-mdc-snackbar-surface', 'snackbar-info'],
       });
     } else { this.addSummaryModal = true; }
 

@@ -46,6 +46,7 @@ export class BookingDetailsComponent {
     } else if(this.type === 'venue'){
       this.venueservice.bookingDetails(this.bookingId).subscribe({
         next: (res) => {
+          console.log(res.data)
           this.item = res.data.bookingData as VenueBooking;
           this.payments = this.item.payments || [];
           this.fullPayment = res.data.fullPayment;
@@ -195,7 +196,7 @@ export class BookingDetailsComponent {
           this.toastr.error('Failed to pay full payment. Please try again.');
         }
         },
-        error: (err: any) => {
+        error: (err) => {
           console.error("Submission error", err.message);
           if (err.status === 409) {
             this.toastr.error(err.message);

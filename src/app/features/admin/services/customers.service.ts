@@ -18,7 +18,7 @@ export class CustomersService {
 
     constructor(private http: HttpClient, private router: Router){}
 
-    APIBASE_URL = `${environment.baseUrl}/admin/customers`;
+    APIBASE_URL = `${environment.adminUrl}/customers`;
 
 
     getCustomersPage(): Observable<any>{

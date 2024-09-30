@@ -8,7 +8,8 @@
     <div class="bg-white font-medium flex justify-start">
       <app-date-calendar [eventDate]="item.eventDate.startDate"></app-date-calendar>
       <div class="ms-6">
-        <div class="uppercase tracking-wide text-sm text-indigo-500 font-semibold">{{ item.eventName }}</div>
+        <div class="uppercase tracking-wide text-sm text-indigo-500 font-semibold"
+            [innerHTML]="item.eventName"></div>
         <p class="mt-2 text-gray-600 text-[.92rem]">{{ item.eventType }}</p>
         <p class="mt-2 text-gray-600 text-[.92rem]">{{ item.eventDate.endDate | date:'mediumDate' }}
             <span class="text-[.85rem] text-gray-500">(End Date)</span>

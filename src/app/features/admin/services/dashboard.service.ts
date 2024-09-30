@@ -16,7 +16,7 @@ export class DashboardService {
 
     constructor(private http: HttpClient, private router: Router){}
 
-    APIBASE_URL = `${environment.baseUrl}/admin`
+    APIBASE_URL = `${environment.adminUrl}`
 
 
     getDashboardPage(): Observable<any>{

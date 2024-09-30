@@ -10,6 +10,7 @@ import { environment } from '../../../../../environments/environment';
 import { ToastrService } from 'ngx-toastr';
 import { Router } from '@angular/router';
 import { CommonService } from '../../../../core/services/common.service';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 
 declare var Razorpay: any;
@@ -39,7 +40,7 @@ export class VenueBookingComponent implements OnInit{
   servicesOptions: string[] = [];
   servicesHalfLength = this.servicesOptions.length;
 
-  tabs: string[] = ['Event', 'Address', 'Services', 'Confirm'];
+  tabs: string[] = ['Event', 'Address', 'Services'];
 
   constructor(
     private fb: FormBuilder,
@@ -47,6 +48,7 @@ export class VenueBookingComponent implements OnInit{
     private commonservice: CommonService,
     private toastr: ToastrService,
     private router: Router,
+    private snackBar: MatSnackBar,
     private ngZone: NgZone
    ) {
     this.venueBookingForm = this.fb.group({
@@ -98,8 +100,14 @@ export class VenueBookingComponent implements OnInit{
       },
       error: (err) => {
           this.isLoading = false;
+          this.toastr.error('Something went wrong in loading page! Try again Later!');
       }
-    })
+    });
+
+    this.venueBookingForm.get('eventInfo.isMultipleDays')?.valueChanges.subscribe(() => {
+      console.log('it is triggering')
+      this.venueBookingForm.get('eventInfo.eventDate.endDate')?.updateValueAndValidity();
+    });
 
     this.venueBookingForm.statusChanges.subscribe((status) => {
       if(status === 'VALID'){
@@ -155,7 +163,38 @@ export class VenueBookingComponent implements OnInit{
 
   nextTab() {
     if (this.canProceed()) {
-      this.activeTab++;
+      if(this.activeTab === 0){
+
+        this.venueService.checkAvailability(this.venueBookingForm.get('eventInfo.eventDate')?.value, this.venueData.vendorId).subscribe({
+          next: (res) => {
+              if(res.data.isAvailable){
+                this.snackBar.open('Slot is Available!', 'OK', {
+                  duration: 2000,
+                  panelClass: ['mat-mdc-snackbar-surface', 'snackbar-success'],
+                });
+                this.activeTab++;
+
+              } else {
+                this.snackBar.open('Slot is Unavailable!', 'OK', {
+                  duration: 2000,
+                  panelClass: ['mat-mdc-snackbar-surface','snackbar-warning'],
+                });
+              }
+          },
+          error: (err) => {
+            if(err.status !== 400){
+              this.snackBar.open('Slot is Unvailable!', 'OK', {
+                duration: 2000,
+                panelClass: ['mat-mdc-snackbar-surface', 'snackbar-warning'],
+              });
+            } else {
+              this.toastr.error(err.error.message)
+            }
+          }
+        })
+      } else {
+        this.activeTab++;
+      }
     } else {
       const controls = this.venueBookingForm.controls;
       if(this.activeTab === 0){
@@ -213,7 +252,7 @@ export class VenueBookingComponent implements OnInit{
           if(data){
             console.log(res, "ok")
             let options = {
-                key: 'rzp_test_FmNCCXUWBBloc6',
+                key: environment.razor_key,
                 amount: data?.razorpayOrderData.amount,
                 currency: data?.razorpayOrderData.currency,
                 name: 'EventDiva',
@@ -224,8 +263,9 @@ export class VenueBookingComponent implements OnInit{
                     this.venueService.confirmRazorpayPayment(response).subscribe({
                       next: (res)=> {
                         if(res.data?.bookedData){
-                           this.activeTab++;
-                           this.router.navigate(['/vendors/venues'], { replaceUrl: true });
+                            this.activeTab++;
+                            this.router.navigate(['/bookings'], { replaceUrl: true });
+                            this.toastr.success('Booking is Successfull!');
                         }
                       },
                       error: (err) => {

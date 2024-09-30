@@ -64,20 +64,13 @@ export class ChatRoomService {
     await this.socketService.emit('leave-chat-room', { chatRoomId: this.roomId , userRole });
   }
 
-  private joinChatRoomAPI(URL: string, receiverId: string){
-    return this.http.post<any>(`${environment.baseUrl}/${URL}chat-room/join-room`, {receiverId }, {
-      withCredentials: true,
-    });
-  }
-
-
 
   public updateChatMessages(value: Message[]){
     this.chatMessagesSubject.next(value);
   }
 
   public checkUnreadMessagesAPI(URL: string){
-    return this.http.get<any>(`${environment.baseUrl}/${URL}/unread-messages`, {
+    return this.http.get<any>(`${URL}/unread-messages`, {
       withCredentials: true,
     });
   }

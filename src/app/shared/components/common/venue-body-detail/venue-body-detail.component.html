@@ -1,36 +1,38 @@
-<div *ngIf="venueData">
+
+
+<div>
   <div class="my-6">
     <app-detail-headers [header]="'Areas'">
-      <app-detail-areas [capacity]="venueData.capacity"></app-detail-areas>
+      <app-detail-areas [capacity]="venue.capacity"></app-detail-areas>
     </app-detail-headers>
   </div>
-  <div class="my-6">
+  <div class="my-6" *ngIf="venue">
     <app-detail-headers [header]="'about'">
       <app-detail-about
-        [about]="venueData.description || ''"
-        [extraInfo]="venueData.amenities"
+        [about]="venue.description || ''"
+        [extraInfo]="venue.amenities"
         [Title]="'Amenities'"
       >
       </app-detail-about>
     </app-detail-headers>
   </div>
-  <div class="my-6" *ngIf="venueData.address">
+  <div class="my-6" *ngIf="venue.address">
     <app-detail-headers [header]="'Address'">
       <app-detail-address
-        [addressInfo]="venueData.address"
+        [addressInfo]="venue.address"
       ></app-detail-address>
     </app-detail-headers>
   </div>
-  <div class="my-6">
+  <div class="my-6" *ngIf="venue.services">
     <app-detail-headers [header]="'services'">
       <app-detail-services
-        [services]="venueData.services || []"
+        [services]="venue.services || []"
       ></app-detail-services>
     </app-detail-headers>
   </div>
-  <div class="my-6">
+  <div class="my-6" *ngIf="venue.portfolios">
     <app-detail-headers [header]="'works'">
-      <app-detail-works [portfolios]="venueData.portfolios"></app-detail-works>
+      <app-detail-works [portfolios]="venue.portfolios"></app-detail-works>
     </app-detail-headers>
   </div>
 </div>

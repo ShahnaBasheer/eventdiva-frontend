@@ -1,7 +1,7 @@
 
 
   <div class="min-w-32 flex-none rounded-t lg:rounded-t-none lg:rounded-l text-center shadow-lg py-1">
-    <div class="block rounded-t overflow-hidden  text-center ">
+    <div class="block rounded-t overflow-hidden text-center">
       <div class="bg-blue-500 text-white py-1">
         {{ eventDate | customDate:'month' }}
       </div>
@@ -10,7 +10,8 @@
           {{ eventDate | customDate:'date' }}
         </span>
       </div>
-      <div class="border-l pb-3 border-r border-b rounded-b-lg text-center border-white bg-white -pt-2 -mb-1">
+      <div class="border-l pb-3 border-r border-b rounded-b-lg text-center
+         border-white bg-white -pt-2 -mb-1">
         <span class="text-sm">
           {{ eventDate | customDate:'day' }}, {{ eventDate | customDate:'year' }}
         </span>

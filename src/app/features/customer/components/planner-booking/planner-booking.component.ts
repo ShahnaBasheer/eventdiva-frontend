@@ -91,6 +91,7 @@ export class PlannerBookingComponent {
       },
       error: (err) => {
           this.isLoading = false;
+          this.toastr.error('Something went wrong in loading page! Try again Later!');
       },
       complete: () => {
           this.isLoading = false;
@@ -141,7 +142,7 @@ export class PlannerBookingComponent {
               } else {
                 this.snackBar.open('Slot is Available!', 'OK', {
                   duration: 2000,
-                  panelClass: ['snackbar-warning'],
+                  panelClass: ['mat-mdc-snackbar-surface', 'snackbar-warning'],
                 });
               }
           },
@@ -149,7 +150,7 @@ export class PlannerBookingComponent {
             if(err.status !== 400){
               this.snackBar.open('Slot is Unvailable!', 'OK', {
                 duration: 2000,
-                panelClass: ['snackbar-warning'],
+                panelClass: ['mat-mdc-snackbar-surface', 'snackbar-warning'],
               });
             } else {
               this.toastr.error(err.error.message)
@@ -211,7 +212,7 @@ export class PlannerBookingComponent {
                       next: (res)=> {
                         if(res.data?.bookedData){
                            this.activeTab++;
-                           this.router.navigate(['/vendors/event-planners'], { replaceUrl: true });
+                           this.router.navigate(['/bookings'], { replaceUrl: true });
                            this.toastr.success('Booking is Successfull!');
                         }
                       },

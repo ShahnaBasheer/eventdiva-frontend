@@ -1,9 +1,9 @@
-<div *ngIf="eventPlannerData">
+<div *ngIf="eventPlanner">
   <div class="my-6">
     <app-detail-headers [header]="'about'">
       <app-detail-about
-        [about]="eventPlannerData.description || ''"
-        [extraInfo]="eventPlannerData.plannedCities"
+        [about]="eventPlanner.description || ''"
+        [extraInfo]="eventPlanner.plannedCities"
         [Title]="'Planned Cities'"
       >
       </app-detail-about>
@@ -12,21 +12,21 @@
   <div class="my-6">
     <app-detail-headers [header]="'Address'">
       <app-detail-address
-        [addressInfo]="eventPlannerData.address"
+        [addressInfo]="eventPlanner.address"
       ></app-detail-address>
     </app-detail-headers>
   </div>
   <div class="my-6">
     <app-detail-headers [header]="'services'">
       <app-detail-services
-        [services]="eventPlannerData.services || []"
+        [services]="eventPlanner.services || []"
       ></app-detail-services>
     </app-detail-headers>
   </div>
   <div class="my-6">
     <app-detail-headers [header]="'works'">
       <app-detail-works
-        [portfolios]="eventPlannerData.portfolios"
+        [portfolios]="eventPlanner.portfolios"
       ></app-detail-works>
     </app-detail-headers>
   </div>

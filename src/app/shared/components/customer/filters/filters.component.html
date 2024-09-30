@@ -1,45 +1,29 @@
 <div class="relative flex justify-between px-10 pt-5 pb-3 items-center">
-    <div>
-      <p class="font-semibold text-gray-500">Search Results (100000)</p>
-    </div>
+    <!-- <div>
+      <p class="font-semibold text-gray-500">Search Results 1</p>
+    </div> -->
 
     <div class="flex items-center">
-        <div class="relative inline-block">
-          <div>
-            <button type="button" class="group inline-flex justify-center text-sm
-                font-medium text-gray-700 hover:text-gray-900" id="menu-button"
-                aria-expanded="false" aria-haspopup="true" data-dropdown-toggle="sortDropdown">Sort
-              <svg class="-mr-1 ml-1 h-5 w-5 flex-shrink-0 text-gray-400 group-hover:text-gray-500"
-                  viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
-                <path fill-rule="evenodd" d="M5.23 7.21a.75.75 0 011.06.02L10 11.168l3.71-3.938a.75.75 0 111.08 1.04l-4.25 4.5a.75.75 0 01-1.08 0l-4.25-4.5a.75.75 0 01.02-1.06z" clip-rule="evenodd" />
-              </svg>
-            </button>
-          </div>
 
-          <div class="hidden absolute right-0 z-10 mt-2 w-40 origin-top-right rounded-md bg-white shadow-2xl
-              ring-1 ring-black ring-opacity-5 focus:outline-none" role="menu" aria-orientation="vertical"
-              aria-labelledby="menu-button" tabindex="-1" id="sortDropdown">
-            <div class="py-1" role="none">
-              <a href="#" class="block px-4 py-2 text-sm font-medium hover:text-gray-900 text-gray-500" role="menuitem"
-                 tabindex="-1" id="menu-item-0">Most Popular</a>
-              <a href="#" class="block px-4 py-2 text-sm text-gray-500 hover:text-gray-900"
-                 role="menuitem" tabindex="-1" id="menu-item-1">Best Rating</a>
-              <a href="#" class="block px-4 py-2 text-sm text-gray-500 hover:text-gray-900"
-                 role="menuitem" tabindex="-1" id="menu-item-2">Newest</a>
-              <a href="#" class="block px-4 py-2 text-sm text-gray-500 hover:text-gray-900"
-                 role="menuitem" tabindex="-1" id="menu-item-3">Price: Low to High</a>
-              <a href="#" class="block px-4 py-2 text-sm text-gray-500 hover:text-gray-900"
-                 role="menuitem" tabindex="-1" id="menu-item-4">Price: High to Low</a>
-            </div>
-          </div>
+
+        <div class="flex items-center gap-2 rtl:space-x-reverse">
+          <select
+            class="h-8 text-sm px-2 leading-none transition duration-75 border-gray-300 rounded-lg shadow-sm outline-none focus:border-yellow-500 focus:ring-1 focus:ring-inset focus:ring-yellow-500 dark:border-gray-600 dark:focus:border-yellow-500"
+            [(ngModel)]="limit"
+            (change)="onSelectPageSize(limit)"
+          >
+            <option value="10">10</option>
+            <option value="25">25</option>
+            <option value="50">50</option>
+          </select>
+          <span class="text-sm font-medium"> per page </span>
         </div>
 
-        <button type="button" class="-m-2 ml-5 p-2 text-gray-400 hover:text-gray-500 sm:ml-7">
-            <span class="sr-only">View grid</span>
-            <svg class="h-5 w-5" aria-hidden="true" viewBox="0 0 20 20" fill="currentColor">
-              <path fill-rule="evenodd" d="M4.25 2A2.25 2.25 0 002 4.25v2.5A2.25 2.25 0 004.25 9h2.5A2.25 2.25 0 009 6.75v-2.5A2.25 2.25 0 006.75 2h-2.5zm0 9A2.25 2.25 0 002 13.25v2.5A2.25 2.25 0 004.25 18h2.5A2.25 2.25 0 009 15.75v-2.5A2.25 2.25 0 006.75 11h-2.5zm9-9A2.25 2.25 0 0011 4.25v2.5A2.25 2.25 0 0013.25 9h2.5A2.25 2.25 0 0018 6.75v-2.5A2.25 2.25 0 0015.75 2h-2.5zm0 9A2.25 2.25 0 0011 13.25v2.5A2.25 2.25 0 0013.25 18h2.5A2.25 2.25 0 0018 15.75v-2.5A2.25 2.25 0 0015.75 11h-2.5z" clip-rule="evenodd" />
-            </svg>
-        </button>
+        <div class="ms-3">
+         <app-venue-filters [filterData]="allfilters"></app-venue-filters>
+        </div>
+
+
         <button type="button" class="-m-2 ml-4 p-2 text-gray-400 hover:text-gray-500 sm:ml-6 lg:hidden">
             <span class="sr-only">Filters</span>
             <svg class="h-5 w-5" aria-hidden="true" viewBox="0 0 20 20" fill="currentColor">
@@ -48,6 +32,7 @@
         </button>
     </div>
 </div>
+
 
 <!-- <div class="pb-3">
     <div class="flex flex-wrap space-x-4 items-center justify-center px-10">
@@ -115,3 +100,42 @@
         </div>
     </div>
 </div> -->
+
+
+<!-- <div class="relative inline-block">
+  <div>
+    <button type="button" class="group inline-flex justify-center text-sm
+        font-medium text-gray-700 hover:text-gray-900" id="menu-button"
+        aria-expanded="false" aria-haspopup="true" data-dropdown-toggle="sortDropdown">Sort
+      <svg class="-mr-1 ml-1 h-5 w-5 flex-shrink-0 text-gray-400 group-hover:text-gray-500"
+          viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+        <path fill-rule="evenodd" d="M5.23 7.21a.75.75 0 011.06.02L10 11.168l3.71-3.938a.75.75 0 111.08 1.04l-4.25 4.5a.75.75 0 01-1.08 0l-4.25-4.5a.75.75 0 01.02-1.06z" clip-rule="evenodd" />
+      </svg>
+    </button>
+  </div>
+
+  <div class="hidden absolute right-0 z-10 mt-2 w-40 origin-top-right rounded-md bg-white shadow-2xl
+      ring-1 ring-black ring-opacity-5 focus:outline-none" role="menu" aria-orientation="vertical"
+      aria-labelledby="menu-button" tabindex="-1" id="sortDropdown">
+    <div class="py-1" role="none">
+      <a href="#" class="block px-4 py-2 text-sm font-medium hover:text-gray-900 text-gray-500" role="menuitem"
+         tabindex="-1" id="menu-item-0">Most Popular</a>
+      <a href="#" class="block px-4 py-2 text-sm text-gray-500 hover:text-gray-900"
+         role="menuitem" tabindex="-1" id="menu-item-1">Best Rating</a>
+      <a href="#" class="block px-4 py-2 text-sm text-gray-500 hover:text-gray-900"
+         role="menuitem" tabindex="-1" id="menu-item-2">Newest</a>
+      <a href="#" class="block px-4 py-2 text-sm text-gray-500 hover:text-gray-900"
+         role="menuitem" tabindex="-1" id="menu-item-3">Price: Low to High</a>
+      <a href="#" class="block px-4 py-2 text-sm text-gray-500 hover:text-gray-900"
+         role="menuitem" tabindex="-1" id="menu-item-4">Price: High to Low</a>
+    </div>
+  </div>
+</div> -->
+
+
+<!-- <button type="button" class="-m-2 ml-5 p-2 text-gray-400 hover:text-gray-500 sm:ml-7">
+  <span class="sr-only">View grid</span>
+  <svg class="h-5 w-5" aria-hidden="true" viewBox="0 0 20 20" fill="currentColor">
+    <path fill-rule="evenodd" d="M4.25 2A2.25 2.25 0 002 4.25v2.5A2.25 2.25 0 004.25 9h2.5A2.25 2.25 0 009 6.75v-2.5A2.25 2.25 0 006.75 2h-2.5zm0 9A2.25 2.25 0 002 13.25v2.5A2.25 2.25 0 004.25 18h2.5A2.25 2.25 0 009 15.75v-2.5A2.25 2.25 0 006.75 11h-2.5zm9-9A2.25 2.25 0 0011 4.25v2.5A2.25 2.25 0 0013.25 9h2.5A2.25 2.25 0 0018 6.75v-2.5A2.25 2.25 0 0015.75 2h-2.5zm0 9A2.25 2.25 0 0011 13.25v2.5A2.25 2.25 0 0013.25 18h2.5A2.25 2.25 0 0018 15.75v-2.5A2.25 2.25 0 0015.75 11h-2.5z" clip-rule="evenodd" />
+  </svg>
+</button> -->

@@ -14,7 +14,7 @@ export class HomeService {
 
     constructor(private http: HttpClient, private router: Router){}
 
-    APIBASE_URL = `${environment.baseUrl}`
+    APIBASE_URL = `${environment.customerUrl}`
 
 
     getHomePage(): Observable<any>{

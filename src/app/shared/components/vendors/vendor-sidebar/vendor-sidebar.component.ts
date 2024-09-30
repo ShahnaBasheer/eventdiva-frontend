@@ -4,6 +4,7 @@ import { ActivatedRoute, RouterModule } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { ReplaceCharacterPipe } from '../../../../core/pipes/replace.pipe';
 import { ChatRoomService } from '../../../../core/services/chatRoom.service';
+import { environment } from '../../../../../environments/environment';
 
 @Component({
   selector: 'app-vendor-sidebar',
@@ -19,19 +20,17 @@ import { ChatRoomService } from '../../../../core/services/chatRoom.service';
 
 
 export class VendorSidebarComponent implements OnInit{
-  menuItems: any = [];
+  menuItems: { name: string, route: string}[] = [];
   isNewMessage = false;
   @Input({ required: true }) vendorType = '';
 
   constructor(
     private commonService: CommonService,
     private chatroomService: ChatRoomService){
-
   }
 
   ngOnInit(): void {
-
-      this.chatroomService.checkUnreadMessagesAPI('vendor').subscribe({
+      this.chatroomService.checkUnreadMessagesAPI(environment.vendorUrl).subscribe({
           next: (res) => {
               this.chatroomService.updateNotifyMessage(!!res.data.count);
           }

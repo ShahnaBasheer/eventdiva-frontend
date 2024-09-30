@@ -5,11 +5,12 @@
 <!-- Product List -->
 
 <div class="px-5">
-  <app-filters></app-filters>
+  <app-filters [allfilters]="filterData"></app-filters>
   <section class="py-1">
     <div class="mx-auto grid max-w-6xl  grid-cols-1 gap-4 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-3">
         <ng-content></ng-content>
     </div>
   </section>
-  <app-pagination></app-pagination>
+  <app-vendor-pagination [totalPages]="totalPages"></app-vendor-pagination>
+
 </div>

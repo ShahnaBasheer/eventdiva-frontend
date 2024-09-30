@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component,Input } from '@angular/core';
+import { Component,Input, OnInit } from '@angular/core';
 import { DomSanitizer } from '@angular/platform-browser';
 import { decode } from 'html-entities'; // Import the decode function from the library
 
@@ -12,16 +12,16 @@ import { decode } from 'html-entities'; // Import the decode function from the l
   styleUrl: './detail-about.component.css'
 })
 
-export class DetailAboutComponent {
-  @Input() about!: string;
-  @Input() extraInfo!: string[];
+export class DetailAboutComponent implements OnInit{
+  @Input({required: true }) about!: string;
+  @Input({required: true }) extraInfo!: string[];
   @Input({required: true }) Title!: string;
+  sanitizedHtml: string = '';
 
   constructor(private sanitizer: DomSanitizer) {}
 
-  get aboutHtml() {
-    const decodedHtml = decode(this.about);
-    return this.sanitizer.bypassSecurityTrustHtml(decodedHtml) as string;;
+  ngOnInit(){
+     const decodedHtml = decode(this.about);
+     this.sanitizedHtml = this.sanitizer.bypassSecurityTrustHtml(decodedHtml) as string;
   }
-
 }

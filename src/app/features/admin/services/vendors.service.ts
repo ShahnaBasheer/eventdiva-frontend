@@ -18,7 +18,7 @@ export class VendorsService {
 
     constructor(private http: HttpClient, private router: Router){}
 
-    APIBASE_URL = `${environment.baseUrl}/admin/vendors`
+    APIBASE_URL = `${environment.adminUrl}vendors`
 
 
     getVendorsPage(): Observable<any>{

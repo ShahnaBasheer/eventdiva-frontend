@@ -12,7 +12,6 @@ import { CommonModule } from '@angular/common';
 import { SubNavbarComponent } from '../../../../shared/components/customer/sub-navbar/sub-navbar.component';
 import { environment } from '../../../../../environments/environment';
 import { LoaderComponent } from '../../../../shared/components/common/loader/loader.component';
-import { CommonService } from '../../../../core/services/common.service';
 import { CustomerWebRTCService } from '../../services/customerWebrtc.service';
 import { ToastrService } from 'ngx-toastr';
 import { VideoCallComponent } from '../../../../shared/components/common/video-call/video-call.component';
@@ -25,46 +24,46 @@ import { MatSnackBar } from '@angular/material/snack-bar';
   selector: 'app-planner-detail',
   standalone: true,
   imports: [
-    DetailAreasComponent, DetailAboutComponent,
-    DetailWorksComponent, DetailReviewsComponent,
-    BrowseSimilarComponent, CheckAvailabilityComponent,
-    PlannerBodyDetailComponent, SubNavbarComponent,
-    CommonModule, RouterModule,
-    VideoCallComponent, LoaderComponent,
+    DetailAreasComponent,
+    DetailAboutComponent,
+    DetailWorksComponent,
+    DetailReviewsComponent,
+    BrowseSimilarComponent,
+    CheckAvailabilityComponent,
+    PlannerBodyDetailComponent,
+    SubNavbarComponent,
+    CommonModule,
+    RouterModule,
+    VideoCallComponent,
+    LoaderComponent,
     ChatRoomComponent,
   ],
   templateUrl: './planner-detail.component.html',
-  styleUrl: './planner-detail.component.css'
+  styleUrl: './planner-detail.component.css',
 })
-
-
-export class PlannerDetailComponent implements OnInit{
+export class PlannerDetailComponent implements OnInit {
   @ViewChild('checkAvailabilitySection') checkAvailabilitySection!: ElementRef;
   @ViewChild('bookButton', { static: false }) bookButton!: ElementRef;
-  @Input({required: true}) slug: string = '';
+  @Input({ required: true }) slug: string = '';
   isBooking: boolean = false;
-  allMenus = ['ABOUT', 'SERVICES', 'WORKS', 'REVIEWS'];
+  allMenus = ['ABOUT', 'SERVICES', 'WORKS', 'WISHLIST'];
   eventPlannerData!: IEventPlanner;
-  imageUrl: string = '';
   isLoading: boolean = true;
-  showModal = false;
+  showCallAlertModal = false;
   showVideoCallModal = false;
   showChatRoomModal = false;
-  eventTypes = this.commonservice.getEventTypes();
-
 
   constructor(
     private plannerService: PlannerService,
-    private commonservice: CommonService,
     private webrtcservices: CustomerWebRTCService,
     private toastr: ToastrService,
     private chatroomservice: ChatRoomService,
     private snackBar: MatSnackBar,
     private router: Router
-  ){}
+  ) {}
 
   ngOnInit(): void {
-    this.plannerService.getEventPlanner(this.slug).subscribe({
+    this.plannerService.getEventPlannerDetails(this.slug).subscribe({
       next: (res) => {
         if (res.data?.eventPlannerData) {
           this.eventPlannerData = res.data.eventPlannerData;
@@ -74,31 +73,29 @@ export class PlannerDetailComponent implements OnInit{
       error: (err: any) => {
         console.log('Error:', err.message);
         this.isLoading = false;
-      }
+      },
     });
   }
 
   startCall() {
-    this.showModal = true;
+    this.showCallAlertModal = true;
   }
 
   async startChat() {
-    if(!this.showChatRoomModal){
+    if (!this.showChatRoomModal) {
       this.chatroomservice.joinChatRoom(this.eventPlannerData.vendorId);
     }
     this.showChatRoomModal = !this.showChatRoomModal;
   }
 
-
-
   onCloseModal() {
-    this.showModal = false;
+    this.showCallAlertModal = false;
   }
 
-  async onConfirmVideoCall(){
+  async onConfirmVideoCall() {
     try {
       await this.webrtcservices.startCall(this.eventPlannerData.vendorId);
-      this.showModal = false;
+      this.showCallAlertModal = false;
       this.showVideoCallModal = true;
     } catch (error) {
       console.error('Failed to start call:', error);
@@ -106,24 +103,29 @@ export class PlannerDetailComponent implements OnInit{
     }
   }
 
-
-  onCloseVideoCall(){
+  onCloseVideoCall() {
     this.showVideoCallModal = false;
   }
 
   onBooking() {
     if (!this.isBooking) {
       // Scroll to check availability component
-      this.checkAvailabilitySection.nativeElement.scrollIntoView({ behavior: 'smooth' });
+      this.checkAvailabilitySection.nativeElement.scrollIntoView({
+        behavior: 'smooth',
+      });
 
       // Show an alert or a pop-up
       this.snackBar.open('Please check availability before booking!', 'OK', {
         duration: 3000,
-        panelClass: ['snackbar-warning'],
+        panelClass: ['mat-mdc-snackbar-surface', 'snackbar-info'],
       });
     } else {
       // Proceed to booking
-      this.router.navigate(['/event-planners', this.eventPlannerData.slug, 'booking']);
+      this.router.navigate([
+        '/event-planners',
+        this.eventPlannerData.slug,
+        'booking',
+      ]);
     }
   }
 
@@ -134,9 +136,8 @@ export class PlannerDetailComponent implements OnInit{
     }
   }
 
-  async onCloseChatRoom(){
+  async onCloseChatRoom() {
     this.showChatRoomModal = false;
-      await this.chatroomservice.leaveChatRoom(environment.customer);
+    await this.chatroomservice.leaveChatRoom(environment.customer);
   }
-
 }

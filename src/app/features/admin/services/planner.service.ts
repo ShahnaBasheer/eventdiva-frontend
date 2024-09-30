@@ -18,7 +18,7 @@ export class EventPlannerAdminService {
 
     constructor(private http: HttpClient, private router: Router){}
 
-    APIBASE_URL = `${environment.baseUrl}/admin/event-planners`
+    APIBASE_URL = `${environment.adminUrl}/event-planners`
 
 
     getPlannersPage(): Observable<any>{

@@ -15,7 +15,7 @@ export class VideoCallService {
   constructor(private http: HttpClient) {}
 
   startCall(vendorId: string): Observable<any> {
-    return this.http.post<{ roomId: string }>(`${this.apiUrl}/video-call/start-call`, { vendorId }, {
+    return this.http.post<{ roomId: string }>(`${this.apiUrl}/api/video-call/start-call`, { vendorId }, {
       withCredentials: true,
     }
   )}

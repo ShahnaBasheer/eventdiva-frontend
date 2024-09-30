@@ -54,7 +54,7 @@ export class VenueBookingDetailsComponent implements OnInit{
             const totalServiceCharges = this.item.charges?.fullPayment?.servicesCharges.reduce((sum, charge) => sum + charge.cost, 0);
             this.fullPayment = totalServiceCharges + (this.item.charges.fullPayment.venueRental || 0);
         },
-        error: (err: any) => {
+        error: (err) => {
            console.log(err)
         }
       })
@@ -105,7 +105,7 @@ export class VenueBookingDetailsComponent implements OnInit{
     if(this.item.payments.length < 1){
       this.snackBar.open('Please Generate Advance Payment Atfirst!', 'OK', {
         duration: 2000,
-        panelClass: ['snackbar-warning'],
+        panelClass: ['mat-mdc-snackbar-surface', 'snackbar-info'],
       });
     } else { this.addSummaryModal = true; }
 

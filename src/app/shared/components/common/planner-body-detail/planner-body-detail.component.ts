@@ -27,9 +27,9 @@ import { CommonModule } from '@angular/common';
 
 
 export class PlannerBodyDetailComponent {
-  @Input() eventPlannerData: IEventPlanner | null = null;
+  @Input({required: true}) eventPlanner!: IEventPlanner;
 
   ngOnInit(){
-    console.log(this.eventPlannerData, "heyyy")
+    console.log(this.eventPlanner, "heyyy")
   }
 }

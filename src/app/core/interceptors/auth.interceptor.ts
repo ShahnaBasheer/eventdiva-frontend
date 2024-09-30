@@ -21,6 +21,7 @@ import {
   vendorLoginSuccess,
   vendorSessionExpired,
 } from '../../features/vendors/store/vendor.actions';
+import { environment } from '../../../environments/environment';
 
 export const AuthInterceptor: HttpInterceptorFn = (
   req: HttpRequest<any>,
@@ -29,16 +30,18 @@ export const AuthInterceptor: HttpInterceptorFn = (
   const store = inject(Store);
   const tokenService = inject(TokenService);
 
-  let tokenKey: string;
+  let tokenKey!: string ;
   const postRequests = new Set([
-    '/login',
-    '/signup',
-    '/admin/login',
-    '/auth/google',
+    '/api/login',
+    '/api/signup',
+    '/api/auth/google',
+    '/api/verify-otp',
+    '/api/resend-otp',
     '/vendor/login',
     '/vendor/signup',
-    '/verify-otp',
-    '/resend-otp',
+    '/vendor/verify-otp',
+    '/vendor/resend-otp',
+    '/admin/login',
   ]);
   const path = new URL(req.url).pathname;
   const isPostRequest = postRequests.has(path);
@@ -46,16 +49,17 @@ export const AuthInterceptor: HttpInterceptorFn = (
   if (req.method === 'POST' && isPostRequest) return next(req);
 
   if (path.startsWith('/admin/')) {
-    tokenKey = 'ad_access';
+    tokenKey = environment.ad_accessKey;
   } else if (path.startsWith('/vendor/')) {
-    tokenKey = 'vn_access';
-  } else {
-    tokenKey = 'cu_access';
+    tokenKey = environment.vn_accessKey;
+  } else if('/api'){
+    tokenKey = environment.cu_accessKey;
   }
 
   let token!: string;
 
   try {
+    if(!tokenKey) throw new Error("Token key is not found");
     token = tokenService.getToken(tokenKey) || '';
   } catch (error: any) {
     console.error('Error parsing token from localStorage', error?.message);
@@ -96,7 +100,7 @@ export const AuthInterceptor: HttpInterceptorFn = (
                 store.dispatch(adminSessionExpired());
               } else if (path.startsWith('/vendor/')) {
                 store.dispatch(vendorSessionExpired());
-              } else {
+              } else if('/api'){
                 store.dispatch(sessionExpired());
               }
             }

@@ -20,7 +20,7 @@ import { NotificationsComponent } from '../notifications/notifications.component
 
 
 export class NavbarCustomerComponent{
-  AllNotifications: any;
+  AllNotifications!: Notification[];
   showNotifications = false;
   isUserLoggedIn = false;
   firstname = '';
@@ -31,35 +31,14 @@ export class NavbarCustomerComponent{
 
   menuItems: MenuItem[] = [
     { "name": "home", "route": "/home" },
-    { "name": "vendors", "route": "/vendors", "subMenu": [
-            { "type": "Planners",
-              "list": [
-                  { "name": "Event Planners", "route": "/vendors/event-planners"},
-                  { "name": "vendors", "route": "/vendors"},
-                  { "name": "vendors", "route": "/vendors"},
-               ]
-            },
-            { "type": "Venues",
-              "list": [
-                { "name": "Banquet Halls", "route": "/vendors/venues"},
-                { "name": "Auditorium", "route": "/vendors/venues"},
-                { "name": "Resorts", "route": "/vendors/venues"},
-                { "name": "Hotels", "route": "/vendors/venues"},
-                { "name": "Restaurant", "route": "/vendors/venues"},
-                { "name": "Halls", "route": "/vendors"},
-                { "name": "Convention Centers", "route": "/vendors/venues"},
-               ]
-            },
-            { "type": "Food Vendors",
-              "list": [
-                  { "name": "vendors", "route": "/vendors"},
-                  { "name": "vendors", "route": "/vendors"},
-                  { "name": "vendors", "route": "/vendors"},
-               ]
-            },
-        ] },
+    { "name": "vendors", "route": "/vendors",
+      "subItems": [
+        { "name": "Event Planners", "route": "/vendors/event-planners"},
+        { "name": "Venues", "route": "/vendors/venues"},
+      ]
+    },
     { "name": "bookings", "route": "/bookings" },
-    { "name": "favourites", "route": "/favourites" },
+    // { "name": "favourites", "route": "/favourites" },
     { "name": "contact", "route": "/contact" },
     { "name": "about", "route": "/about" }
   ]
@@ -103,3 +82,40 @@ export class NavbarCustomerComponent{
 
 
 //   ] },
+
+
+
+// [
+//   { "name": "home", "route": "/home" },
+//   { "name": "vendors", "route": "/vendors", "subMenu": [
+//           { "type": "Planners",
+//             "list": [
+//                 { "name": "Event Planners", "route": "/vendors/event-planners"},
+//                 { "name": "vendors", "route": "/vendors"},
+//                 { "name": "vendors", "route": "/vendors"},
+//              ]
+//           },
+//           { "type": "Venues",
+//             "list": [
+//               { "name": "Banquet Halls", "route": "/vendors/venues"},
+//               { "name": "Auditorium", "route": "/vendors/venues"},
+//               { "name": "Resorts", "route": "/vendors/venues"},
+//               { "name": "Hotels", "route": "/vendors/venues"},
+//               { "name": "Restaurant", "route": "/vendors/venues"},
+//               { "name": "Halls", "route": "/vendors"},
+//               { "name": "Convention Centers", "route": "/vendors/venues"},
+//              ]
+//           },
+//           { "type": "Food Vendors",
+//             "list": [
+//                 { "name": "vendors", "route": "/vendors"},
+//                 { "name": "vendors", "route": "/vendors"},
+//                 { "name": "vendors", "route": "/vendors"},
+//              ]
+//           },
+//       ] },
+//   { "name": "bookings", "route": "/bookings" },
+//   { "name": "favourites", "route": "/favourites" },
+//   { "name": "contact", "route": "/contact" },
+//   { "name": "about", "route": "/about" }
+// ]

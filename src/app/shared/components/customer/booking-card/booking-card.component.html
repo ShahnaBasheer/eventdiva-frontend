@@ -40,8 +40,8 @@
         {{ item.eventType }}
         <span class="text-gray-300 font-bold text-[.75rem]"> Event Type</span>
       </p>
-      <p class="text-[.95rem]">
-        {{ item.eventName }}
+      <p class="text-[.95rem]" [innerHTML]="item.eventName">
+
         <span class="text-gray-300 font-bold text-[.75rem]"> Event Name</span>
       </p>
       <p class="text-[.95rem]">

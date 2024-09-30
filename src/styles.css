@@ -26,6 +26,7 @@ body{
 
 
 
+
 @layer utilities {
   .neo-shadow {
       box-shadow: 5px 5px 10px #868787, -5px -5px 10px #ffffff;
@@ -62,4 +63,27 @@ body{
   .dark .neo-button:active {
       box-shadow: inset 5px 5px 10px #1a1a1a, inset -5px -5px 10px #2c2c2c;
   }
+
+
+  .mat-mdc-snackbar-surface {
+    @apply bg-transparent py-0 shadow-sm text-inherit !important;
+  }
+
+  /* styles.css or styles.scss */
+  .snackbar-success {
+    @apply bg-[#37a667] text-white !important;
+  }
+
+  .snackbar-error {
+    @apply bg-red-500 text-white !important;
+  }
+
+  .snackbar-warning {
+    @apply bg-[#838322] text-white !important;
+  }
+
+  .snackbar-info {
+    @apply bg-blue-500 text-white !important;
+  }
+
 }

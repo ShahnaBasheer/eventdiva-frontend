@@ -48,7 +48,7 @@ export const ErrorInterceptor: HttpInterceptorFn = (req: HttpRequest<any>, next:
                       toastr.error("Vendor's account is Blocked!");
                       store.dispatch(vendorLogout());
                     }
-                } else {
+                } else if(path.startsWith('/api/')){
                     if(error.status === 401 && req.headers.has('Authorization')){
                       store.dispatch(sessionExpired());
                     } else if(error.status === 401) {

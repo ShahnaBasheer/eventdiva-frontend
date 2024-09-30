@@ -109,7 +109,7 @@ export class VenueVendorService {
     }
 
     getChatroom(){
-        return this.http.get<any>(`${environment.baseUrl}/vendor/chat-room/`, {
+        return this.http.get<any>(`${environment.vendorUrl}/chat-room/`, {
           withCredentials: true,
         })
     }

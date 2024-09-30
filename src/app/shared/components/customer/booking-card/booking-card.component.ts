@@ -26,10 +26,7 @@ export class BookingCardComponent{
   @Input({ required: true }) item: VenueBooking | PlannerBooking |   null = null ;
 
 
-  constructor(private plannerservice: PlannerService,
-              private venueservice: venueService,
-              private router: Router
-  ){}
+  constructor(private router: Router){}
 
 
   isVenueBookingtype(item: PlannerBooking | VenueBooking | null): item is VenueBooking{
@@ -43,14 +40,11 @@ export class BookingCardComponent{
 
 
   onSelectCard(){
+      console.log(this.isPlannerBookingtype(this.item), this.isVenueBookingtype(this.item))
       if(this.isPlannerBookingtype(this.item)){
           this.router.navigate([`bookings/event-planner/details/${this.item?.bookingId}`])
-      } else if(this.isPlannerBookingtype(this.item)){
-          this.venueservice.bookingDetails(this.item.bookingId).subscribe({
-            next: (res) => {
-               console.log(res)
-            }
-          })
+      } else if(this.isVenueBookingtype(this.item)){
+          this.router.navigate([`bookings/venue/details/${this.item?.bookingId}`])
       }
   }
 

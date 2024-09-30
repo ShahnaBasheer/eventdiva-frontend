@@ -17,13 +17,13 @@ export class AllVendorsService {
     constructor(private http: HttpClient, private router: Router){}
 
     getAllEventPlannersPage(): Observable<any>{
-        return this.http.get<any>(`${environment.baseUrl}/vendors/event-planners`, {
+        return this.http.get<any>(`${environment.customerUrl}/vendors/event-planners`, {
             withCredentials: true,
         })
     }
 
     getAllVenuesPage(): Observable<any>{
-      return this.http.get<any>(`${environment.baseUrl}/vendors/venues`, {
+      return this.http.get<any>(`${environment.customerUrl}/vendors/venues`, {
           withCredentials: true,
       })
   }

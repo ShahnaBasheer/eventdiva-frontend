@@ -13,7 +13,7 @@ import { environment } from "../../../../environments/environment";
 export class AdminAuthService {
     constructor(private http: HttpClient){}
 
-    APIBASE_URL = `${environment.baseUrl}/admin`;
+    APIBASE_URL = `${environment.adminUrl}`;
 
 
     AdminLogin(credentials: LoginCredentials): Observable<any> {
@@ -29,6 +29,6 @@ export class AdminAuthService {
     }
 
     isLoggedIn(): boolean {
-      return !!localStorage.getItem('ad_access');
+      return !!localStorage.getItem(environment.ad_accessKey);
     }
 }

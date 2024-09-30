@@ -1,0 +1,38 @@
+<!-- pagination -->
+<div class="flex justify-center items-center w-full">
+  <div class="mb-4 flex justify-center space-x-4" aria-label="Pagination">
+    <span
+      class="rounded-lg border border-teal-500 px-2 py-2 text-gray-700 cursor-pointer"
+      (click)="onSelectPage(selectedPage - 1)"
+      [class.opacity-50]="selectedPage === 1"
+      [class.cursor-not-allowed]="selectedPage === 1"
+      [ngClass]="{ 'pointer-events-none': selectedPage === 1 }"
+    >
+      <i class="fa-solid fa-angle-left px-2"></i>
+    </span>
+
+    <button
+      [disabled]="item === selectedPage"
+      *ngFor="let item of pages"
+      class="rounded-lg border border-teal-500 px-4 py-2 cursor-pointer"
+      [ngClass]="{
+        'bg-teal-500 text-white': item === selectedPage,
+        'bg-white text-gray-700': item !== selectedPage
+      }"
+      (click)="onSelectPage(item)"
+    >
+      {{ item }}
+    </button>
+
+    <span
+      class="rounded-lg border border-teal-500 px-2 py-2 text-gray-700 cursor-pointer"
+      (click)="onSelectPage(selectedPage + 1)"
+      [class.opacity-50]="selectedPage === totalPages"
+      [class.cursor-not-allowed]="selectedPage === totalPages"
+      [ngClass]="{ 'pointer-events-none': selectedPage === totalPages }"
+    >
+      <span class="sr-only">Next</span>
+      <i class="fa-solid fa-angle-right px-2"></i>
+    </span>
+  </div>
+</div>

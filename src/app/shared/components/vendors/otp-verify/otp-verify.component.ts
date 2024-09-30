@@ -21,7 +21,7 @@ import { ToastrService } from 'ngx-toastr';
 export class OtpVerifyComponent {
   email: string = '';
   otpVerificationForm!: FormGroup;
-  countdownIntervalId!: any;
+  countdownIntervalId!: ReturnType<typeof setInterval>;
   countdown!: string;
   isLoading: boolean = false;
   isEnabled: boolean = true;
@@ -93,7 +93,7 @@ export class OtpVerifyComponent {
   onResendOTP(): void {
       this.isTimerEnabled = false;
       this.vendorService.resendOTP(this.email).subscribe({
-        next: (response: any) => {
+        next: (response) => {
           this.resendOtpCount = parseInt(response?.data?.remainingLimit);
           clearInterval(this.countdownIntervalId)
           this.isTimerEnabled = true;
@@ -102,7 +102,7 @@ export class OtpVerifyComponent {
             this.toastr.success('Resend OTP successfully!');
           }
         },
-        error: (error: any) => {
+        error: (error) => {
           if (error.status === 409) {
             this.toastr.warning('You have already signed up. Please log in!');
             this.router.navigate(['/vendors/login']);

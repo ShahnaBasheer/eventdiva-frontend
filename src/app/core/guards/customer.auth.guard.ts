@@ -1,6 +1,7 @@
 import { inject } from '@angular/core';
 import { ActivatedRouteSnapshot, CanActivateFn, Router, RouterStateSnapshot } from '@angular/router';
 import { TokenService } from '../services/jwtToken.service';
+import { environment } from '../../../environments/environment';
 
 
 // const publicRoutes = ['/home', '/venues'];
@@ -10,7 +11,7 @@ export const AuthGuard: CanActivateFn = (route: ActivatedRouteSnapshot, state: R
     const jwtTokenService = inject(TokenService)
 
     const url = state.url;
-    const token = jwtTokenService.isValidToken('cu_access');
+    const token = jwtTokenService.isValidToken(environment.cu_accessKey);
 
     if(token){
         if(url === '/login' || url === '/signup'){

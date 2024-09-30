@@ -4,7 +4,7 @@
 
 
 
-<div class="bg-[#F0F2F5] px-5 pt-4 pb-10"  *ngIf="venueData">
+<div class="bg-[#F0F2F5] px-5 pt-4 pb-10" *ngIf="venueData">
 
   <app-upper-image-part
       [CompanyInfo]="venueData"
@@ -49,8 +49,9 @@
   </app-upper-image-part>
 
   <div class="grid lg:grid-cols-12">
-      <div class="lg:col-span-12 ">
-          <app-venue-body-detail [venueData]="venueData"></app-venue-body-detail>
+      <div class="lg:col-span-12">
+          <app-venue-body-detail [venue]="venueData"></app-venue-body-detail>
       </div>
   </div>
+
 </div>

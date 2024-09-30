@@ -1,8 +1,5 @@
 
-
-<div *ngIf="isLoading">
-  Your service has not been Added Yet
-</div>
+<app-page-loader *ngIf="isLoading"></app-page-loader>
 
 
 <app-vendor-dashboard  *ngIf="!isLoading">

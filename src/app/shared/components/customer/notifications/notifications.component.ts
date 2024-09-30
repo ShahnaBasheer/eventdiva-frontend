@@ -7,6 +7,7 @@ import { trigger, state, style, animate, transition } from '@angular/animations'
 import { Store } from '@ngrx/store';
 import { isLoggedIn } from '../../../../features/customer/store/customer.selectors';
 import { Notification } from '../../../../core/models/notification.model';
+import { environment } from '../../../../../environments/environment';
 
 
 @Component({
@@ -41,7 +42,7 @@ export class NotificationsComponent implements OnInit{
       this.store.select(isLoggedIn).subscribe(data => this.isLogged = data)
 
       if(this.isLogged){
-        this.notificationservice.fetchNotifications().subscribe(res => {
+        this.notificationservice.fetchNotifications(environment.customerUrl).subscribe(res => {
           this.notificationservice.addNotifications(res.data?.notifications);
           this.unreadCount = res.data?.readCount;
         });
@@ -66,9 +67,9 @@ export class NotificationsComponent implements OnInit{
 
   onRead(id: string, isRead: boolean, index: number){
     if(!isRead){
-      this.notificationservice.onIsReadChange(id).subscribe({
-          next: (res: any) => {
-            if(res?.data){
+      this.notificationservice.onIsReadChange(id, environment.customerUrl).subscribe({
+          next: (res) => {
+            if(res){
               this.AllNotifications[index].isRead = true;
               this.unreadCount--;
             }
@@ -78,7 +79,7 @@ export class NotificationsComponent implements OnInit{
   }
 
   onDeleteNotification(id: string, index: number){
-      this.notificationservice.ondeleteNotification(id).subscribe({
+      this.notificationservice.ondeleteNotification(id, environment.customerUrl).subscribe({
           next: (res) => {
               if(!this.AllNotifications[index].isRead) this.unreadCount--;
               this.AllNotifications.splice(index, 1);

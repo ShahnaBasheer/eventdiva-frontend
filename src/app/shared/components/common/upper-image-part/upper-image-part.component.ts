@@ -19,10 +19,9 @@ export class UpperImagePartComponent implements OnInit{
     @Input({required: true}) CompanyInfo!: IEventPlanner | IVenue;
     @Input({required: true}) Menu: string[] = [];
     @Input({required: true}) Title: string = '';
-    imageUrl: string = '';
 
-    ngOnInit(): void {
-    }
+
+    ngOnInit(): void {}
 
 
 }

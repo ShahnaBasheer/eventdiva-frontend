@@ -4,7 +4,6 @@ import { CommonModule } from '@angular/common';
 import { UpperImagePartComponent } from '../../../../../shared/components/common/upper-image-part/upper-image-part.component';
 import { VenueVendorService } from '../../services/venue-vendor.service';
 import { Router } from '@angular/router';
-import { environment } from '../../../../../../environments/environment';
 import { VenueBodyDetailComponent } from '../../../../../shared/components/common/venue-body-detail/venue-body-detail.component';
 
 @Component({
@@ -27,12 +26,12 @@ export class VenueDetailComponent {
 
     ngOnInit(): void {
       this.venueVendorService.getVenueDetails().subscribe({
-        next: (res) => {
+        next: (res: {data: { venueVendorData: IVenue }}) => {
           console.log(res.data)
           if (!res.data?.venueVendorData) {
             this.router.navigate(['/vendor/venue-vendor/new-service', 'VV']);
           } else {
-            this.venueData = res.data.venueVendorData;
+            this.venueData = res.data.venueVendorData as IVenue;
           }
         },
         error: (err: any) => {

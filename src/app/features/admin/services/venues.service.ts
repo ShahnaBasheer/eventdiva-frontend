@@ -18,7 +18,7 @@ export class VenuesAdminService {
 
     constructor(private http: HttpClient, private router: Router){}
 
-    APIBASE_URL = `${environment.baseUrl}/admin/venues`;
+    APIBASE_URL = `${environment.adminUrl}/venues`;
 
 
     getVenuesPage(): Observable<any>{

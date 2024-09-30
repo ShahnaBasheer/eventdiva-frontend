@@ -2,7 +2,9 @@ import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { BookingCardComponent } from '../../../../shared/components/customer/booking-card/booking-card.component';
 import { SubNavbarComponent } from '../../../../shared/components/customer/sub-navbar/sub-navbar.component';
-import { AllBookingService } from '../../services/booking.service';
+import { CustomerService } from '../../services/customer.service';
+
+
 
 @Component({
     selector: 'app-bookings',
@@ -19,15 +21,15 @@ import { AllBookingService } from '../../services/booking.service';
 
 export class BookingsComponent implements OnInit{
   allbookings = [];
-  constructor(private allBookingService: AllBookingService){}
+  constructor(private customerservice: CustomerService){}
 
   ngOnInit(): void {
-       this.allBookingService.getAllBookings().subscribe({
-        next: (res) => {
-            this.allbookings = res.data?.allBookings;
-            console.log(res.data.allBookings)
-        }
-       })
+      this.customerservice.getAllBookings().subscribe({
+       next: (res) => {
+           this.allbookings = res.data?.allBookings;
+           console.log(res.data.allBookings)
+       }
+      })
   }
 
 }

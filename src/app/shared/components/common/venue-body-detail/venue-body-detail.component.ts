@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { IVenue } from '../../../../core/models/venue.model';
 import { DetailAreasComponent } from '../detail-areas/detail-areas.component';
 import { DetailAboutComponent } from '../../customer/detail-about/detail-about.component';
@@ -28,6 +28,10 @@ import { CommonModule } from '@angular/common';
 })
 
 
-export class VenueBodyDetailComponent {
-  @Input() venueData: IVenue | null = null;
+export class VenueBodyDetailComponent implements OnInit{
+  @Input({required: true}) venue!: IVenue;
+
+  ngOnInit(){
+    console.log("it initialized", this.venue)
+  }
 }

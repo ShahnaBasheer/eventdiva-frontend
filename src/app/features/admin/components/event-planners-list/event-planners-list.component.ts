@@ -66,7 +66,7 @@ export class EventPlannersListComponent {
           // Show an alert or a pop-up
           this.snackBar.open(`${this.planners[index].company} has been Approved`, 'OK', {
             duration: 2000,
-            panelClass: ['snackbar-warning'],
+            panelClass: ['mat-mdc-snackbar-surface', 'snackbar-success'],
           });
           this.activeDropdownIndex  = -1;
         }

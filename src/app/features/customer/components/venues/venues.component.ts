@@ -17,13 +17,24 @@ import { LoaderComponent } from '../../../../shared/components/common/loader/loa
 
 export class VenuesComponent {
   venues!: IVenue[] ;
+  totalCount: number = 0;
+  totalPages: number = 1;
   isLoading = true;
+  filterData!:  {
+    services: string[],
+    amenities: string[],
+    locations: string[]
+  };;
   constructor(private allvendorsservice: AllVendorsService){}
 
   ngOnInit(): void {
       this.allvendorsservice.getAllVenuesPage().subscribe({
         next: (res)=> {
+            console.log(res.data)
             this.venues = res.data?.venues;
+            this.totalCount = res.data?.totalCount;
+            this.totalPages = res.data?.totalPages;
+            this.filterData = res.data?.filterData;
             this.isLoading = false;
         },
         error: (err) => {
