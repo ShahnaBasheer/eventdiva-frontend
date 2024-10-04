@@ -178,7 +178,7 @@ export class VendorProfileComponent implements OnInit {
           this.profileInfo = res.data.vendorDetail;
           this.isEditing = false;
           this.showOtpModal = false;
-          this.toastr.error("Email has been successfully changed!");
+          this.toastr.success("Email has been successfully changed!");
         },
         error: (err) => {
           console.log(err.error.message,'Error in verify OTP');
@@ -201,7 +201,7 @@ export class VendorProfileComponent implements OnInit {
           next: (res) => {
             this.toastr.success("Password has been Successfully Changed");
             this.showChangePassword = false;
-          }, 
+          },
           error: (err) => {
             console.log(err);
             this.toastr.error(err.error.message);
@@ -210,6 +210,10 @@ export class VendorProfileComponent implements OnInit {
     } else {
       this.changePasswordForm.markAllAsTouched();
     }
+  }
+
+  onEditedProfile(data: Vendor){
+    this.profileInfo = data;
   }
 
 }

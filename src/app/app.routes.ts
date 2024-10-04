@@ -32,7 +32,7 @@ import { PlannerDetailComponent } from './features/customer/components/planner-d
 import { VenueDashboardComponent } from './features/vendors/venue-vendor/components/venue-dashboard/venue-dashboard.component';
 import { VenueRegistrationComponent } from './features/vendors/venue-vendor/components/venue-registration/venue-registration.component';
 import { NotFoundComponent } from './shared/components/common/not-found/not-found.component';
-import { VenueDetailComponent as VenueVendorComponent}  from './features/vendors/venue-vendor/components/venue-detail/venue-detail.component';
+import { VenueDetailComponent as VenueVendorComponent } from './features/vendors/venue-vendor/components/venue-detail/venue-detail.component';
 import { VenuesComponent } from './features/customer/components/venues/venues.component';
 import { VenuesListComponent } from './features/admin/components/venues-list/venues-list.component';
 import { EventPlannersListComponent } from './features/admin/components/event-planners-list/event-planners-list.component';
@@ -49,88 +49,134 @@ import { InboxChatComponent } from './features/vendors/common/inbox-chat/inbox-c
 import { BookingDetailsComponent } from './shared/components/customer/booking-details/booking-details.component';
 import { ContactComponent } from './shared/components/common/contact/contact.component';
 import { AboutComponent } from './shared/components/common/about/about.component';
-
-
+import { UserProfileComponent } from './features/customer/components/user-profile/user-profile.component';
 
 export const routes: Routes = [
   {
-    path: '', component: CustomersComponent, canActivateChild:[AuthGuard], children: [
+    path: '',
+    component: CustomersComponent,
+    canActivateChild: [AuthGuard],
+    children: [
       { path: 'home', component: HomeComponent },
       { path: 'login', component: LoginComponent },
       { path: 'signup', component: SignupComponent },
       { path: 'otpverification', component: OtpVerificationComponent },
       { path: 'forgot-password', component: ForgotPasswordComponent },
       { path: 'contact', component: ContactComponent },
+      { path: 'profile', component: UserProfileComponent},
       { path: 'about', component: AboutComponent },
       { path: 'vendors/venues', component: VenuesComponent },
       { path: 'vendors/venues/:slug', component: VenueDetailComponent },
       { path: 'vendors/event-planners', component: AllEventPlannersComponent },
-      { path: 'vendors/event-planners/:slug', component: PlannerDetailComponent },
+      {
+        path: 'vendors/event-planners/:slug',
+        component: PlannerDetailComponent,
+      },
       { path: 'bookings', component: BookingsComponent },
       { path: 'venues/:slug/booking', component: VenueBookingComponent },
-      { path: 'event-planners/:slug/booking', component: PlannerBookingComponent },
-      { path: 'bookings/event-planner/details/:bookingId', component: BookingDetailsComponent, data: { type: 'planner' } },
-      { path: 'bookings/venue/details/:bookingId', component: BookingDetailsComponent, data: { type: 'venue' } },
-      { path: '', redirectTo: 'home', pathMatch: 'full' }
-    ]
+      {
+        path: 'event-planners/:slug/booking',
+        component: PlannerBookingComponent,
+      },
+      {
+        path: 'bookings/event-planner/details/:bookingId',
+        component: BookingDetailsComponent,
+        data: { type: 'planner' },
+      },
+      {
+        path: 'bookings/venue/details/:bookingId',
+        component: BookingDetailsComponent,
+        data: { type: 'venue' },
+      },
+      { path: '', redirectTo: 'home', pathMatch: 'full' },
+    ],
   },
   {
-    path: 'admin', component: AdminComponent, canActivate:[AdminAuthGuard],
-      children: [
-        { path: '', component: AdminPanelComponent, canActivateChild:[AdminAuthGuard], children: [
+    path: 'admin',
+    component: AdminComponent,
+    canActivate: [AdminAuthGuard],
+    children: [
+      {
+        path: '',
+        component: AdminPanelComponent,
+        canActivateChild: [AdminAuthGuard],
+        children: [
           { path: 'dashboard', component: DashboardComponent },
           { path: 'customers', component: CustomersListComponent },
           { path: 'vendors', component: VendorsListComponent },
           { path: 'venues', component: VenuesListComponent },
-          { path: 'venues/details/:slug', component: ServiceDetailsComponent, data: { type: 'venue' }},
+          {
+            path: 'venues/details/:slug',
+            component: ServiceDetailsComponent,
+            data: { type: 'venue' },
+          },
           { path: 'event-planners', component: EventPlannersListComponent },
-          { path: 'event-planners/details/:slug', component: ServiceDetailsComponent, data: { type: 'planner' }},
+          {
+            path: 'event-planners/details/:slug',
+            component: ServiceDetailsComponent,
+            data: { type: 'planner' },
+          },
           { path: 'venues/bookings', component: VenuesBookingListComponent },
-          { path: 'event-planners/bookings', component: PlannersBookingListComponent},
-          { path: '', redirectTo: 'dashboard', pathMatch: 'full' }
-        ]},
+          {
+            path: 'event-planners/bookings',
+            component: PlannersBookingListComponent,
+          },
+          { path: '', redirectTo: 'dashboard', pathMatch: 'full' },
+        ],
+      },
       { path: 'login', component: AdminLoginComponent },
-    ]
+    ],
   },
 
   {
-    path: 'vendor', component: VendorsMainComponent, canActivateChild:[VendorAuthGuard],
+    path: 'vendor',
+    component: VendorsMainComponent,
+    canActivateChild: [VendorAuthGuard],
+    children: [
+      { path: 'signup', component: SignupVendorComponent },
+      { path: 'login', component: LoginVendorComponent },
+      { path: 'otpverification', component: OtpVerifyComponent },
+      {
+        path: 'event-planner',
+        component: AllVendorsComponent,
         children: [
-          { path: 'signup', component: SignupVendorComponent },
-          { path: 'login', component: LoginVendorComponent },
-          { path: 'otpverification', component: OtpVerifyComponent },
-          { path: 'event-planner', component: AllVendorsComponent,
-             children: [
-              { path: '',  redirectTo: 'dashboard', pathMatch: 'full' },
-              { path: 'dashboard', component: EventPlannerDashboardComponent},
-              { path: 'profile', component: VendorProfileComponent},
-              { path: 'service', component: EventPlannerDetailComponent},
-              { path: 'new-service/:vendor', component: VendorServicesComponent},
-              { path: 'add-service', component: AddEventCompanyComponent},
-              { path: 'bookings', component: PlannersBookingComponent},
-              { path: 'bookings/details/:bookingId', component: PlannerBookingDetailsComponent},
-              { path: 'calendar', component: FullcalendarComponent},
-              { path: 'chat-room', component: InboxChatComponent},
-          ] },
-          { path: 'venue-vendor', component: AllVendorsComponent,
-            children: [
-             { path: '',  redirectTo: 'dashboard', pathMatch: 'full' },
-             { path: 'dashboard', component: VenueDashboardComponent},
-             { path: 'profile', component: VendorProfileComponent},
-             { path: 'service', component: VenueVendorComponent},
-             { path: 'new-service/:vendor', component: VendorServicesComponent},
-             { path: 'add-service', component: VenueRegistrationComponent},
-             { path: 'bookings', component: VenueBookingsComponent},
-             { path: 'bookings/details/:bookingId', component: VenueBookingDetailsComponent},
-             { path: 'calendar', component: FullcalendarComponent},
-             { path: 'chat-room', component: InboxChatComponent}
-          ] },
-          { path: '', redirectTo: 'login', pathMatch: 'full' },
-          { path: 'not-found',  component: NotFoundComponent },
-          { path: '**', redirectTo: 'not-found' }
-        ]
+          { path: '', redirectTo: 'dashboard', pathMatch: 'full' },
+          { path: 'dashboard', component: EventPlannerDashboardComponent },
+          { path: 'profile', component: VendorProfileComponent },
+          { path: 'service', component: EventPlannerDetailComponent },
+          { path: 'new-service/:vendor', component: VendorServicesComponent },
+          { path: 'add-service', component: AddEventCompanyComponent },
+          { path: 'bookings', component: PlannersBookingComponent },
+          {
+            path: 'bookings/details/:bookingId',
+            component: PlannerBookingDetailsComponent,
+          },
+          { path: 'calendar', component: FullcalendarComponent },
+          { path: 'chat-room', component: InboxChatComponent },
+        ],
+      },
+      {
+        path: 'venue-vendor',
+        component: AllVendorsComponent,
+        children: [
+          { path: '', redirectTo: 'dashboard', pathMatch: 'full' },
+          { path: 'dashboard', component: VenueDashboardComponent },
+          { path: 'profile', component: VendorProfileComponent },
+          { path: 'service', component: VenueVendorComponent },
+          { path: 'new-service/:vendor', component: VendorServicesComponent },
+          { path: 'add-service', component: VenueRegistrationComponent },
+          { path: 'bookings', component: VenueBookingsComponent },
+          {
+            path: 'bookings/details/:bookingId',
+            component: VenueBookingDetailsComponent,
+          },
+          { path: 'calendar', component: FullcalendarComponent },
+          { path: 'chat-room', component: InboxChatComponent },
+        ],
+      },
+      { path: '', redirectTo: 'login', pathMatch: 'full' },
+      { path: 'not-found', component: NotFoundComponent },
+      { path: '**', redirectTo: 'not-found' },
+    ],
   },
 ];
-
-
-

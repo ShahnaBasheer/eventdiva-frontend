@@ -2,35 +2,31 @@
 
 
 
+<app-page-loader *ngIf="isLoading"></app-page-loader>
+
 <div class="">
   <h1 class="text-[1.5rem] font-bold ps-6 pb-6">Vendors</h1>
 
-  <input type="text" class="block h-10 pr-5 pl-12 py-2.5 text-base font-normal m-6 ms-auto
-      shadow-xs text-gray-900 bg-transparent border border-gray-300 rounded-full placeholder-gray-400
-      focus:outline-none" placeholder="Search">
-  <div class="flex justify-center">
-    <div class="overflow-x-auto mb-8 shadow-lg rounded-lg w-full mx-10">
+  <div class="mx-5" *ngIf="vendors">
+    <div class="mx-10 my-4" >
+      <app-sort-search
+        (limitEmitter)="onPageSizeLimit($event)"
+      ></app-sort-search>
+    </div>
+    <div class="flex justify-center">
+      <div class="overflow-x-auto mb-8 shadow-lg rounded-lg w-full mx-10">
+        <app-user-table
+          [users]="vendors"
+          [headers]="headers"
+        ></app-user-table>
 
-      <app-user-table [users]="vendors" [headers]="headers"></app-user-table>
-      <div class="px-5 py-5 border-t border-t-[#dddddd] flex justify-center">
-          <div class="flex flex-col justify-center items-center">
-              <span class="text-xs xs:text-sm text-gray-900">
-                Showing 1 to 4 of 50 Entries
-              </span>
-              <div class="inline-flex mt-2 xs:mt-0">
-                  <button
-                      class="text-sm bg-[#c4c4c4] border-r hover:bg-gray-400 text-gray-800 font-semibold py-1 px-4 rounded-l">
-                      Prev
-                  </button>
-                  <button
-                      class="text-sm bg-[#c4c4c4] hover:bg-gray-400 text-gray-800 font-semibold py-1 px-4 rounded-r">
-                      Next
-                  </button>
-              </div>
-          </div>
+        <app-admin-pagination
+          [totalPages]="totalPages"
+          (pageCountEmitter)="onSelectPage($event)">
+        </app-admin-pagination>
       </div>
+    </div>
   </div>
 </div>
-
 
 

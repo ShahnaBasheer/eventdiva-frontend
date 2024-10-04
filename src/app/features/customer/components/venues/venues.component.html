@@ -1,12 +1,41 @@
-
 <app-loader *ngIf="!venues && isLoading"></app-loader>
 
-<app-vendor-card-wrap [subHeading]="'Venues'" *ngIf="venues"
+<app-vendor-card-wrap
+  [subHeading]="'Venues'"
+  *ngIf="venues"
+  (searchEmitter)="onSearch($event)"
   [totalPages]="totalPages"
+  [search]="searchItem"
   [totalCount]="totalCount"
-  [filterData]="filterData">
-  <app-venue-card *ngFor="let item of venues" [cardItems]="item"
-     [vendorType]="'VV'">
-  </app-venue-card>
-</app-vendor-card-wrap>
+  (selectedPageLimitEmitter)="onSelectPageLimit($event)"
+  (selectedPageEmitter)="onSelectedPagination($event)"
+>
+  <div slot="filterspill">
+    <div
+      class="mx-auto grid max-w-6xl grid-cols-1 gap-4 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-3"
+    >
+      <div *ngFor="let item of combinedFilters">
+        <div
+          *ngIf="item.name !== ''"
+          class="inline-flex items-center justify-between space-x-1 bg-[#c1f7c1] text-[#266926] font-bold px-2 py-1 rounded-md text-sm mb-3"
+        >
+          <i
+            class="fa-solid fa-xmark cursor-pointer"
+            (click)="removeFilter(item)"
+          ></i>
+          <div class="select-none">{{ item.name }}</div>
+        </div>
+      </div>
+    </div>
+  </div>
 
+  <div slot="filters">
+    <app-venue-filters [filterData]="filterData"></app-venue-filters>
+  </div>
+
+  <div slot="cards">
+    <div class="grid grid-cols-3">
+      <app-venue-card *ngFor="let item of venues" [cardItems]="item"></app-venue-card>
+    </div>
+  </div>
+</app-vendor-card-wrap>

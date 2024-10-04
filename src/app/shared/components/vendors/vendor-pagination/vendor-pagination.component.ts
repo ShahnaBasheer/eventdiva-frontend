@@ -12,7 +12,7 @@ import { Component, EventEmitter, Input, Output } from '@angular/core';
 
 export class VendorPaginationComponent {
   @Output() pageCountEmitter = new EventEmitter<number>();
-  @Input({required: true}) totalPages = 1;
+  @Input({required: true}) totalPages: number = 1;
   pages: number[] = [];
   selectedPage = 1;
 
@@ -20,8 +20,8 @@ export class VendorPaginationComponent {
 
   onSelectPage(page: number){
     if (page > 0 && page <= this.totalPages) {
-      this.pageCountEmitter.emit(page);
       this.selectedPage = page;
+      this.pageCountEmitter.emit(page);
     }
   }
 

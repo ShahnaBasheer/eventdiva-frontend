@@ -140,4 +140,6 @@ export class PlannerDetailComponent implements OnInit {
     this.showChatRoomModal = false;
     await this.chatroomservice.leaveChatRoom(environment.customer);
   }
+
+
 }

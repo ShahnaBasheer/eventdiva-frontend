@@ -1,3 +1,4 @@
+import { Status } from "../enums/important.enums";
 import { IAddress } from "./address.model";
 
 
@@ -52,7 +53,7 @@ interface IVenue {
     albums?: string[];
     bookings?: string[];
     document?: string;
-    approval: 'approved' | 'pending' | 'rejected';
+    approval: Status.Approved | Status.Pending | Status.Rejected;
     isDeleted?: boolean,
     createdAt?: Date;
     updatedAt?: Date;

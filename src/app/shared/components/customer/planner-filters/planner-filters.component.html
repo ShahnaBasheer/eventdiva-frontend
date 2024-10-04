@@ -1,0 +1,75 @@
+<div class="relative">
+  <!-- Filter button to open the modal -->
+  <div class="me-5">
+    <button
+      class="bg-[#f5f5f5] h-8 px-4 rounded-lg border border-[#3a3a3a]"
+      (click)="toggleModal()"
+    >
+      <i class="fa-solid fa-filter"></i>
+    </button>
+  </div>
+
+  <!-- Black Overlay Background -->
+  <div
+    *ngIf="isModalOpen"
+    class="fixed inset-0 bg-black bg-opacity-50 z-40"
+  ></div>
+
+  <!-- Horizontal Modal/Drawer -->
+  <div
+    *ngIf="isModalOpen"
+    class="fixed top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-full max-w-[45rem] my-5 bg-white shadow-lg z-50 p-6 rounded-lg"
+  >
+    <div class="flex justify-between items-center mb-4">
+      <h2 class="text-xl font-bold">Filters</h2>
+      <button (click)="toggleModal()" class="text-gray-500">
+        <i class="fa-solid fa-times"></i>
+      </button>
+    </div>
+
+    <!-- Filter Options -->
+    <div class="grid grid-cols-2 gap-6 mt-4">
+      <!-- Services Filter -->
+      <div>
+        <label class="block text-gray-600 font-semibold mb-2">Services</label>
+        <div *ngFor="let service of filterData?.services; let i = index">
+          <label class="inline-flex items-center">
+            <input
+              type="checkbox"
+              class="form-checkbox"
+              [(ngModel)]="selectedServices[i]"
+            />
+            <span class="ml-2">{{ service }}</span>
+          </label>
+        </div>
+      </div>
+
+      <!-- Location Filter -->
+      <div class="">
+        <label class="block text-gray-600 font-semibold mb-2">Location</label>
+        <select
+          class="h-10 px-2 border border-gray-300 rounded-lg"
+          [(ngModel)]="selectedLocation"
+        >
+          <option value="">Select a location</option>
+          <option
+            *ngFor="let location of filterData?.locations"
+            [value]="location"
+          >
+            {{ location }}
+          </option>
+        </select>
+      </div>
+    </div>
+
+    <!-- Apply Filters Button -->
+    <div class="mt-6 flex justify-end">
+      <button
+        (click)="applyFilters()"
+        class="bg-teal-500 text-white px-4 py-2 rounded-lg"
+      >
+        Apply Filters
+      </button>
+    </div>
+  </div>
+</div>

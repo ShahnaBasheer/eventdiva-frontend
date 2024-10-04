@@ -3,12 +3,11 @@
 import { Injectable } from "@angular/core";
 import { environment } from "../../../../environments/environment";
 import { HttpClient } from "@angular/common/http";
+import { BehaviorSubject } from "rxjs";
 
 
 
-@Injectable({
-  providedIn: 'root'
-})
+@Injectable()
 
 export class venueService {
 
@@ -32,6 +31,21 @@ export class venueService {
     { name: 'Custom Lighting', selected: false }
   ];
 
+  // Create an observable to hold the current filters
+  private venuefiltersSubject = new BehaviorSubject<{
+    services: [],
+    amenities: [],
+    venueTypes: [],
+    location: ''
+  }>({
+    services: [],
+    amenities: [],
+    venueTypes: [],
+    location: ''
+  });
+
+  venuefilters$ = this.venuefiltersSubject.asObservable();
+
 
   APIBASE_VENUES_URL = `${environment.customerUrl}/vendors/venues`;
   APIBASE_BOOKING_URL =  `${environment.customerUrl}/bookings/venue`;
@@ -40,6 +54,16 @@ export class venueService {
 
   getServices(){
     return this._services;
+  }
+
+  // Method to update the filters
+  updateFilters(newFilters: any) {
+    this.venuefiltersSubject.next(newFilters); // Emit the new filters
+  }
+
+  // Method to get the current filters' value
+  getFilters() {
+    return this.venuefiltersSubject.value;
   }
 
 

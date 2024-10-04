@@ -6,16 +6,25 @@ import { ToastrService } from 'ngx-toastr';
 import { EventPlannerAdminService } from '../../services/planner.service';
 import { ActionBtnsComponent } from '../../../../shared/components/common/action-btns/action-btns.component';
 import { StatusBadgeComponent } from '../../../../shared/components/common/status-badge/status-badge.component';
+import { SortSearchComponent } from '../../../../shared/components/admin/sort-search/sort-search.component';
+import { Status } from '../../../../core/enums/important.enums';
 
 @Component({
   selector: 'app-planners-booking-list',
   standalone: true,
-  imports: [CommonModule, ActionBtnsComponent, StatusBadgeComponent],
+  imports: [CommonModule, ActionBtnsComponent,
+    StatusBadgeComponent, SortSearchComponent],
   templateUrl: './planners-booking-list.component.html',
   styleUrl: './planners-booking-list.component.css',
 })
 export class PlannersBookingListComponent {
-  planners: PlannerBooking[] = [];
+  status = Status;
+  page: number = 1;
+  limit: number = 10;
+  isLoading = true;
+  totalPages = 1;
+  totalCount = 0;
+  planners!: PlannerBooking[];;
   headers = [
     'SL.No',
     'BookingId',
@@ -42,9 +51,10 @@ export class PlannersBookingListComponent {
   }
 
   loadVendors() {
-    this.plannerAdminService.getPlannerBookings().subscribe({
-      next: (response) => {
-        this.planners = response.data.bookings;
+    this.plannerAdminService.getPlannerBookings(this.page, this.limit).subscribe({
+      next: (res) => {
+        console.log(res)
+        this.planners = res.data.bookings;
       },
       error: (err) => {
         console.log('Error loading Venue Lists:', err.message);
@@ -72,5 +82,11 @@ export class PlannersBookingListComponent {
     ) {
       this.activeDropdownIndex = null;
     }
+  }
+
+  onPageSizeLimit(data: number){
+    this.limit = data;
+    this.isLoading = true;
+    this.loadVendors();
   }
 }

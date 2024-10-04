@@ -1,3 +1,7 @@
+
+
+
+
 <div class="relative">
   <!-- Filter button to open the modal -->
   <div class="me-5">
@@ -28,9 +32,9 @@
       <!-- Services Filter -->
       <div>
         <label class="block text-gray-600 font-semibold mb-2">Services</label>
-        <div *ngFor="let service of filterData.services">
+        <div *ngFor="let service of filterData?.services; let i = index">
           <label class="inline-flex items-center">
-            <input type="checkbox" class="form-checkbox" />
+            <input type="checkbox" class="form-checkbox" [(ngModel)]="selectedServices[i]"/>
             <span class="ml-2">{{ service}}</span>
           </label>
         </div>
@@ -39,23 +43,37 @@
       <!-- Amenities Filter -->
       <div>
         <label class="block text-gray-600 font-semibold mb-2">Amenities</label>
-        <div *ngFor="let amenity of filterData.amenities">
+        <div *ngFor="let amenity of filterData?.amenities; let i = index">
           <label class="inline-flex items-center">
-            <input type="checkbox"  class="form-checkbox" />
+            <input type="checkbox"  class="form-checkbox" [(ngModel)]="selectedAmenities[i]"/>
             <span class="ml-2">{{ amenity}}</span>
           </label>
         </div>
       </div>
+
+
+    <!-- VenueTyes Filter -->
+    <div>
+      <label class="block text-gray-600 font-semibold mb-2">Category</label>
+      <div *ngFor="let type of filterData?.venueTypes; let i = index">
+        <label class="inline-flex items-center">
+          <input type="checkbox" class="form-checkbox" [(ngModel)]="selectedVenueTypes[i]"/>
+          <span class="ml-2">{{ type }}</span>
+        </label>
+      </div>
     </div>
 
+
     <!-- Location Filter -->
-    <div class="mt-4">
+    <div class="">
       <label class="block text-gray-600 font-semibold mb-2">Location</label>
-      <select class="w-full h-10 px-2 border border-gray-300 rounded-lg" [(ngModel)]="selectedLocation">
+      <select class="h-10 px-2 border border-gray-300 rounded-lg" [(ngModel)]="selectedLocation">
         <option value="">Select a location</option>
-        <option *ngFor="let location of filterData.locations" [value]="location">{{ location }}</option>
+        <option *ngFor="let location of filterData?.locations" [value]="location">{{ location }}</option>
       </select>
     </div>
+
+  </div>
 
     <!-- Apply Filters Button -->
     <div class="mt-6 flex justify-end">
@@ -65,3 +83,4 @@
     </div>
   </div>
 </div>
+

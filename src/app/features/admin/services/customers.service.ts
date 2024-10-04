@@ -21,9 +21,12 @@ export class CustomersService {
     APIBASE_URL = `${environment.adminUrl}/customers`;
 
 
-    getCustomersPage(): Observable<any>{
+    getCustomersPage(page: number, limit: number): Observable<any>{
         return this.http.get<any>(`${this.APIBASE_URL}`, {
-            withCredentials: true,
+          params: {
+            page: page.toString(), limit: limit.toString()
+          },
+          withCredentials: true,
         });
     }
 

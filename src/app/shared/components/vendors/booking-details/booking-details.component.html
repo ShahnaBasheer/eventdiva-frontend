@@ -206,7 +206,7 @@
             <div *ngIf="item.charges.fullPayment" class="w-full">
               <div
                 class="flex justify-between w-full"
-                *ngIf="item.charges.fullPayment.venueRental"
+                *ngIf="item.charges.fullPayment?.venueRental"
               >
                 <p class="text-base text-gray-400 capitalize">Rental Cost</p>
                 <p class="text-base text-gray-600 font-medium">
@@ -408,16 +408,16 @@
         <div class="container mx-auto p-4">
           <form [formGroup]="chargeForm" (ngSubmit)="submitForm()">
             <div>
-              <label class="pb-1">Planning Fee</label>
+              <label class="pb-1">Renatl Cost</label>
               <input
                 type="number"
-                formControlName="planningFee"
+                formControlName="venueRental"
                 class="p-2 border border-gray-300 rounded w-full"
-                placeholder="Enter planning fee"
+                placeholder="Enter Rental Cost"
               />
               <p
                 class="text-red-600 text-[.75rem] text-left italic"
-                *ngIf="isFieldError(chargeForm, 'planningFee')"
+                *ngIf="isFieldError(chargeForm, 'venueRental')"
               >
                 field is required!
               </p>

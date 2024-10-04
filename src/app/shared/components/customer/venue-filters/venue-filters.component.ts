@@ -1,51 +1,41 @@
 import { CommonModule } from '@angular/common';
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { FormsModule } from '@angular/forms';
+import { FiltersComponent } from '../filters/filters.component';
+import { venueService } from '../../../../features/customer/services/venue.service';
 
 @Component({
   selector: 'app-venue-filters',
   standalone: true,
-  imports: [CommonModule, FormsModule],
+  imports: [CommonModule, FormsModule, FiltersComponent],
   templateUrl: './venue-filters.component.html',
   styleUrl: './venue-filters.component.css'
 })
 
 
 export class VenueFiltersComponent {
-  selectedLocation: string[] = [];
-  @Input({ required: true}) filterData!: {
+  selectedLocation: string = '';
+  selectedServices: boolean[] = [];
+  selectedAmenities: boolean[] = [];
+  selectedVenueTypes: boolean[] = [];
+  @Input({ required: true }) filterData!: {
     services: string[],
     amenities: string[],
-    locations: string[]
+    locations: string[],
+    venueTypes: string[]
   }
-
-  rentPriceRanges = [
-    { label: '0 - 10,000', selected: false },
-    { label: '10,001 - 30,000', selected: false },
-    { label: '30,001 - 50,000', selected: false },
-    { label: '50,001 - 100,000', selected: false },
-    { label: '100,001 - 200,000', selected: false },
-    { label: '200,001 - 300,000', selected: false },
-    { label: 'Above 300,000', selected: false },
-  ];
-
   isModalOpen = false;
 
+  constructor(private venueService: venueService){}
 
-  // Output to emit selected filter values
-  @Output() filtersApplied = new EventEmitter<{
-    selectedMonth: number | null;
-    selectedYear: number | null;
-    selectedEventType: string | null;
-    selectedDays: string | null;
-  }>();
-
-  // Track selected values
-  selectedMonth: number | null = null;
-  selectedYear: number | null = null;
-  selectedEventType: string | null = null;
-  selectedDays: string | null = null;
-
+  ngOnInit(){
+    this.venueService.venuefilters$.subscribe(filters => {
+        this.selectedLocation = filters.location;
+        this.selectedServices = filters.services;
+        this.selectedAmenities = filters.amenities;
+        this.selectedVenueTypes =filters.venueTypes;
+    })
+  }
 
 
   toggleModal() {
@@ -53,14 +43,21 @@ export class VenueFiltersComponent {
   }
 
   applyFilters() {
-    // Emit selected filter values when applying filters
-    this.filtersApplied.emit({
-      selectedMonth: this.selectedMonth,
-      selectedYear: this.selectedYear,
-      selectedEventType: this.selectedEventType,
-      selectedDays: this.selectedDays
+    // Get selected services, amenities, and venue types based on checkboxes
+    const services = this.filterData?.services?.filter((_, index) => this.selectedServices[index]);
+    const amenities = this.filterData?.amenities?.filter((_, index) => this.selectedAmenities[index]);
+    const venueTypes = this.filterData?.venueTypes?.filter((_, index) => this.selectedVenueTypes[index]);
+    this.venueService.updateFilters({
+      services,
+      amenities,
+      venueTypes,
+      location: this.selectedLocation
     });
+
     this.toggleModal(); // Close the modal after applying filters
   }
 
 }
+
+
+

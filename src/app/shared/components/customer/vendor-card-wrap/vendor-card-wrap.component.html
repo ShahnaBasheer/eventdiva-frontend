@@ -1,16 +1,48 @@
-
-
-<app-sub-navbar [heading]="subHeading"></app-sub-navbar>
+<app-sub-navbar [heading]="subHeading" (searchEvent)="onSearch($event)"></app-sub-navbar>
 
 <!-- Product List -->
 
 <div class="px-5">
-  <app-filters [allfilters]="filterData"></app-filters>
-  <section class="py-1">
-    <div class="mx-auto grid max-w-6xl  grid-cols-1 gap-4 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-3">
-        <ng-content></ng-content>
+  <div class="relative flex justify-between px-10 pt-5 pb-3 items-center">
+    <div>
+      <p class="font-semibold text-gray-500">
+        Search Results <span *ngIf="search">for {{ search }}</span> <b>({{ totalCount }})</b>
+      </p>
     </div>
-  </section>
-  <app-vendor-pagination [totalPages]="totalPages"></app-vendor-pagination>
 
+    <div class="flex items-center">
+      <div class="flex items-center gap-2 rtl:space-x-reverse">
+        <select
+          class="h-8 text-sm px-2 leading-none transition duration-75 border-gray-300 rounded-lg shadow-sm outline-none focus:border-yellow-500 focus:ring-1 focus:ring-inset focus:ring-yellow-500 dark:border-gray-600 dark:focus:border-yellow-500"
+          [(ngModel)]="limit"
+          (change)="onSelectedPageLimit(limit)"
+        >
+          <option value="10">10</option>
+          <option value="25">25</option>
+          <option value="50">50</option>
+        </select>
+        <span class="text-sm font-medium"> per page </span>
+      </div>
+
+      <div class="ms-3">
+        <!-- <app-venue-filters [filterData]="filters"></app-venue-filters> -->
+        <ng-content select="[slot='filters']"></ng-content>
+      </div>
+    </div>
+  </div>
+
+  <div class="pb-3">
+    <div class="flex flex-wrap space-x-4 items-center justify-center px-10">
+      <ng-content select="[slot='filterspill']"></ng-content>
+    </div>
+  </div>
+
+  <section class="py-1">
+    <ng-content select="[slot='cards']"></ng-content>
+  </section>
+  <app-vendor-pagination
+    [totalPages]="totalPages"
+    (pageCountEmitter)="onSelectedPage($event)"
+  >
+  </app-vendor-pagination>
 </div>

@@ -34,8 +34,9 @@ export class VendorEffects {
       mergeMap((credentials: LoginCredentials) =>
         this.vendorService.VendorLogin(credentials).pipe(
           map(response => {
-            localStorage.setItem(environment.vn_accessKey, response?.data?.token);
-            return VendorActions.vendorLoginSuccess({user: response?.data?.user});
+            const token = response?.data?.token || '';
+            localStorage.setItem(environment.vn_accessKey, token);
+            return VendorActions.vendorLoginSuccess({user: response?.data?.user, token});
           }),
           tap(async (response: any) => {
             console.log(response.user, "dfff")

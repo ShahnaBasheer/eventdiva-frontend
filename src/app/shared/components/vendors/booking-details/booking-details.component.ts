@@ -44,7 +44,7 @@ export class VenueBookingDetailsComponent implements OnInit{
       });
 
       this.chargeForm = this.fb.group({
-        rentalCost: ['', [Validators.required, Validators.min(1000), Validators.pattern('^[0-9]+$')]],
+        venueRental: ['', [Validators.required, Validators.min(1000), Validators.pattern('^[0-9]+$')]],
         charges: this.fb.array([]) // Initializing the FormArray for charges
       });
 
@@ -52,7 +52,7 @@ export class VenueBookingDetailsComponent implements OnInit{
         next: (res) => {
             this.item = res?.data?.bookingData;
             const totalServiceCharges = this.item.charges?.fullPayment?.servicesCharges.reduce((sum, charge) => sum + charge.cost, 0);
-            this.fullPayment = totalServiceCharges + (this.item.charges.fullPayment.venueRental || 0);
+            this.fullPayment = totalServiceCharges + (this.item.charges.fullPayment?.venueRental || 0);
         },
         error: (err) => {
            console.log(err)

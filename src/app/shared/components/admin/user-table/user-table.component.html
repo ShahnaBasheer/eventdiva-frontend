@@ -31,7 +31,8 @@
         <!-- <div class="text-sm text-gray-500">Optimization</div> -->
       </td>
       <td class="px-3 py-4 whitespace-nowrap text-sm text-gray-900">
-        {{ user.mobile }}
+        <span *ngIf="user.mobile">{{ user.mobile }}</span>
+        <span *ngIf="!user.moble">none</span>
       </td>
       <td class="px-3 py-4 whitespace-nowrap text-sm text-gray-900">
         {{ user.email }}

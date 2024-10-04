@@ -24,7 +24,7 @@ import { BookingSearchFiltersComponent } from '../../../../../shared/components/
 export class VenueBookingsComponent {
   isLoading = true;
   tabs = ['pending', 'confirmed', 'cancelled', 'completed'];
-  activeTab: string = 'pending';
+  status: string = 'pending';
   venues: VenueBooking[] = [];
   filters!: { months: number[], years: number[], eventTypes: string[] } ;
   selectedFilters: {
@@ -46,8 +46,6 @@ export class VenueBookingsComponent {
   limit: number = 10;
 
 
-
-
   constructor(private venueBookingService: VenueBookingService, private toastr: ToastrService){}
 
   ngOnInit(): void {
@@ -55,7 +53,7 @@ export class VenueBookingsComponent {
   }
 
   loadVendors(){
-    this.venueBookingService.getAllVenueBookings(this.page, this.limit, this.activeTab, this.selectedFilters).subscribe({
+    this.venueBookingService.getAllVenueBookings(this.page, this.limit, this.status, this.selectedFilters).subscribe({
       next: (res) => {
           console.log(res.data)
           this.venues = res.data?.bookings;
@@ -87,7 +85,7 @@ export class VenueBookingsComponent {
   }
 
   setActiveTab(tab: string) {
-    this.activeTab = tab;
+    this.status = tab;
     this.isLoading = true;
     this.loadVendors();
   }
@@ -99,7 +97,6 @@ export class VenueBookingsComponent {
     selectedDays: string | null;
   }){
     this.selectedFilters = data;
-    console.log(this.selectedFilters)
     this.loadVendors();
   }
 

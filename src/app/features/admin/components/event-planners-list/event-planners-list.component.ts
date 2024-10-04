@@ -8,6 +8,10 @@ import IEventPlanner from '../../../../core/models/eventPlanner.model';
 import { ActionBtnsComponent } from '../../../../shared/components/common/action-btns/action-btns.component';
 import { StatusBadgeComponent } from '../../../../shared/components/common/status-badge/status-badge.component';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { Status } from '../../../../core/enums/important.enums';
+import { SortSearchComponent } from '../../../../shared/components/admin/sort-search/sort-search.component';
+import { AdminPaginationComponent } from '../../../../shared/components/admin/admin-pagination/admin-pagination.component';
+import { FormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-event-planners-list',
@@ -15,14 +19,23 @@ import { MatSnackBar } from '@angular/material/snack-bar';
   imports: [
     CommonModule,
     RouterModule,
+    FormsModule,
     ActionBtnsComponent,
     StatusBadgeComponent,
+    SortSearchComponent,
+    AdminPaginationComponent
   ],
   templateUrl: './event-planners-list.component.html',
   styleUrl: './event-planners-list.component.css',
 })
 export class EventPlannersListComponent {
-  planners: IEventPlanner[] = [];
+  status = Status;
+  page: number = 1;
+  limit: number = 10;
+  isLoading = true;
+  totalPages = 1;
+  totalCount = 0;
+  planners!: IEventPlanner[];
   headers = [
     'SL.No',
     'CoverPic',
@@ -46,10 +59,12 @@ export class EventPlannersListComponent {
   }
 
   loadVendors() {
-    this.eventPlannerService.getPlannersPage().subscribe({
-      next: (response) => {
-        this.planners = response.data.eventPlanners;
-        console.log(response.data);
+    this.eventPlannerService.getPlannersPage(this.page, this.limit).subscribe({
+      next: (res) => {
+        console.log(res)
+        this.planners = res.data?.eventPlanners;
+        this.totalCount = res.data?.totalPages;
+        this.totalPages = res.data?.totalCount;
       },
       error: (err) => {
         console.log('Error loading Event Planner Lists:', err.message);
@@ -58,7 +73,7 @@ export class EventPlannersListComponent {
     });
   }
 
-  onStatusChange(index: number, slug: string, status: string) {
+  onStatusChange(index: number, slug: string, status: Status.Approved | Status.Rejected) {
     this.eventPlannerService.plannerStatusChange(slug, status).subscribe({
       next: (res) => {
         if (status === 'approved' || status === 'rejected') {
@@ -96,4 +111,12 @@ export class EventPlannersListComponent {
       this.activeDropdownIndex = null;
     }
   }
+
+  onPageSizeLimit(data: number){
+    this.limit = data;
+    this.isLoading = true;
+    this.loadVendors();
+  }
+
+
 }

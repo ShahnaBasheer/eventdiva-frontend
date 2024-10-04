@@ -93,7 +93,7 @@ export const AuthInterceptor: HttpInterceptorFn = (
               } else if (user.role === 'customer') {
                 store.dispatch(loginSuccess({ user, token }));
               } else if (user.role === 'vendor') {
-                store.dispatch(vendorLoginSuccess({ user }));
+                store.dispatch(vendorLoginSuccess({ user, token }));
               }
             } else {
               if (path.startsWith('/admin/')) {

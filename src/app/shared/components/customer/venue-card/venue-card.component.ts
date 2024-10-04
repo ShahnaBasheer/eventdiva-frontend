@@ -15,9 +15,5 @@ import { CommonModule } from '@angular/common';
 
 export class VenueCardComponent {
   @Input({required: true}) cardItems!: IVenue;
-  @Input({required: true}) vendorType!: string;
-  imageUrl!: string;
-
-
 
 }

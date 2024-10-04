@@ -9,9 +9,7 @@ import { environment } from "../../../../environments/environment";
 
 
 
-@Injectable({
-  providedIn: 'root',
-})
+@Injectable()
 
 
 export class VenuesAdminService {
@@ -21,14 +19,20 @@ export class VenuesAdminService {
     APIBASE_URL = `${environment.adminUrl}/venues`;
 
 
-    getVenuesPage(): Observable<any>{
+    getVenuesPage(page: number, limit: number): Observable<any>{
         return this.http.get<any>(`${this.APIBASE_URL}`, {
+            params: {
+              page: page.toString(), limit: limit.toString()
+            },
             withCredentials: true,
         });
     }
 
-    getVenueBookings(): Observable<any>{
+    getVenueBookings(page: number, limit: number): Observable<any>{
         return this.http.get<any>(`${this.APIBASE_URL}/bookings`, {
+          params: {
+            page: page.toString(), limit: limit.toString()
+          },
           withCredentials: true,
         });
     }

@@ -68,12 +68,12 @@
             type="button"
             class="flex capitalize whitespace-nowrap items-center h-8 px-3 font-medium rounded-lg outline-none focus:ring-2 focus:ring-yellow-600 focus:ring-inset"
             [ngClass]="{
-              'bg-yellow-600 text-white': activeTab === tab,
+              'bg-yellow-600 text-white': status === tab,
               'hover:text-gray-800 focus:text-yellow-600 dark:text-gray-400 dark:hover:text-gray-300 dark:focus:text-gray-400':
-                activeTab !== tab
+                status !== tab
             }"
             (click)="setActiveTab(tab)"
-            [attr.aria-selected]="activeTab === tab"
+            [attr.aria-selected]="status === tab"
           >
             {{ tab }}
           </button>

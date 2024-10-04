@@ -19,7 +19,7 @@ interface VenueCharges {
   platformCharge: number;
   advancePayments?: number;
   fullPayment: {
-    venueRental?: number;
+    venueRental: number;
     servicesCharges:  {
       cost: number;
       service: string;

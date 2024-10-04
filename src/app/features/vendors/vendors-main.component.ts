@@ -6,6 +6,7 @@ import { VendorBroadcastChannelService } from './services/broadcast-vendor.servi
 import { Store } from '@ngrx/store';
 import { logOutSuccess, vendorLoginSuccess } from './store/vendor.actions';
 import { environment } from '../../../environments/environment';
+import { TokenService } from '../../core/services/jwtToken.service';
 
 
 @Component({
@@ -25,7 +26,8 @@ export class VendorsMainComponent {
 
   constructor(
       private vendorbroadcast: VendorBroadcastChannelService,
-      private store: Store
+      private store: Store,
+      private jwTokenService: TokenService
     ){
       this.subscription = this.vendorbroadcast.messages$.subscribe(message => {
         if (message?.type === 'VENDOR_LOGOUT') {
@@ -36,10 +38,12 @@ export class VendorsMainComponent {
 
     ngOnInit(): void{
       const storedUser = localStorage.getItem(environment.vendorInfo);
+      const token = this.jwTokenService.getToken(environment.vn_accessKey) || '';
+
       if (storedUser) {
         try {
           const user = JSON.parse(storedUser);
-          this.store.dispatch(vendorLoginSuccess({user}));
+          this.store.dispatch(vendorLoginSuccess({user, token}));
         } catch (error: any) {
           console.error('Error parsing stored user:', error.message);
         }

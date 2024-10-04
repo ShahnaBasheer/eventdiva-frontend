@@ -1,0 +1,31 @@
+
+
+<div
+  class="py-3 my-3 px-3 shadow-md border border-[#e3e3e3] bg-white rounded-md flex justify-between items-center"
+>
+  <div class="flex justify-start">
+
+    <div class="flex items-center gap-2 rtl:space-x-reverse">
+      <select
+        class="h-8 text-sm px-2 leading-none transition duration-75 border-gray-300 rounded-lg shadow-sm outline-none focus:border-yellow-500 focus:ring-1 focus:ring-inset focus:ring-yellow-500 dark:border-gray-600 dark:focus:border-yellow-500"
+        [(ngModel)]="limit"
+        (change)="onSelectPageSize(limit)"
+      >
+        <option value="10">10</option>
+        <option value="25">25</option>
+        <option value="50">50</option>
+      </select>
+
+      <span class="text-sm font-medium"> per page </span>
+    </div>
+  </div>
+  <div class="flex justify-center">
+    <input
+        type="text"
+        class="block h-10 pr-5 pl-12 py-2.5 text-base font-normal ms-auto bg-white
+            shadow-xs text-gray-900 border border-gray-300
+            rounded-full placeholder-gray-400 focus:outline-none"
+        placeholder="Search"
+    />
+  </div>
+</div>

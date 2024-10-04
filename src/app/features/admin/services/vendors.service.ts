@@ -18,11 +18,14 @@ export class VendorsService {
 
     constructor(private http: HttpClient, private router: Router){}
 
-    APIBASE_URL = `${environment.adminUrl}vendors`
+    APIBASE_URL = `${environment.adminUrl}/vendors`
 
 
-    getVendorsPage(): Observable<any>{
+    getVendorsPage(page: number, limit: number): Observable<any>{
         return this.http.get<any>(`${this.APIBASE_URL}`, {
+            params: {
+              page: page.toString(), limit: limit.toString()
+            },
             withCredentials: true,
         });
     }

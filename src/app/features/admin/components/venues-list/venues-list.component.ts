@@ -5,6 +5,10 @@ import { VenuesAdminService } from '../../services/venues.service';
 import { ToastrService } from 'ngx-toastr';
 import { ActionBtnsComponent } from '../../../../shared/components/common/action-btns/action-btns.component';
 import { StatusBadgeComponent } from '../../../../shared/components/common/status-badge/status-badge.component';
+import { IVenue } from '../../../../core/models/venue.model';
+import { Status } from '../../../../core/enums/important.enums';
+import { SortSearchComponent } from '../../../../shared/components/admin/sort-search/sort-search.component';
+import { AdminPaginationComponent } from '../../../../shared/components/admin/admin-pagination/admin-pagination.component';
 
 @Component({
   selector: 'app-venues-list',
@@ -14,12 +18,20 @@ import { StatusBadgeComponent } from '../../../../shared/components/common/statu
     CommonModule,
     ActionBtnsComponent,
     StatusBadgeComponent,
+    SortSearchComponent,
+    AdminPaginationComponent
   ],
   templateUrl: './venues-list.component.html',
   styleUrl: './venues-list.component.css',
 })
 export class VenuesListComponent {
-  venues: any;
+  status = Status;
+  page: number = 1;
+  limit: number = 10;
+  isLoading = true;
+  totalPages = 1;
+  totalCount = 0;
+  venues!: IVenue[];
   headers = [
     'SL.No',
     'CoverPic',
@@ -43,10 +55,11 @@ export class VenuesListComponent {
   }
 
   loadVendors() {
-    this.venuesAdminService.getVenuesPage().subscribe({
-      next: (response) => {
-        this.venues = response.data.venues;
-        console.log(response.data);
+    this.venuesAdminService.getVenuesPage(this.page, this.limit).subscribe({
+      next: (res) => {
+        this.venues = res.data?.venues;
+        this.totalPages = res.data?.totalPages;
+        this.totalCount = res.data?.totalCount;
       },
       error: (err) => {
         console.log('Error loading Venue Lists:', err.message);
@@ -55,11 +68,12 @@ export class VenuesListComponent {
     });
   }
 
-  onStatusChange(index: number, slug: string, status: string) {
+  onStatusChange(index: number, slug: string, status: Status.Approved | Status.Rejected) {
     this.venuesAdminService.venueStatusChange(slug, status).subscribe({
       next: (res) => {
-        console.log(res.data, 'ffffffffff');
-        this.venues[index].approval = status;
+        if(this.venues[index]){
+          this.venues[index].approval = status;
+        }
       },
       error: (err) => {
         console.log(err, 'eroorrr');
@@ -82,5 +96,11 @@ export class VenuesListComponent {
     ) {
       this.activeDropdownIndex = null;
     }
+  }
+
+  onPageSizeLimit(data: number){
+    this.limit = data;
+    this.isLoading = true;
+    this.loadVendors();
   }
 }

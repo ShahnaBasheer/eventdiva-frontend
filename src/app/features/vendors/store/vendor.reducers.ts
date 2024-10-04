@@ -7,9 +7,10 @@ import * as VendorActions from './vendor.actions';
 export const vendorReducer = createReducer(
   initialState,
   on(VendorActions.vendorLogin, state => ({ ...state, loading: true, error: null})),
-  on(VendorActions.vendorLoginSuccess, (state, { user }) => ({
+  on(VendorActions.vendorLoginSuccess, (state, { user, token }) => ({
     ...state,
     user,
+    token,
     loading: false,
     error: null,
     isLoggedIn: true
@@ -20,6 +21,6 @@ export const vendorReducer = createReducer(
     error,
     isLoggedIn: false,
   })),
-  on(VendorActions.logOutSuccess, (state) => ({ ...state, user: null, isLoggedIn: false })),
+  on(VendorActions.logOutSuccess, (state) => ({ ...state, user: null, token: null, isLoggedIn: false })),
   on(VendorActions.logOutFailure, (state, { error }) => ({ ...state, error }))
 )

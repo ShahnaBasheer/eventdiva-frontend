@@ -16,7 +16,12 @@ import { StatusBadgeComponent } from '../../../../shared/components/common/statu
 
 
 export class VenuesBookingListComponent {
-  venues: VenueBooking[] = [];
+  venues!: VenueBooking[];
+  page: number = 1;
+  limit: number = 10;
+  isLoading = true;
+  totalPages = 1;
+  totalCount = 0;
   headers = [
     'SL.No',
     'BookingId',
@@ -43,7 +48,7 @@ export class VenuesBookingListComponent {
   }
 
   loadVendors() {
-    this.venuesAdminService.getVenueBookings().subscribe({
+    this.venuesAdminService.getVenueBookings(this.page, this.limit).subscribe({
       next: (response) => {
         this.venues = response.data.bookings;
       },
@@ -73,5 +78,11 @@ export class VenuesBookingListComponent {
     ) {
       this.activeDropdownIndex = null;
     }
+  }
+
+  onPageSizeLimit(data: number){
+    this.limit = data;
+    this.isLoading = true;
+    this.loadVendors();
   }
 }

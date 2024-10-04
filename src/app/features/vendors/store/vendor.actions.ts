@@ -10,7 +10,7 @@ export const vendorLogin = createAction(
 
 export const vendorLoginSuccess = createAction(
   '[Vendor] Login Success',
-  props<{user: Vendor}>()
+  props<{user: Vendor, token: string}>()
 );
 
 

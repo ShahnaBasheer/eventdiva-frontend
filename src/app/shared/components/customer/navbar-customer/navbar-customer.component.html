@@ -81,6 +81,19 @@
         </ul>
       </div>
     </div>
+
+    <div class="" *ngIf="isLogged">
+      <a  [routerLink]="['profile']"
+        class="flex items-center gap-2 py-1.5 px-3 bg-[#dbf1ff] rounded-lg transition duration-300 cursor-pointer">
+        <i class="fa-regular fa-circle-user text-[#3c9ba5] text-2xl"></i>
+        <span class="text-sm font-medium text-gray-900">{{ firstname}}</span>
+
+      </a>
+
+    </div>
+
+
+
     <div class="me-5" *ngIf="isLogged">
        <app-notifications ></app-notifications>
     </div>

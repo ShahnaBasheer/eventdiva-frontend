@@ -6,7 +6,7 @@ import { environment } from '../../../../../environments/environment';
 
 
 @Component({
-  selector: 'app-card',
+  selector: 'app-eventplanner-card',
   standalone: true,
   imports: [
     RouterModule,
@@ -19,9 +19,5 @@ import { environment } from '../../../../../environments/environment';
 
 export class CardComponent {
   @Input({required: true}) cardItems!: IEventPlanner;
-  @Input({required: true}) vendorType!: string;
-  imageUrl!: string;
-
-
 
 }

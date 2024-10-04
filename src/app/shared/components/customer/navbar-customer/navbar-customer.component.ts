@@ -46,7 +46,7 @@ export class NavbarCustomerComponent{
   ngOnInit(): void {
     this.store.select(getUser).subscribe(user => {
         if(user){
-          this.firstname = user?.firstName || '';
+          this.firstname = user?.firstName + ' ' + user?.lastName || '';
         }
     });
 

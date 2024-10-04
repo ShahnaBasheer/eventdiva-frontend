@@ -1,106 +1,44 @@
 <div class="relative flex justify-between px-10 pt-5 pb-3 items-center">
-    <div>
-      <p class="font-semibold text-gray-500">Search Results 1</p>
+  <div>
+    <p class="font-semibold text-gray-500">Search Results <b>({{ totalCount }})</b></p>
+  </div>
+
+  <div class="flex items-center">
+    <div class="flex items-center gap-2 rtl:space-x-reverse">
+      <select
+        class="h-8 text-sm px-2 leading-none transition duration-75 border-gray-300 rounded-lg shadow-sm outline-none focus:border-yellow-500 focus:ring-1 focus:ring-inset focus:ring-yellow-500 dark:border-gray-600 dark:focus:border-yellow-500"
+        [(ngModel)]="limit"
+        (change)="onSelectPageSize(limit)"
+      >
+        <option value="10">10</option>
+        <option value="25">25</option>
+        <option value="50">50</option>
+      </select>
+      <span class="text-sm font-medium"> per page </span>
     </div>
 
-    <div class="flex items-center">
-
-
-        <div class="flex items-center gap-2 rtl:space-x-reverse">
-          <select
-            class="h-8 text-sm px-2 leading-none transition duration-75 border-gray-300 rounded-lg shadow-sm outline-none focus:border-yellow-500 focus:ring-1 focus:ring-inset focus:ring-yellow-500 dark:border-gray-600 dark:focus:border-yellow-500"
-            [(ngModel)]="limit"
-            (change)="onSelectPageSize(limit)"
-          >
-            <option value="10">10</option>
-            <option value="25">25</option>
-            <option value="50">50</option>
-          </select>
-          <span class="text-sm font-medium"> per page </span>
-        </div>
-
-        <div class="ms-3">
-         <app-venue-filters [filterData]="allfilters"></app-venue-filters>
-        </div>
-
-
-        <button type="button" class="-m-2 ml-4 p-2 text-gray-400 hover:text-gray-500 sm:ml-6 lg:hidden">
-            <span class="sr-only">Filters</span>
-            <svg class="h-5 w-5" aria-hidden="true" viewBox="0 0 20 20" fill="currentColor">
-              <path fill-rule="evenodd" d="M2.628 1.601C5.028 1.206 7.49 1 10 1s4.973.206 7.372.601a.75.75 0 01.628.74v2.288a2.25 2.25 0 01-.659 1.59l-4.682 4.683a2.25 2.25 0 00-.659 1.59v3.037c0 .684-.31 1.33-.844 1.757l-1.937 1.55A.75.75 0 018 18.25v-5.757a2.25 2.25 0 00-.659-1.591L2.659 6.22A2.25 2.25 0 012 4.629V2.34a.75.75 0 01.628-.74z" clip-rule="evenodd" />
-            </svg>
-        </button>
+    <div class="ms-3">
+      <ng-content></ng-content>
     </div>
+  </div>
 </div>
 
-
-<!-- <div class="pb-3">
-    <div class="flex flex-wrap space-x-4 items-center justify-center px-10">
-        <div class="inline-flex items-center justify-between space-x-1 bg-[#c1f7c1]
-             text-[#266926] font-bold px-2 py-1 rounded-md text-sm mb-3">
-            <svg onclick="this.parentElement.remove()" class="cursor-pointer h-4 w-4 text-green-900"
-                xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
-            </svg>
-            <div class="select-none">Cat</div>
-        </div>
-
-        <div class="inline-flex items-center justify-between space-x-1 bg-[#c1f7c1]
-              text-[#266926] font-bold px-2 py-1 rounded-md text-sm mb-3">
-            <svg onclick="this.parentElement.remove()" class="cursor-pointer h-4 w-4 text-green-900"
-                xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
-            </svg>
-            <div class="select-none">Eagle</div>
-        </div>
-
-        <div class="inline-flex items-center justify-between space-x-1 bg-[#c1f7c1]
-              text-[#266926] font-bold px-2 py-1 rounded-md text-sm mb-3">
-            <svg onclick="this.parentElement.remove()" class="cursor-pointer h-4 w-4 text-green-900"
-                xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
-            </svg>
-            <div class="select-none">Dog</div>
-        </div>
-
-        <div class="inline-flex items-center justify-between space-x-1 bg-[#c1f7c1]
-              text-[#266926] font-bold px-2 py-1 rounded-md text-sm mb-3">
-            <svg onclick="this.parentElement.remove()" class="cursor-pointer h-4 w-4 text-green-900"
-                xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
-            </svg>
-            <div class="select-none">Dog</div>
-        </div>
-
-        <div class="inline-flex items-center justify-between space-x-1 bg-[#c1f7c1]
-              text-[#266926] font-bold px-2 py-1 rounded-md text-sm mb-3">
-            <svg onclick="this.parentElement.remove()" class="cursor-pointer h-4 w-4 text-green-900"
-                xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
-            </svg>
-            <div class="select-none">Dog</div>
-        </div>
-
-        <div class="inline-flex items-center justify-between space-x-1 bg-[#c1f7c1]
-              text-[#266926] font-bold px-2 py-1 rounded-md text-sm mb-3">
-            <svg onclick="this.parentElement.remove()" class="cursor-pointer h-4 w-4 text-green-900"
-                xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
-            </svg>
-            <div class="select-none">Dog</div>
-        </div>
-
-        <div class="inline-flex items-center justify-between space-x-1 bg-[#c1f7c1]
-              text-[#266926] font-bold px-2 py-1 rounded-md text-sm mb-3">
-            <svg onclick="this.parentElement.remove()" class="cursor-pointer h-4 w-4 text-green-900"
-                xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
-            </svg>
-            <div class="select-none">Dog</div>
-        </div>
+<div class="pb-3">
+  <div class="flex flex-wrap space-x-4 items-center justify-center px-10">
+    <div *ngFor="let item of combinedFilters">
+      <div
+        *ngIf="item.name !== ''"
+        class="inline-flex items-center justify-between space-x-1 bg-[#c1f7c1] text-[#266926] font-bold px-2 py-1 rounded-md text-sm mb-3"
+      >
+        <i
+          class="fa-solid fa-xmark cursor-pointer"
+          (click)="removeFilter(item)"
+        ></i>
+        <div class="select-none">{{ item.name }}</div>
+      </div>
     </div>
-</div> -->
-
+  </div>
+</div>
 
 <!-- <div class="relative inline-block">
   <div>
@@ -130,8 +68,7 @@
          role="menuitem" tabindex="-1" id="menu-item-4">Price: High to Low</a>
     </div>
   </div>
-</div> -->
-
+</div>-->
 
 <!-- <button type="button" class="-m-2 ml-5 p-2 text-gray-400 hover:text-gray-500 sm:ml-7">
   <span class="sr-only">View grid</span>
