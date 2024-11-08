@@ -81,7 +81,7 @@ export class SocketService {
     this.socket.on('error', (error) => {
       if(role === environment.admin){
         if( error.error.statusCode === 401){
-          this.store.dispatch(adminSessionExpired());
+          this.store.dispatch(adminLogOut());
         } else if( error.error.statusCode === 403){
           this.store.dispatch(adminLogOut());
         } else {
@@ -89,7 +89,7 @@ export class SocketService {
         }
       } else if(role === environment.customer){
         if(error.error.statusCode === 401){
-          this.store.dispatch(sessionExpired());
+          this.store.dispatch(logOutSuccess());
         } else if(error.error.statusCode === 403){
           this.store.dispatch(logOutSuccess());
         } else {

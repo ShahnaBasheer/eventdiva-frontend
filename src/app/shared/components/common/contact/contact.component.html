@@ -1,5 +1,6 @@
+<app-loader *ngIf="isLoading"></app-loader>
 
-<div class="bg-[#f1f1f1] py-10">
+<div class="bg-[#f1f1f1] py-10" *ngIf="!isLoading">
 
   <div class="max-w-screen-lg shadow-md mx-auto p-5 bg-white">
     <div class="grid grid-cols-1 md:grid-cols-12 border">

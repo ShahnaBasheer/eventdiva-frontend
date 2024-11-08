@@ -15,7 +15,7 @@ declare var Razorpay: any;
 @Component({
   selector: 'app-booking-details',
   standalone: true,
-  imports: [ DateCalendarComponent, CommonModule, FormsModule ],
+  imports: [ CommonModule, FormsModule ],
   templateUrl: './booking-details.component.html',
   styleUrl: './booking-details.component.css'
 })
@@ -41,6 +41,7 @@ export class BookingDetailsComponent {
           this.item = res.data.bookingData as PlannerBooking;
           this.payments = this.item.payments || [];
           this.fullPayment = res.data.fullPayment;
+          console.log(this.item)
         }
       })
     } else if(this.type === 'venue'){
@@ -65,52 +66,101 @@ export class BookingDetailsComponent {
   }
 
   onPayAdvancepayment(){
-    this.plannerservice.payAdvancepayment(this.bookingId).subscribe({
-      next: (res) => {
-        const data = res.data;
-        console.log(data)
-        if(data){
-          let options = {
-              key: environment.razor_key,
-              amount: data?.razorpayOrderData.amount,
-              currency: data?.razorpayOrderData.currency,
-              name: 'EventDiva',
-              description: 'Advance payment Transaction',
-              order_id: data?.razorpayOrderData.id,
-              handler: (response: any) => {
-                this.ngZone.run(() => {
-                  this.plannerservice.confirmRazorpayPayment(response).subscribe({
-                    next: (res)=> {
-                      if(res.data?.bookedData){
-                         this.toastr.success('Advance payment is successfully paid!');
-                         this.item = res.data?.bookedData;
+    if(this.type == 'planner'){
+      this.plannerservice.payAdvancepayment(this.bookingId).subscribe({
+        next: (res) => {
+          const data = res.data;
+          console.log(data)
+          if(data){
+            let options = {
+                key: environment.razor_key,
+                amount: data?.razorpayOrderData.amount,
+                currency: data?.razorpayOrderData.currency,
+                name: 'EventDiva',
+                description: 'Advance payment Transaction',
+                order_id: data?.razorpayOrderData.id,
+                handler: (response: any) => {
+                  this.ngZone.run(() => {
+                    this.plannerservice.confirmRazorpayPayment(response).subscribe({
+                      next: (res)=> {
+                        if(res.data?.bookedData){
+                           this.toastr.success('Advance payment is successfully paid!');
+                           this.item = res.data?.bookedData;
+                        }
+                      },
+                      error: (err) => {
+                         this.toastr.error(err.message, 'Error');
                       }
-                    },
-                    error: (err) => {
-                       this.toastr.error(err.message, 'Error');
-                    }
-                 })
-                })
-              },
-          };
-          let rzp = new Razorpay(options);
-          (rzp as any).open();
-      } else {
-        this.toastr.error('Failed to pay advance payment. Please try again.');
-      }
-      },
-      error: (err: any) => {
-        console.error("Submission error", err.message);
-        if (err.status === 409) {
-          this.toastr.error(err.message);
-        } else if (err.status === 400) {
-          this.toastr.error(err.message);
+                   })
+                  })
+                },
+            };
+            let rzp = new Razorpay(options);
+            (rzp as any).open();
         } else {
-          this.toastr.error("Error booking the planner. Please try again.");
+          this.toastr.error('Failed to pay advance payment. Please try again.');
         }
-      }
+        },
+        error: (err: any) => {
+          console.error("Submission error", err.message);
+          if (err.status === 409) {
+            this.toastr.error(err.message);
+          } else if (err.status === 400) {
+            this.toastr.error(err.message);
+          } else {
+            this.toastr.error("Error booking the venue. Please try again.");
+          }
+        }
 
-    })
+      })
+    } else if(this.type == 'venue'){
+      this.venueservice.payAdvancepayment(this.bookingId).subscribe({
+        next: (res) => {
+          const data = res.data;
+          console.log(data)
+          if(data){
+            let options = {
+                key: environment.razor_key,
+                amount: data?.razorpayOrderData.amount,
+                currency: data?.razorpayOrderData.currency,
+                name: 'EventDiva',
+                description: 'Advance payment Transaction',
+                order_id: data?.razorpayOrderData.id,
+                handler: (response: any) => {
+                  this.ngZone.run(() => {
+                    this.venueservice.confirmRazorpayPayment(response).subscribe({
+                      next: (res)=> {
+                        if(res.data?.bookedData){
+                           this.toastr.success('Advance payment is successfully paid!');
+                           this.item = res.data?.bookedData;
+                        }
+                      },
+                      error: (err) => {
+                         this.toastr.error(err.message, 'Error');
+                      }
+                   })
+                  })
+                },
+            };
+            let rzp = new Razorpay(options);
+            (rzp as any).open();
+        } else {
+          this.toastr.error('Failed to pay advance payment. Please try again.');
+        }
+        },
+        error: (err: any) => {
+          console.error("Submission error", err.message);
+          if (err.status === 409) {
+            this.toastr.error(err.message);
+          } else if (err.status === 400) {
+            this.toastr.error(err.message);
+          } else {
+            this.toastr.error("Error booking the venue. Please try again.");
+          }
+        }
+
+      })
+    }
   }
 
   onPayFullPayment(){

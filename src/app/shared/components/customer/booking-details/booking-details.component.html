@@ -89,7 +89,7 @@
               </div>
 
               <!-- Right Side: Payment Summary -->
-              <div *ngIf="(item.charges.advancePayments && item.payments[1].status !== 'paid') || item.charges.fullPayment "
+              <div *ngIf="(item.charges.advancePayments && item.payments[1]?.status !== 'paid') || (item.charges.fullPayment && item.payments[2]?.status !== 'paid') "
                  class="col-span-6 bg-slate-300 p-3 rounded-lg shadow-md">
                 <!-- Header -->
                 <div class="mb-4">
@@ -99,7 +99,7 @@
                 </div>
 
                 <!-- Advance Payment Section -->
-                <div *ngIf="item.payments[1].status !== 'paid'"
+                <div *ngIf="item.payments[1]?.status !== 'paid'"
                   class="flex items-center justify-between bg-gray-100 p-1 rounded"
                 >
                   <div class="text-gray-700 font-medium text-[.94rem]">Advance Payment:</div>
@@ -117,7 +117,7 @@
                 </div>
 
                 <!-- Full Payment Section -->
-                <div *ngIf="fullPayment"
+                <div *ngIf="item.payments[2]?.status !== 'paid'"
                   class="flex items-center justify-between bg-gray-100 p-1 rounded mt-4"
                 >
                   <div class="text-gray-700 font-medium text-[.94rem]">Full Payment:</div>

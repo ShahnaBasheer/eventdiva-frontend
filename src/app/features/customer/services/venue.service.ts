@@ -46,8 +46,8 @@ export class venueService {
 
   venuefilters$ = this.venuefiltersSubject.asObservable();
 
-
-  APIBASE_VENUES_URL = `${environment.customerUrl}/vendors/venues`;
+  APIBASE_URL =  `${environment.customerUrl}/vendors/venues`;
+  APIBASE_VENUES_URL = `${environment.customerUrl}/venues`;
   APIBASE_BOOKING_URL =  `${environment.customerUrl}/bookings/venue`;
 
   constructor(private http: HttpClient){}
@@ -68,13 +68,13 @@ export class venueService {
 
 
   getVenueDetails(slug: string){
-      return this.http.get<any>(`${this.APIBASE_VENUES_URL}/${slug}`, {
+      return this.http.get<any>(`${this.APIBASE_URL}/${slug}`, {
         withCredentials: true,
       })
   }
 
   getVenueBookingPage(slug: string){
-      return this.http.get<any>(`${this.APIBASE_VENUES_URL}/booking/${slug}`, {
+      return this.http.get<any>(`${this.APIBASE_URL}/booking/${slug}`, {
         withCredentials: true,
       })
   }
@@ -92,7 +92,7 @@ export class venueService {
   }
 
   checkAvailability(formData: any, vendorId: string){
-    return this.http.post<any>(`${environment.customerUrl}/venues/check-availability/${vendorId}`, formData, {
+    return this.http.post<any>(`${this.APIBASE_VENUES_URL}/check-availability/${vendorId}`, formData, {
       withCredentials: true,
     })
   }

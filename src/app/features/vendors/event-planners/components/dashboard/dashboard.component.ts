@@ -60,7 +60,7 @@ export class EventPlannerDashboardComponent {
       },
       error: (err) => {
         console.log('Error loading dashboard:', err);
-        this.isLoading = true;
+        this.isLoading = false;
       },
     });
   }

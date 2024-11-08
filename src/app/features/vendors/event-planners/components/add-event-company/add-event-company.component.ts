@@ -419,10 +419,11 @@ export class AddEventCompanyComponent {
           this.toastr.success(
             'You Service SuccessFully Register Your Service!'
           );
-          // this.router.navigate(['/vendor/event-planner/service'], {
-          //   replaceUrl: true,
-          // });
+
           this.isLoading = false;
+          this.router.navigate(['/vendor/event-planner/service'], {
+            replaceUrl: true,
+          });
         },
         error: (err: any) => {
           console.log('Submission error', err.message);

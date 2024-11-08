@@ -17,6 +17,8 @@ export const AuthGuard: CanActivateFn = (route: ActivatedRouteSnapshot, state: R
         if(url === '/login' || url === '/signup'){
           return router.createUrlTree(['/home']);
         }
+    } else if(url === '/bookings'){
+        return router.createUrlTree(['/login']);
     }
     return true;
 }
