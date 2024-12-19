@@ -1,13 +1,12 @@
 import { Component, HostListener } from '@angular/core';
 import { PlannerBooking } from '../../../../core/models/plannerBooking.model';
 import { CommonModule } from '@angular/common';
-import { environment } from '../../../../../environments/environment';
-import { ToastrService } from 'ngx-toastr';
 import { EventPlannerAdminService } from '../../services/planner.service';
 import { ActionBtnsComponent } from '../../../../shared/components/common/action-btns/action-btns.component';
 import { StatusBadgeComponent } from '../../../../shared/components/common/status-badge/status-badge.component';
 import { SortSearchComponent } from '../../../../shared/components/admin/sort-search/sort-search.component';
 import { Status } from '../../../../core/enums/important.enums';
+import { ToastrAlertService } from '../../../../core/services/toastr.service';
 
 @Component({
   selector: 'app-planners-booking-list',
@@ -44,7 +43,7 @@ export class PlannersBookingListComponent {
 
   constructor(
     private plannerAdminService: EventPlannerAdminService,
-    private toastr: ToastrService
+    private toastr: ToastrAlertService
   ) {}
   ngOnInit(): void {
     this.loadVendors();

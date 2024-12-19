@@ -7,7 +7,7 @@ import { VenueBooking } from '../../../../core/models/venueBooking.model';
 import { FormsModule } from '@angular/forms';
 import { Payment } from '../../../../core/models/bookingdetails.model';
 import { environment } from '../../../../../environments/environment';
-import { ToastrService } from 'ngx-toastr';
+import { ToastrAlertService } from '../../../../core/services/toastr.service';
 import { venueService } from '../../../../features/customer/services/venue.service';
 
 declare var Razorpay: any;
@@ -31,7 +31,7 @@ export class BookingDetailsComponent {
     private plannerservice: PlannerService,
     private venueservice: venueService,
     private ngZone: NgZone,
-    private toastr: ToastrService){}
+    private toastr: ToastrAlertService){}
 
   ngOnInit(){
     console.log(this.bookingId);

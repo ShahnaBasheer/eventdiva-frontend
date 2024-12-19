@@ -1,0 +1,13 @@
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.videoCallRoomId = exports.logOutFailure = exports.logOutSuccess = exports.sessionExpired = exports.logOut = exports.googleSignin = exports.loginFailure = exports.loginSuccess = exports.userLogin = void 0;
+const store_1 = require("@ngrx/store");
+exports.userLogin = (0, store_1.createAction)('[User] Login', (0, store_1.props)());
+exports.loginSuccess = (0, store_1.createAction)('[User] Login Success', (0, store_1.props)());
+exports.loginFailure = (0, store_1.createAction)('[User] Login Failure', (0, store_1.props)());
+exports.googleSignin = (0, store_1.createAction)('[User] GoogleSignin', (0, store_1.props)());
+exports.logOut = (0, store_1.createAction)('[User] Logout');
+exports.sessionExpired = (0, store_1.createAction)('[User] Session Expired');
+exports.logOutSuccess = (0, store_1.createAction)('[User] Logout Success');
+exports.logOutFailure = (0, store_1.createAction)('[User] Logout Failure', (0, store_1.props)());
+exports.videoCallRoomId = (0, store_1.createAction)('[RoomId] Vendor', (0, store_1.props)());

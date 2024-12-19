@@ -6,10 +6,10 @@ import { catchError, map, mergeMap, switchMap, tap } from 'rxjs/operators';
 import { of } from 'rxjs';
 import { LoginCredentials } from '../../../core/models/common.model';
 import { Router } from '@angular/router';
-import { ToastrService } from 'ngx-toastr';
 import { environment } from '../../../../environments/environment';
 import { CustomerBroadcastChannelService } from '../services/broadcast-customer.service';
 import { CustomerWebRTCService } from '../services/customerWebrtc.service';
+import { ToastrAlertService } from '../../../core/services/toastr.service';
 
 
 
@@ -23,9 +23,8 @@ export class CustomerEffects {
     private router: Router,
     private customerService: CustomerAuthService,
     private ngZone: NgZone,
-    private toastr: ToastrService,
+    private toastr: ToastrAlertService,
     private customerbroadcast: CustomerBroadcastChannelService,
-    private customerWebrtc: CustomerWebRTCService
   ) {}
 
 
@@ -117,6 +116,7 @@ export class CustomerEffects {
           localStorage.removeItem(environment.customerInfo);
           localStorage.removeItem(environment.cu_accessKey);
           this.router.navigate(['/login'], { replaceUrl: true });
+          this.toastr.success('You are successfully logged out!')
       }),
       catchError((error: any) => {
         console.error('Logout error:', error);

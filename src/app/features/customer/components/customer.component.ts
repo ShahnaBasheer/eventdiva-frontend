@@ -1,10 +1,7 @@
 import { FooterComponent } from '../../../shared/components/customer/footer/footer.component';
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { NavbarCustomerComponent } from '../../../shared/components/customer/navbar-customer/navbar-customer.component';
-import { HomeComponent } from './home/home.component';
-import { LoginComponent } from './login/login.component';
 import { RouterModule } from '@angular/router';
-import { SignupComponent } from './signup/signup.component';
 import { Store } from '@ngrx/store';
 import { getUser } from '../store/customer.selectors';
 import { loginSuccess, logOutSuccess } from '../store/customer.actions';
@@ -20,10 +17,7 @@ import { TokenService } from '../../../core/services/jwtToken.service';
   standalone: true,
   imports: [
     NavbarCustomerComponent,
-    HomeComponent,
-    LoginComponent,
     FooterComponent,
-    SignupComponent,
     RouterModule
   ],
   templateUrl: './customer.component.html',

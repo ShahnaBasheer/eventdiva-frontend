@@ -26,7 +26,8 @@ export class VenueBookingService {
     }){
       return this.http.get<any>(`${this.APIBASE_URL}/`, {
         params: {
-          page: page.toString(), limit: limit.toString(),
+          page: page.toString(),
+          limit: limit.toString(),
           status: status.toString() ,
           selectedMonth: filters.selectedMonth?.toString() || '',
           selectedYear: filters.selectedYear?.toString() || '',

@@ -51,11 +51,7 @@ export class NavbarCustomerComponent{
     });
 
     this.store.select(isLoggedIn).subscribe(isLoggedIn => {
-        if(isLoggedIn){
-            this.isLogged = true;
-        } else {
-            this.isLogged = false;
-        }
+      this.isLogged = isLoggedIn;
     })
 
   }

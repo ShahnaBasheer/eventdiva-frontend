@@ -18,11 +18,11 @@ import {
   validateMaxPrice,
 } from '../../../../../core/validators/forms.validator';
 import { Router } from '@angular/router';
-import { ToastrService } from 'ngx-toastr';
 import { SearchFilterPipe } from '../../../../../core/pipes/search-filter.pipe';
 import { AddressFormComponent } from '../../../../../shared/components/common/address-form/address-form.component';
 import { CommonService } from '../../../../../core/services/common.service';
 import { PageLoaderComponent } from '../../../../../shared/components/common/page-loader/page-loader.component';
+import { ToastrAlertService } from '../../../../../core/services/toastr.service';
 
 interface Image {
   url: string;
@@ -67,7 +67,7 @@ export class AddEventCompanyComponent {
     private commonservice: CommonService,
     private eventplannerservice: EventPlannerService,
     private router: Router,
-    private toastr: ToastrService
+    private toastr: ToastrAlertService
   ) {
     const currentYear = new Date().getFullYear();
 

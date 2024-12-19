@@ -3,11 +3,11 @@ import { BookingsCardComponent } from '../../../../../shared/components/vendors/
 import { CommonModule } from '@angular/common';
 import { VenueBookingService } from '../../services/venue-booking.service';
 import { VenueBooking } from '../../../../../core/models/venueBooking.model';
-import { ToastrService } from 'ngx-toastr';
 import { VendorPaginationComponent } from '../../../../../shared/components/vendors/vendor-pagination/vendor-pagination.component';
 import { PageLoaderComponent } from '../../../../../shared/components/common/page-loader/page-loader.component';
 import { FormsModule } from '@angular/forms';
 import { BookingSearchFiltersComponent } from '../../../../../shared/components/common/booking-search-filters/filters.component';
+import { ToastrAlertService } from '../../../../../core/services/toastr.service';
 
 @Component({
   selector: 'app-venue-bookings',
@@ -46,7 +46,7 @@ export class VenueBookingsComponent {
   limit: number = 10;
 
 
-  constructor(private venueBookingService: VenueBookingService, private toastr: ToastrService){}
+  constructor(private venueBookingService: VenueBookingService, private toastr: ToastrAlertService){}
 
   ngOnInit(): void {
     this.loadVendors();

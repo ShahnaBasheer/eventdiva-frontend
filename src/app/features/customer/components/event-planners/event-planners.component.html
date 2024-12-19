@@ -1,7 +1,7 @@
 <app-loader *ngIf="!eventPlanners && isLoading"></app-loader>
 
 <app-vendor-card-wrap
-  [subHeading]="'Venues'"
+  [subHeading]="'Event Planners'"
   *ngIf="eventPlanners"
   [totalPages]="totalPages"
   [totalCount]="totalCount"
@@ -34,7 +34,7 @@
   </div>
 
   <div slot="cards">
-    <div class="grid grid-cols-3">
+    <div class="grid grid-cols-3 gap-4">
       <app-eventplanner-card
         *ngFor="let item of eventPlanners"
         [cardItems]="item"

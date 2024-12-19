@@ -37,7 +37,7 @@ export class VendorsListComponent {
   loadVendors(){
     this.vendorService.getVendorsPage(this.page, this.limit).subscribe({
       next: (res) => {
-          this.vendors = res.data.vendors;
+          this.vendors = res.data.users;
           this.totalPages = res.data?.totalPages || 1;
           this.totalCount = res.data?.totalCount || 0;
           this.isLoading = false;

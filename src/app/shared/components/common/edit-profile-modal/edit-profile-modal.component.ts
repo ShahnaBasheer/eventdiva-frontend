@@ -8,11 +8,9 @@ import {
 } from '@angular/forms';
 import { isFieldInvalidator } from '../../../../core/validators/forms.validator';
 import { CommonService } from '../../../../features/vendors/services/common.service';
-import { OtpVerificationComponent } from '../../../../features/customer/components/otp-verification/otp-verification.component';
-import { ToastrService } from 'ngx-toastr';
+import { ToastrAlertService } from '../../../../core/services/toastr.service';
 import { Customer } from '../../../../core/models/customer.model';
 import { Vendor } from '../../../../core/models/vendor.model';
-import { C } from '@fullcalendar/core/internal-common';
 import { CustomerService } from '../../../../features/customer/services/customer.service';
 import { Store } from '@ngrx/store';
 import { loginSuccess } from '../../../../features/customer/store/customer.actions';
@@ -23,7 +21,7 @@ import { vendorLoginSuccess } from '../../../../features/vendors/store/vendor.ac
 @Component({
   selector: 'app-edit-profile-modal',
   standalone: true,
-  imports: [ReactiveFormsModule, CommonModule, OtpVerificationComponent],
+  imports: [ReactiveFormsModule, CommonModule ],
   templateUrl: './edit-profile-modal.component.html',
   styleUrl: './edit-profile-modal.component.css',
 })
@@ -41,7 +39,7 @@ export class EditProfileModalComponent {
   constructor(
     private fb: FormBuilder,
     private commonService: CommonService,
-    private toastr: ToastrService,
+    private toastr: ToastrAlertService,
     private customerService: CustomerService,
     private tokenservice: TokenService,
     private store: Store

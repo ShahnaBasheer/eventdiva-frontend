@@ -51,7 +51,7 @@ export class NotificationService {
       'loaded-notification',
       (data: { notification: Notification }) => {
         const currentNotifications = this.notificationsSubject.getValue();
-        console.log(data.notification, 'NOtification Arrived Here');
+        // console.log(data.notification, 'NOtification Arrived Here');
         this.notificationsSubject.next([
           data.notification,
           ...currentNotifications,
@@ -92,7 +92,6 @@ export class NotificationService {
   }
 
   public getUserId() {
-  console.log("kndckn")
     return this.userId;
   }
 

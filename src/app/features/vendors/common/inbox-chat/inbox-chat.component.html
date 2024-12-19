@@ -1,8 +1,12 @@
-<div class="grid grid-cols-12 shadow-custom my-3 h-full overflow-hidden">
+
+<app-page-loader *ngIf="isLoading"></app-page-loader>
+
+
+<div *ngIf="!isLoading" class="grid grid-cols-12 shadow-custom my-3 h-full overflow-hidden">
   <div class="col-span-3 bg-white border-r border-gray-300 h-full">
     <header class="p-4 border-b border-gray-300 flex justify-between items-center bg-indigo-600 text-white">
       <h1 class="text-2xl font-semibold">Chat Room</h1>
-      <div class="relative">
+      <!-- <div class="relative">
         <button id="menuButton" class="focus:outline-none">
           <i class="fa-solid fa-minus text-2xl"></i>
         </button>
@@ -13,7 +17,7 @@
 
           </ul>
         </div>
-      </div>
+      </div> -->
     </header>
     <div class="h-[calc(100vh-170px)]  overflow-y-auto ">
       <div *ngFor="let item of AllCustomers; let i = index;"
@@ -25,8 +29,13 @@
             {{ item.customerId.firstName | slice:0:1  }}{{ item.customerId.lastName | slice:0:1  }}
           </div>
           <div class="flex-1">
-            <h2 class="text-lg font-semibold">{{ item.customerId.firstName }} {{ item.customerId.lastName }}</h2>
+            <h2 class="text-md font-semibold">{{ item.customerId.firstName }} {{ item.customerId.lastName }}</h2>
           </div>
+           <!-- Notification Badge -->
+          <div *ngIf="item.unreadMessages > 0"
+             class="ml-2 text-sm text-white bg-red-500 rounded-full w-6 h-6 flex items-center justify-center">
+             {{ item.unreadMessages }}
+           </div>
         </div>
         <hr class="border border-[#e4e4e4]">
       </div>

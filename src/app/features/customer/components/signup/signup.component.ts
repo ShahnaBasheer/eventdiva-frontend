@@ -4,8 +4,7 @@ import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angula
 import { Router, RouterModule } from '@angular/router';
 import { CustomerAuthService } from '../../services/auth.service';
 import { confirmPasswordValidator, isFieldInvalidator } from '../../../../core/validators/forms.validator';
-import { ToastrService } from 'ngx-toastr';
-
+import { ToastrAlertService } from '../../../../core/services/toastr.service';
 
 
 @Component({
@@ -26,7 +25,7 @@ export class SignupComponent {
       private fb: FormBuilder,
       private customerAuthService: CustomerAuthService,
       private router: Router,
-      private toastr: ToastrService,
+      private toastr: ToastrAlertService,
     ) { }
 
   ngOnInit(): void {

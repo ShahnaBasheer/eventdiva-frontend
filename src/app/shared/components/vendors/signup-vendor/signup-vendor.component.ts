@@ -4,8 +4,7 @@ import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angula
 import { Router, RouterModule } from '@angular/router';
 import { confirmPasswordValidator, isFieldInvalidator } from '../../../../core/validators/forms.validator';
 import { VendorAuthService } from '../../../../features/vendors/services/vendor-auth.service';
-import { ToastrService } from 'ngx-toastr';
-
+import { ToastrAlertService } from '../../../../core/services/toastr.service';
 
 @Component({
   selector: 'app-signup-vendor',
@@ -30,7 +29,7 @@ export class SignupVendorComponent implements OnInit{
     private fb: FormBuilder,
     private router: Router,
     private vendorAuthService: VendorAuthService,
-    private toastr: ToastrService,
+    private toastr: ToastrAlertService,
   ){}
 
 

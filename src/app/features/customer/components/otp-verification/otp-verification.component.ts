@@ -3,8 +3,9 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { Router, RouterModule } from '@angular/router';
 import { CommonModule } from '@angular/common';
+import { ToastrAlertService } from '../../../../core/services/toastr.service';
 import { isFieldInvalidator } from '../../../../core/validators/forms.validator';
-import { ToastrService } from 'ngx-toastr';
+
 
 
 @Component({
@@ -28,7 +29,7 @@ export class OtpVerificationComponent implements OnInit{
     constructor(private router: Router,
         private authService: CustomerAuthService,
         private fb: FormBuilder,
-        private toastr: ToastrService,
+        private toastr: ToastrAlertService,
       ){
         this.otpVerificationForm = this.fb.group({
           "otp": ['', [Validators.required, Validators.minLength(6), Validators.maxLength(6)]],

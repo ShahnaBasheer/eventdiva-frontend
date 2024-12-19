@@ -4,13 +4,13 @@ import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angula
 import { BookingAddressComponent } from '../../../../shared/components/customer/booking-address/booking-address.component';
 import { LoaderComponent } from '../../../../shared/components/common/loader/loader.component';
 import { eventDateValidator, isFieldInvalid } from '../../../../core/validators/forms.validator';
-import { ToastrService } from 'ngx-toastr';
 import { Router } from '@angular/router';
 import { environment } from '../../../../../environments/environment';
 import IEventPlanner from '../../../../core/models/eventPlanner.model';
 import { CurrencyFormat } from '../../../../core/pipes/currency-format.pipe';
 import { PlannerService } from '../../services/planner.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { ToastrAlertService } from '../../../../core/services/toastr.service';
 
 declare var Razorpay: any;
 
@@ -44,7 +44,7 @@ export class PlannerBookingComponent {
   constructor(
     private fb: FormBuilder,
     private plannerService: PlannerService,
-    private toastr: ToastrService,
+    private toastr: ToastrAlertService,
     private router: Router,
     private snackBar: MatSnackBar,
     private ngZone: NgZone

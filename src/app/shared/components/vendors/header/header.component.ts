@@ -2,8 +2,7 @@ import { Component, HostListener, Input } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { vendorLogOut } from '../../../../features/vendors/store/vendor.actions';
 import { CommonModule } from '@angular/common';
-import { ToastrService } from 'ngx-toastr';
-import { VendorWebRTCService } from '../../../../features/vendors/services/vendorWebrtc.service';
+import { ToastrAlertService } from '../../../../core/services/toastr.service';import { VendorWebRTCService } from '../../../../features/vendors/services/vendorWebrtc.service';
 import { RecieverVideoCallComponent } from '../../common/reciever-video-call/reciever-video-call.component';
 import { isLoggedIn } from '../../../../features/vendors/store/vendor.selectors';
 import { NotificationService } from '../../../../core/services/notification.service';
@@ -45,43 +44,89 @@ export class HeaderComponent {
 
   constructor(
     private store: Store,
-    private toastr: ToastrService,
+    private toastr: ToastrAlertService,
     private webrtcservices: VendorWebRTCService,
     private notificationservice: NotificationService,
   ){}
 
-  ngOnInit() {
-    this.store.select(isLoggedIn).subscribe( data => {
-      if(data){
-        this.notificationservice.fetchNotifications(environment.vendorUrl).subscribe(res => {
-          this.notificationservice.addNotifications(res.data?.notifications);
-          this.unreadCount = res.data?.readCount;
+  ngOnInit(): void {
+    // Check if the user is logged in and fetch notifications
+    const isLoggedInSubscription = this.store.select(isLoggedIn).subscribe((isLogged) => {
+      if (isLogged) {
+        this.notificationservice.fetchNotifications(environment.vendorUrl).subscribe({
+          next: (res) => {
+            if (res?.data?.notifications) {
+              this.notificationservice.addNotifications(res.data.notifications);
+              this.unreadCount = res.data.readCount || 0; // Ensure unreadCount is valid
+            }
+          },
+          error: (err) => {
+            console.error('Error fetching notifications:', err);
+          },
         });
       }
     });
 
-    const notificationsSubscription = this.notificationservice.notifications$.subscribe( data => {
-      this.AllNotifications =  data;
-      if(this.AllNotifications.length > 0){
-        this.unreadCount++;
-      }
-    })
+    // Subscribe to notifications observable to update notifications list
+    const notificationsSubscription = this.notificationservice.notifications$.subscribe({
+      next: (notifications) => {
+        this.AllNotifications = notifications;
+        // Recalculate unreadCount from notifications if needed
+        this.unreadCount = notifications.filter((notif) => !notif.isRead).length;
+      },
+      error: (err) => {
+        console.error('Error updating notifications:', err);
+      },
+    });
 
-    // Add first subscription
-    this.subscriptions.add(notificationsSubscription);
-
+    // Subscribe to incoming call observable
     const incomingCallSubscription = this.webrtcservices.incomingCall$.subscribe({
       next: (data) => {
-        if (data) this.isIncomingCall = true;
-        else this.isIncomingCall = false;
+        this.isIncomingCall = !!data; // Set based on truthiness of `data`
       },
       error: (err) => {
         console.error('Error receiving call:', err);
-      }
+      },
     });
 
+    // Add all subscriptions to the subscriptions manager
+    this.subscriptions.add(isLoggedInSubscription);
+    this.subscriptions.add(notificationsSubscription);
     this.subscriptions.add(incomingCallSubscription);
   }
+
+  // ngOnInit() {
+  //   this.store.select(isLoggedIn).subscribe( data => {
+  //     if(data){
+  //       this.notificationservice.fetchNotifications(environment.vendorUrl).subscribe(res => {
+  //         this.notificationservice.addNotifications(res.data?.notifications);
+  //         this.unreadCount = res.data?.readCount;
+  //       });
+  //     }
+  //   });
+
+  //   const notificationsSubscription = this.notificationservice.notifications$.subscribe( data => {
+  //     this.AllNotifications =  data;
+  //     if(this.AllNotifications.length > 0){
+  //       this.unreadCount++;
+  //     }
+  //   })
+
+  //   // Add first subscription
+  //   this.subscriptions.add(notificationsSubscription);
+
+  //   const incomingCallSubscription = this.webrtcservices.incomingCall$.subscribe({
+  //     next: (data) => {
+  //       if (data) this.isIncomingCall = true;
+  //       else this.isIncomingCall = false;
+  //     },
+  //     error: (err) => {
+  //       console.error('Error receiving call:', err);
+  //     }
+  //   });
+
+  //   this.subscriptions.add(incomingCallSubscription);
+  // }
 
   public endCall() {
     this.webrtcservices.endCall();

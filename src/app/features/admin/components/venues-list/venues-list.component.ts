@@ -2,13 +2,13 @@ import { CommonModule } from '@angular/common';
 import { Component, HostListener } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { VenuesAdminService } from '../../services/venues.service';
-import { ToastrService } from 'ngx-toastr';
 import { ActionBtnsComponent } from '../../../../shared/components/common/action-btns/action-btns.component';
 import { StatusBadgeComponent } from '../../../../shared/components/common/status-badge/status-badge.component';
 import { IVenue } from '../../../../core/models/venue.model';
 import { Status } from '../../../../core/enums/important.enums';
 import { SortSearchComponent } from '../../../../shared/components/admin/sort-search/sort-search.component';
 import { AdminPaginationComponent } from '../../../../shared/components/admin/admin-pagination/admin-pagination.component';
+import { ToastrAlertService } from '../../../../core/services/toastr.service';
 
 @Component({
   selector: 'app-venues-list',
@@ -48,7 +48,7 @@ export class VenuesListComponent {
 
   constructor(
     private venuesAdminService: VenuesAdminService,
-    private toastr: ToastrService
+    private toastr: ToastrAlertService
   ) {}
   ngOnInit(): void {
     this.loadVendors();

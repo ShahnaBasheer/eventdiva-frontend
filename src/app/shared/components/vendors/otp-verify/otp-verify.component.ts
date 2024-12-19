@@ -4,8 +4,7 @@ import { VendorAuthService } from '../../../../features/vendors/services/vendor-
 import { Router } from '@angular/router';
 import { isFieldInvalidator } from '../../../../core/validators/forms.validator';
 import { CommonModule } from '@angular/common';
-import { ToastrService } from 'ngx-toastr';
-
+import { ToastrAlertService } from '../../../../core/services/toastr.service';
 @Component({
   selector: 'app-otp-verify',
   standalone: true,
@@ -32,7 +31,7 @@ export class OtpVerifyComponent {
     private router: Router,
     private vendorService: VendorAuthService,
     private fb: FormBuilder,
-    private toastr: ToastrService
+    private toastr: ToastrAlertService
   ){}
 
   ngOnInit(): void {

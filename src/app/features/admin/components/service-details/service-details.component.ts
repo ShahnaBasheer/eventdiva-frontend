@@ -7,8 +7,7 @@ import { VenueBodyDetailComponent } from '../../../../shared/components/common/v
 import { PlannerBodyDetailComponent } from '../../../../shared/components/common/planner-body-detail/planner-body-detail.component';
 import IEventPlanner from '../../../../core/models/eventPlanner.model';
 import { IVenue } from '../../../../core/models/venue.model';
-import { ToastrService } from 'ngx-toastr';
-import { checkEventPlanner, checkVenue } from '../../../../core/helpers/helper.function';
+import { ToastrAlertService } from '../../../../core/services/toastr.service';
 
 
 @Component({
@@ -35,7 +34,7 @@ export class ServiceDetailsComponent implements OnInit{
   constructor(
     private venueadminservice: VenuesAdminService,
     private planneradminservice: EventPlannerAdminService,
-    private toastr: ToastrService,
+    private toastr: ToastrAlertService,
     private cd: ChangeDetectorRef
   ){}
 

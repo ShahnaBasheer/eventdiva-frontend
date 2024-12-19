@@ -35,15 +35,16 @@
       >
         <li
           *ngFor="let item of allMenus"
-          class="font-semibold px-8 py-3 hover:bg-[#CB3A3A] hover:text-white cursor-pointer"
+          class="font-semibold px-8 py-3 hover:bg-[#38a9c5] hover:text-white cursor-pointer uppercase"
         >
           {{ item }}
         </li>
 
         <li
-          class="font-semibold px-10 py-3 bg-[#CB3A3A] text-white cursor-pointer"
+          class="font-semibold px-9 py-3 bg-[#CB3A3A] text-white cursor-pointer"
         >
           WISHLIST
+          <i class="fa-regular fa-heart ps-1"></i>
         </li>
       </ul>
     </section>
@@ -82,7 +83,7 @@
             </p>
           </div>
           <!-- <div class="text-dimgray">Pallikulam, Pirayiri, Palakkad, Kerala 678004</div> -->
-          <div class="flex">
+          <!-- <div class="flex">
             <a
               class="px-5 py-1 text-center text-white bg-[#3ea3c5] border border-[#3ea3c5] rounded rounded-e-none focus:outline-none focus:ring text-sm"
               href="/download"
@@ -94,7 +95,7 @@
             >
               <i class="fa-regular fa-copy pe-2"></i>Copy
             </a>
-          </div>
+          </div> -->
 
           <!-- <div class="flex items-center gap-2 py-4 ">
             <div class="whitespace-nowrap text-[#383838] font-bold text-lg">{{ CompanyInfo.advancePayments| currency:'INR':'symbol':'1.0-0' }}</div>

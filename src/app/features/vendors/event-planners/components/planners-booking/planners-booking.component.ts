@@ -1,13 +1,13 @@
 import { Component } from '@angular/core';
 import { PlannerBooking } from '../../../../../core/models/plannerBooking.model';
 import { PlannerBookingService } from '../../services/planner-booking.service';
-import { ToastrService } from 'ngx-toastr';
 import { CommonModule } from '@angular/common';
 import { BookingsCardComponent } from '../../../../../shared/components/vendors/bookings-card/bookings-card.component';
 import { VendorPaginationComponent } from '../../../../../shared/components/vendors/vendor-pagination/vendor-pagination.component';
 import { PageLoaderComponent } from '../../../../../shared/components/common/page-loader/page-loader.component';
 import { BookingSearchFiltersComponent } from '../../../../../shared/components/common/booking-search-filters/filters.component';
 import { FormsModule } from '@angular/forms';
+import { ToastrAlertService } from '../../../../../core/services/toastr.service';
 
 @Component({
   selector: 'app-planners-booking',
@@ -45,7 +45,7 @@ export class PlannersBookingComponent {
   page: number = 1;
   limit: number = 10;
 
-  constructor(private plannerBookingService: PlannerBookingService, private toastr: ToastrService){}
+  constructor(private plannerBookingService: PlannerBookingService, private toastr: ToastrAlertService){}
 
   ngOnInit(): void {
     this.loadVendors();

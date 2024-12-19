@@ -1,8 +1,4 @@
 import { Component, ElementRef, Input, OnInit, ViewChild } from '@angular/core';
-import { DetailAreasComponent } from '../../../../shared/components/common/detail-areas/detail-areas.component';
-import { DetailAboutComponent } from '../../../../shared/components/customer/detail-about/detail-about.component';
-import { DetailWorksComponent } from '../../../../shared/components/common/detail-works/detail-works.component';
-import { DetailReviewsComponent } from '../../../../shared/components/customer/detail-reviews/detail-reviews.component';
 import { BrowseSimilarComponent } from '../../../../shared/components/customer/browse-similar/browse-similar.component';
 import { CheckAvailabilityComponent } from '../../../../shared/components/customer/check-availability/check-availability.component';
 import { PlannerBodyDetailComponent } from '../../../../shared/components/common/planner-body-detail/planner-body-detail.component';
@@ -13,7 +9,7 @@ import { SubNavbarComponent } from '../../../../shared/components/customer/sub-n
 import { environment } from '../../../../../environments/environment';
 import { LoaderComponent } from '../../../../shared/components/common/loader/loader.component';
 import { CustomerWebRTCService } from '../../services/customerWebrtc.service';
-import { ToastrService } from 'ngx-toastr';
+import { ToastrAlertService } from '../../../../core/services/toastr.service';
 import { VideoCallComponent } from '../../../../shared/components/common/video-call/video-call.component';
 import { Router, RouterModule } from '@angular/router';
 import { ChatRoomComponent } from '../../../../shared/components/common/chat-room/chat-room.component';
@@ -24,10 +20,6 @@ import { MatSnackBar } from '@angular/material/snack-bar';
   selector: 'app-planner-detail',
   standalone: true,
   imports: [
-    DetailAreasComponent,
-    DetailAboutComponent,
-    DetailWorksComponent,
-    DetailReviewsComponent,
     BrowseSimilarComponent,
     CheckAvailabilityComponent,
     PlannerBodyDetailComponent,
@@ -46,6 +38,7 @@ export class PlannerDetailComponent implements OnInit {
   @ViewChild('bookButton', { static: false }) bookButton!: ElementRef;
   @Input({ required: true }) slug: string = '';
   isBooking: boolean = false;
+  isLoggedIn: boolean = false;
   allMenus = ['ABOUT', 'SERVICES', 'WORKS', 'WISHLIST'];
   eventPlannerData!: IEventPlanner;
   isLoading: boolean = true;
@@ -56,7 +49,7 @@ export class PlannerDetailComponent implements OnInit {
   constructor(
     private plannerService: PlannerService,
     private webrtcservices: CustomerWebRTCService,
-    private toastr: ToastrService,
+    private toastr: ToastrAlertService,
     private chatroomservice: ChatRoomService,
     private snackBar: MatSnackBar,
     private router: Router
@@ -67,25 +60,39 @@ export class PlannerDetailComponent implements OnInit {
       next: (res) => {
         if (res.data?.eventPlannerData) {
           this.eventPlannerData = res.data.eventPlannerData;
+          this.isLoggedIn = !!res.data?.user;
         }
         this.isLoading = false;
       },
       error: (err: any) => {
         console.log('Error:', err.message);
         this.isLoading = false;
+        this.toastr.wrong();
       },
     });
   }
 
   startCall() {
-    this.showCallAlertModal = true;
+    if(this.isLoggedIn){
+      this.showCallAlertModal = true;
+    } else {
+      this.toastr.info("Please log in to start a video call.")
+      this.router.navigate(['/login']);
+    }
+
   }
 
   async startChat() {
-    if (!this.showChatRoomModal) {
-      this.chatroomservice.joinChatRoom(this.eventPlannerData.vendorId);
+    if(this.isLoggedIn){
+      if (!this.showChatRoomModal) {
+        this.chatroomservice.joinChatRoom(this.eventPlannerData.vendorId);
+      }
+      this.showChatRoomModal = !this.showChatRoomModal;
+    } else {
+      this.toastr.info("Please log in to start a chat.")
+      this.router.navigate(['/login']);
     }
-    this.showChatRoomModal = !this.showChatRoomModal;
+
   }
 
   onCloseModal() {
@@ -136,9 +143,8 @@ export class PlannerDetailComponent implements OnInit {
     }
   }
 
-  async onCloseChatRoom() {
+  onCloseChatRoom() {
     this.showChatRoomModal = false;
-    await this.chatroomservice.leaveChatRoom(environment.customer);
   }
 
 

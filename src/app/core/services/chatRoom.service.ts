@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { BehaviorSubject, firstValueFrom, Observable } from 'rxjs';
+import { BehaviorSubject, Observable } from 'rxjs';
 import { io, Socket } from "socket.io-client";
 import { environment } from '../../../environments/environment';
 import { HttpClient } from '@angular/common/http';
@@ -36,34 +36,78 @@ export class ChatRoomService {
     });
 
     this.socket?.on('notify-message', data => {
-        console.log("it is there")
         this.notifySubject.next(true);
     });
 
-    this.socket?.on('user-joined', (data: {  receiverId: string, response: Chatroom }) => {
-      console.log("user has joined the room", data.response._id, data.response.messages.length);
-      this.roomId = data.response._id || '';
-      this.chatMessagesSubject.next(data.response.messages);
+  }
+  public async joinChatRoom(receiverId: string): Promise<string> {
+    return new Promise((resolve, reject) => {
+      if (this.socket && this.socket.connected) {
+        this.socketService.emit('join-chat-room', { receiverId });
+
+        this.socket?.off('user-joined');
+
+        this.socket?.on('user-joined', (data: { receiverId: string, res: Chatroom }) => {
+          if (data && data.res && data.res._id) {
+            console.log("User has joined the room");
+            this.roomId = data.res._id || '';
+            this.chatMessagesSubject.next(data.res.messages);
+            resolve("success");
+          } else {
+            reject('Invalid chatroom data');
+          }
+        });
+
+        // Adding a timeout in case the 'user-joined' event takes too long to be received
+        setTimeout(() => {
+          reject('User join timeout');
+        }, 5000); // Timeout in 5 seconds
+      } else {
+        reject('Socket not connected');
+      }
     });
-
   }
 
-  public joinChatRoom(receiverId: string){
-    this.socketService.emit('join-chat-room', { receiverId });
+
+
+  public leaveChatRoom(userRole: string): Promise<string> {
+    return new Promise((resolve, reject) => {
+      if (this.socket && this.socket.connected) {
+        this.socket?.off('user-left'); // Remove old listener
+
+        // Emit the 'leave-chat-room' event to notify the server
+        this.socketService.emit('leave-chat-room', { chatRoomId: this.roomId, userRole });
+
+        // Listen for the 'user-left' event to confirm that the user has left the chatroom
+        this.socket?.on('user-left', (data: { roomId: string, role: string }) => {
+          if (data.roomId === this.roomId) {
+            this.chatMessagesSubject.next([]); // Clear chat messages on leave
+            this.roomId = ''; // Reset room ID
+            console.log(data.role, 'left chatroom');
+            resolve('success');
+          } else {
+            reject('Room ID mismatch');
+          }
+        });
+
+        // Adding a timeout in case the 'user-left' event takes too long
+        setTimeout(() => {
+          reject('Leave chatroom timeout');
+        }, 5000); // Timeout in 5 seconds
+      } else {
+        reject('Socket not connected');
+      }
+    });
   }
+
+
+
 
 
   public async sendMessage(message: string, name: string) {
-    console.log("i am here in sending messages",message, name)
-    await this.socketService.emit('send-message', { message, chatRoomId: this.roomId, name});
+    console.log("i am here in sending messages", message, name, this.roomId)
+    this.socketService.emit('send-message', { message, chatRoomId: this.roomId, name});
   }
-
-  public async leaveChatRoom(userRole: string) {
-    console.log(userRole, "leave room");
-    this.chatMessagesSubject.next([]);
-    await this.socketService.emit('leave-chat-room', { chatRoomId: this.roomId , userRole });
-  }
-
 
   public updateChatMessages(value: Message[]){
     this.chatMessagesSubject.next(value);
@@ -79,9 +123,16 @@ export class ChatRoomService {
     this.notifySubject.next(value);
   }
 
-  public markMessageAsRead(messageId: string): Observable<any> {
-    return this.http.patch<any>(`${environment.baseUrl}/${this.roomId}/messages/${messageId}/read`, {});
+  public markMessageAsRead(messageIds: string[], URL: string): Observable<any> {
+    return this.http.patch<any>(`${URL}/message/read`,
+       { messageIds , roomId: this.roomId },
+       { withCredentials: true }
+    )
   }
 
+  public checkRoomId(){
+    return !!this.roomId;
+  }
 }
+
 

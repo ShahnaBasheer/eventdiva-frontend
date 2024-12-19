@@ -6,9 +6,9 @@ import { Store } from '@ngrx/store';
 import { adminSessionExpired } from '../../features/admin/store/admin.actions';
 import { Router } from '@angular/router';
 import { logOutSuccess as vendorLogout, vendorSessionExpired } from '../../features/vendors/store/vendor.actions';
-import { ToastrService } from 'ngx-toastr';
 import { TokenService } from '../services/jwtToken.service';
 import { logOutSuccess, sessionExpired } from '../../features/customer/store/customer.actions';
+import { ToastrAlertService } from '../services/toastr.service';
 
 
 
@@ -16,7 +16,7 @@ import { logOutSuccess, sessionExpired } from '../../features/customer/store/cus
 export const ErrorInterceptor: HttpInterceptorFn = (req: HttpRequest<any>, next: HttpHandlerFn): Observable<HttpEvent<any>> => {
     const store = inject(Store);
     const router = inject(Router);
-    const toastr = inject(ToastrService);
+    const toastr = inject(ToastrAlertService);
     const jwtTokenService = inject(TokenService)
     const path = (new URL(req.url)).pathname;
 
@@ -32,7 +32,7 @@ export const ErrorInterceptor: HttpInterceptorFn = (req: HttpRequest<any>, next:
 
             } else {
                 // Server-side errors, error.error.message
-                console.log('server side error');
+                console.log('server side error', path);
                 if(path.startsWith('/admin/')){
                     if(error.status === 401){
                       if(req.headers.has('Authorization')){
@@ -45,8 +45,12 @@ export const ErrorInterceptor: HttpInterceptorFn = (req: HttpRequest<any>, next:
                         store.dispatch(vendorSessionExpired());
                       }
                     } else if(error.status === 403){
-                      toastr.error("Vendor's account is Blocked!");
-                      store.dispatch(vendorLogout());
+                      if (path === '/vendor/login') {
+                        toastr.error("Vendor's account is Blocked! Please contact support.");
+                      } else {
+                        store.dispatch(vendorLogout());
+                        toastr.error("Vendor's account is Blocked! Please contact support.");
+                      }
                     }
                 } else if(path.startsWith('/api/')){
                     if(error.status === 401 && req.headers.has('Authorization')){
@@ -54,8 +58,12 @@ export const ErrorInterceptor: HttpInterceptorFn = (req: HttpRequest<any>, next:
                     } else if(error.status === 401) {
                       router.navigate(['/login'], {replaceUrl: true })
                     } else if(error.status === 403){
-                      toastr.error("User account is Blocked!", 'error');
-                      store.dispatch(logOutSuccess());
+                      if (path === '/api/auth/google' || path === '/api/login') {
+                        toastr.error("User's account is Blocked! Please contact support.");
+                      } else {
+                        store.dispatch(logOutSuccess());
+                        toastr.error("User's account is Blocked! Please contact support.");
+                      }
                     }
                 }
 

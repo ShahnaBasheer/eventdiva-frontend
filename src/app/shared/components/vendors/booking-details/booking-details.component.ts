@@ -6,14 +6,13 @@ import { CustomDatePipe } from '../../../../core/pipes/cutom-date.pipe';
 import { CurrencyFormat } from '../../../../core/pipes/currency-format.pipe';
 import { DateCalendarComponent } from '../../common/date-calendar/date-calendar.component';
 import { FormArray, FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
-import { ToastrService } from 'ngx-toastr';
-import { isFieldInvalid, isFieldInvalidator } from '../../../../core/validators/forms.validator';
+import { ToastrAlertService } from '../../../../core/services/toastr.service';import { isFieldInvalid, isFieldInvalidator } from '../../../../core/validators/forms.validator';
 import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-booking-details',
   standalone: true,
-  imports: [ CommonModule, CustomDatePipe, CurrencyFormat, DateCalendarComponent, ReactiveFormsModule ],
+  imports: [ CommonModule, DateCalendarComponent, ReactiveFormsModule ],
   templateUrl: './booking-details.component.html',
   styleUrl: './booking-details.component.css'
 })
@@ -32,7 +31,7 @@ export class VenueBookingDetailsComponent implements OnInit{
 
   constructor(
     private venueBookingService: VenueBookingService,
-    private toastr: ToastrService,
+    private toastr: ToastrAlertService,
     private fb: FormBuilder,
     private snackBar: MatSnackBar,
   ){}

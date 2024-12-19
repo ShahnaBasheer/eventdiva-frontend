@@ -4,8 +4,8 @@ import { Vendor } from '../../../../core/models/vendor.model';
 import { CommonModule } from '@angular/common';
 import { CustomersService } from '../../../../features/admin/services/customers.service';
 import { VendorsService } from '../../../../features/admin/services/vendors.service';
-import { ToastrService } from 'ngx-toastr';
-
+import { ToastrAlertService } from '../../../../core/services/toastr.service';
+import { environment } from '../../../../../environments/environment';
 @Component({
   selector: 'app-user-table',
   standalone: true,
@@ -21,17 +21,17 @@ export class UserTableComponent {
   @Input({required: true}) headers!: string[];
 
   constructor(
-    private toastr: ToastrService,
+    private toastr: ToastrAlertService,
     private customersService: CustomersService,
     private vendorsService: VendorsService,
   ){}
 
   onBlockChange(id: string | undefined, role: string | undefined, isBlocked: boolean) {
       if(id && role){
-          if(role === 'customer'){
+          if(role === environment.customer){
               if (isBlocked) this.unblockCustomer(id);
               else this.blockCustomer(id);
-          } else if( role === 'vendor'){
+          } else if( role === environment.vendor){
               if (isBlocked) this.unblockVendor(id);
               else this.blockVendor(id);
           }
@@ -41,8 +41,7 @@ export class UserTableComponent {
   blockCustomer(id: string) {
     this.customersService.blockCustomer(id).subscribe({
       next: (res) => {
-        console.log('Customer blocked successfully:', res);
-        this.updateUserStatus(id, true, 'customer');
+        this.updateUserStatus(id, true, environment.customer);
         this.toastr.success('Customer blocked successfully!');
       },
       error: (err) => {
@@ -55,8 +54,7 @@ export class UserTableComponent {
   unblockCustomer(id: string) {
     this.customersService.unblockCustomer(id).subscribe({
       next: (res) => {
-        console.log('Customer unblocked successfully:', res);
-        this.updateUserStatus(id, false, 'customer');
+        this.updateUserStatus(id, false, environment.customer);
         this.toastr.success('Customer unblocked successfully!');
       },
       error: (err) => {
@@ -70,8 +68,7 @@ export class UserTableComponent {
   blockVendor(id: string) {
     this.vendorsService.blockVendor(id).subscribe({
       next: (res) => {
-        console.log('Vendor blocked successfully:', res);
-        this.updateUserStatus(id, true, 'vendor');
+        this.updateUserStatus(id, true, environment.vendor);
         this.toastr.success('Vendor blocked successfully!');
       },
       error: (err) => {

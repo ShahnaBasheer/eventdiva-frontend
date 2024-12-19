@@ -20,7 +20,7 @@ export const VendorAuthGuard: CanActivateFn = (route: ActivatedRouteSnapshot, st
     } catch (err: any) {
       vendorType = null;
     }
-    console.log("heyyyy", url)
+
     if(token){
 
         if(url === '/vendor/login' || url === '/vendor/signup'){

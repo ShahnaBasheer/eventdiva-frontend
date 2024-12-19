@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { CustomerService } from '../../../../features/customer/services/customer.service';
-import { ToastrService } from 'ngx-toastr';
+import { ToastrAlertService } from '../../../../core/services/toastr.service';
 import { CommonModule } from '@angular/common';
 import { LoaderComponent } from "../loader/loader.component";
 
@@ -18,7 +18,7 @@ export class ContactComponent implements OnInit{
 
   constructor(
     private customerservice: CustomerService,
-    private toastr: ToastrService
+    private toastr: ToastrAlertService
   ){}
 
   ngOnInit(): void {

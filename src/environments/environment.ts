@@ -4,7 +4,7 @@
 export const environment = {
   production: false,
   google_client_id: '1064683432489-6jae1gj7ej8ljr5jd04pi2ucgihuivgb.apps.googleusercontent.com',
-  baseUrl: 'http://localhost:2000',
+  baseUrl: 'http://localhost:3000',
   customerUrl: 'http://localhost:3000/api',
   vendorUrl: 'http://localhost:3000/vendor',
   adminUrl: 'http://localhost:3000/admin',

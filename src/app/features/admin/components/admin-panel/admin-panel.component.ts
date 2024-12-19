@@ -5,6 +5,7 @@ import { AdminAuthService } from '../../services/admin.service';
 import { Store } from '@ngrx/store';
 import { CommonModule } from '@angular/common';
 import { adminLogOut } from '../../store/admin.actions';
+import { getUser } from '../../store/admin.selectors';
 
 
 @Component({
@@ -18,6 +19,7 @@ import { adminLogOut } from '../../store/admin.actions';
 
 export class AdminPanelComponent {
   isLoggedIn: boolean = false;
+  fullName: string = '';
 
   constructor(
     private adminService: AdminAuthService,
@@ -25,9 +27,9 @@ export class AdminPanelComponent {
   ){}
 
   ngOnInit(): void {
-    // this.store.select(isLogged).subscribe(data=> {
-    //    this.isLoggedIn = data;
-    // })
+    this.store.select(getUser).subscribe(data => {
+       this.fullName = `${data?.firstName} ${data?.lastName}`;
+    })
  }
 
 

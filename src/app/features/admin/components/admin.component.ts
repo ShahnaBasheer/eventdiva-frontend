@@ -1,9 +1,7 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
-import { SidebarNavComponent } from '../../../shared/components/admin/sidebar-nav/sidebar-nav.component';
 import { Store } from '@ngrx/store';
 import * as AdminActions from '../store/admin.actions';
-import { getUser } from '../store/admin.selectors';
 import { Subscription } from 'rxjs';
 import { AdminBroadcastChannelService } from '../services/broadcast-admin.service';
 import { environment } from '../../../../environments/environment';
@@ -13,7 +11,6 @@ import { environment } from '../../../../environments/environment';
   selector: 'app-admin',
   standalone: true,
   imports: [
-    SidebarNavComponent,
     RouterOutlet
   ],
   templateUrl: './admin.component.html',
@@ -22,7 +19,6 @@ import { environment } from '../../../../environments/environment';
 
 
 export class AdminComponent implements OnInit, OnDestroy {
-  fullName!: string;
   private subscription: Subscription;
 
 
@@ -44,9 +40,6 @@ export class AdminComponent implements OnInit, OnDestroy {
         console.error('Error parsing stored user:', error);
       }
     }
-    this.store.select(getUser).subscribe(user => {
-        this.fullName = user?.fullName || '';
-    })
   }
 
   ngOnDestroy(): void {

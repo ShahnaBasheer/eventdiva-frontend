@@ -15,9 +15,10 @@ interface Chatroom {
 
 // Interface for a single message in the chatroom
  interface Message {
+    _id?: string;
     id: string;
     senderId: string;
-    senderType: 'Vendor' | 'Customer';
+    senderType: 'vendor' | 'customer';
     content: string;
     isRead: boolean;
     createdAt?: Date;

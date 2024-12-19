@@ -1,14 +1,15 @@
+
 <div class="relative box-border">
   <header class="bg-white p-4 text-gray-700 border-b border-gray-300">
     <h1 class="text-2xl font-semibold">{{user.firstName }} {{user.lastName  }}</h1>
   </header>
 
-  <div class="overflow-y-auto px-5 pt-5 bg-[#ededed] h-[calc(100vh-240px)]">
+  <div class="overflow-y-auto px-5 pt-5 bg-[#ededed] h-[calc(100vh-240px)]" >
     <div class="">
       <!-- Chat Messages -->
       <div *ngFor="let item of AllMessages" #lastMessage class="mb-4">
         <!-- Incoming Message -->
-        <div class="flex" *ngIf="item.senderType === 'Customer'">
+        <div class="flex" *ngIf="item.senderType === 'customer'">
           <div class="w-9 h-9 rounded-full mr-3 flex justify-center items-center bg-[#c4c4c4] shadow-md">
             {{user.firstName | slice:0:1}}{{user.lastName | slice:0:1}}
           </div>
@@ -20,7 +21,7 @@
           </div>
         </div>
         <!-- Outgoing Message -->
-        <div class="flex justify-end" *ngIf="item.senderType === 'Vendor'">
+        <div class="flex justify-end" *ngIf="item.senderType === 'vendor'">
           <div>
             <div class="flex max-w-96 bg-indigo-500 text-white rounded-lg p-3 gap-1 shadow-md">
               <p>{{ item.content }}</p>

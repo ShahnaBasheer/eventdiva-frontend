@@ -6,7 +6,8 @@ import { CommonModule } from '@angular/common';
 import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { EditProfileModalComponent } from '../../../../shared/components/common/edit-profile-modal/edit-profile-modal.component';
 import { isFieldInvalidator } from '../../../../core/validators/forms.validator';
-import { ToastrService } from 'ngx-toastr';
+import { ToastrAlertService } from '../../../../core/services/toastr.service';
+
 
 @Component({
   selector: 'app-vendor-profile',
@@ -32,7 +33,7 @@ export class VendorProfileComponent implements OnInit {
     private commonService: CommonService,
     private router: Router,
     private fb: FormBuilder,
-    private toastr: ToastrService
+    private toastr: ToastrAlertService
   ) {}
 
   ngOnInit(): void {

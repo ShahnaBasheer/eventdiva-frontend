@@ -7,10 +7,10 @@ import { getUserId as vendor} from '../../features/vendors/store/vendor.selector
 import { Store } from '@ngrx/store';
 import { TokenService } from './jwtToken.service';
 import { Router } from '@angular/router';
-import { adminLogOut, adminSessionExpired } from '../../features/admin/store/admin.actions';
-import { logOutSuccess, sessionExpired } from '../../features/customer/store/customer.actions';
+import { adminLogOut } from '../../features/admin/store/admin.actions';
+import { logOutSuccess } from '../../features/customer/store/customer.actions';
 import { vendorLogOut, vendorSessionExpired } from '../../features/vendors/store/vendor.actions';
-import { ToastrService } from 'ngx-toastr';
+import { ToastrAlertService } from './toastr.service';
 
 
 @Injectable({
@@ -27,7 +27,7 @@ export class SocketService {
     private store: Store,
     private tokenService: TokenService,
     private router: Router,
-    private toastr: ToastrService
+    private toastr: ToastrAlertService
   ) {
 
     this.router.events.subscribe(() => {
@@ -37,14 +37,14 @@ export class SocketService {
     this.store.select(customer).subscribe(id => {
       if(id){
         let accessToken = this.tokenService.getToken(environment.cu_accessKey) ?? '';
-        this.setupSocketConnection("customer", id, accessToken);
+        this.setupSocketConnection(environment.customer, id, accessToken);
       }
     })
 
     this.store.select(vendor).subscribe(id => {
       if(id){
         let accessToken = this.tokenService.getToken(environment.vn_accessKey) ?? '';
-        this.setupSocketConnection("vendor", id, accessToken);
+        this.setupSocketConnection(environment.vendor, id, accessToken);
       }
     })
   }
@@ -59,9 +59,9 @@ export class SocketService {
     this.socket.on('connect', () => {
       console.log('Socket connected');
 
-      if (role === 'customer') {
+      if (role === environment.customer) {
         this.socket?.emit('register-customer', { customerId: id });
-      } else if (role === 'vendor') {
+      } else if (role === environment.vendor) {
         this.socket?.emit('register-vendor', { vendorId: id });
       }
 
@@ -74,9 +74,9 @@ export class SocketService {
     this.socket.on("new-token", ({ token }) => {
       if(role === environment.customer) this.tokenService.setToken(environment.cu_accessKey, token);
       else if(role === environment.vendor) this.tokenService.setToken(environment.vn_accessKey, token);
-      console.log("Token refreshed and saved", token);
+      console.log("Token refreshed and saved");
     });
-    console.log(this.currentPath, "jdjkckjkj");
+
 
     this.socket.on('error', (error) => {
       if(role === environment.admin){

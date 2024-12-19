@@ -40,7 +40,7 @@ export class CustomersListComponent implements OnInit{
   loadCustomers(){
     this.customersService.getCustomersPage(this.page, this.limit).subscribe({
       next: (res) => {
-          this.customers = res.data?.customers;
+          this.customers = res.data?.users;
           this.totalPages = res.data?.totalPages;
           this.totalCount = res.data?.totalCount;
           this.isLoading = false;

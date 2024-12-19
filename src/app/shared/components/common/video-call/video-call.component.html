@@ -11,7 +11,7 @@
               <h2 class="text-xl font-semibold">Video Call</h2>
               <div>
                 <button (click)="endCall()" class="bg-red-500 hover:bg-red-600 text-white py-1 px-3 rounded">End
-                  Call
+                  <i class="fa-solid fa-phone"></i>
                 </button>
                 <button (click)="toggleControls()"
                   class="ml-2 bg-blue-500 hover:bg-blue-600 text-white py-1 px-3 rounded">
@@ -30,10 +30,14 @@
             </div>
 
             <div *ngIf="showControls" class="mt-4 flex justify-center space-x-4">
-              <button (click)="toggleAudio()" class="bg-gray-700 hover:bg-gray-800 text-white py-1 px-3 rounded">Toggle
-                Audio</button>
-              <button (click)="toggleVideo()" class="bg-gray-700 hover:bg-gray-800 text-white py-1 px-3 rounded">Toggle
-                Video</button>
+              <button (click)="toggleAudio()" class="bg-gray-700 hover:bg-gray-800 text-white py-2 px-3 rounded-full">
+                <i *ngIf="isUnMuted" class="fa-solid fa-volume-off"></i>
+                <i *ngIf="!isUnMuted" class="fa-solid fa-volume-xmark text-red-500"></i>
+              </button>
+              <button (click)="toggleVideo()" class="bg-gray-700 hover:bg-gray-800 text-white py-2 px-3 rounded">
+                <i *ngIf="isCamerOn" class="fa-solid fa-video"></i>
+                <i *ngIf="!isCamerOn" class="fa-solid fa-video-slash text-red-500"></i>
+              </button>
             </div>
           </div>
         </div>

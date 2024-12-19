@@ -1,7 +1,7 @@
 import { AfterViewInit, Component, ElementRef, EventEmitter, Input, OnDestroy, OnInit, Output, ViewChild } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { CustomerWebRTCService } from '../../../../features/customer/services/customerWebrtc.service';
-import { ToastrService } from 'ngx-toastr';
+import { ToastrAlertService } from '../../../../core/services/toastr.service';
 import { Store } from '@ngrx/store';
 import { isLoggedIn } from '../../../../features/customer/store/customer.selectors';
 
@@ -21,13 +21,13 @@ export class VideoCallComponent implements AfterViewInit, OnInit, OnDestroy {
   message: string = '';
   ended = false;
   isLogged = false;
-
-
+  isUnMuted: boolean = true;
+  isCamerOn: boolean = true;
   showControls = true;
 
   constructor(
     private webRTCService: CustomerWebRTCService,
-    private toastr: ToastrService,
+    private toastr: ToastrAlertService,
     private store: Store) {}
 
   ngAfterViewInit(): void {
@@ -94,11 +94,11 @@ export class VideoCallComponent implements AfterViewInit, OnInit, OnDestroy {
   }
 
   toggleAudio() {
-    this.webRTCService.toggleAudio();
+    this.isUnMuted = this.webRTCService.toggleAudio();
   }
 
   toggleVideo() {
-    this.webRTCService.toggleVideo();
+    this.isCamerOn = this.webRTCService.toggleVideo();
   }
 
   ngOnDestroy(){

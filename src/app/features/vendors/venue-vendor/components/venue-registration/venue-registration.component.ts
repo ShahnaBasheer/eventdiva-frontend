@@ -2,7 +2,6 @@ import { Component } from '@angular/core';
 import { FormArray, FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { AddressService } from '../../../../../core/services/address.service';
 import { Router } from '@angular/router';
-import { ToastrService } from 'ngx-toastr';
 import { atLeastOneSelected, isFieldInvalid, platePriceValidator } from '../../../../../core/validators/forms.validator';
 import DOMPurify from 'dompurify';
 import { CommonModule } from '@angular/common';
@@ -11,6 +10,7 @@ import { QuillModule } from 'ngx-quill';
 import { AddressFormComponent } from '../../../../../shared/components/common/address-form/address-form.component';
 import { VenueVendorService } from '../../services/venue-vendor.service';
 import { CommonService } from '../../../../../core/services/common.service';
+import { ToastrAlertService } from '../../../../../core/services/toastr.service';
 
 
 
@@ -64,7 +64,7 @@ export class VenueRegistrationComponent {
     private commonservice: CommonService,
     private venueVendorService: VenueVendorService,
     private router: Router,
-    private toastr: ToastrService,
+    private toastr: ToastrAlertService,
   ) {
     const currentYear = new Date().getFullYear();
 

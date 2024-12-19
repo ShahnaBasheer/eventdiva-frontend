@@ -6,9 +6,9 @@ import { of } from 'rxjs';
 import { LoginCredentials } from '../../../core/models/common.model';
 import { Router } from '@angular/router';
 import { VendorAuthService } from '../services/vendor-auth.service';
-import { ToastrService } from 'ngx-toastr';
 import { environment } from '../../../../environments/environment';
 import { VendorBroadcastChannelService } from '../services/broadcast-vendor.service';
+import { ToastrAlertService } from '../../../core/services/toastr.service';
 
 
 
@@ -23,7 +23,7 @@ export class VendorEffects {
     private router: Router,
     private vendorService: VendorAuthService,
     private ngZone: NgZone,
-    private toastr: ToastrService,
+    private toastr: ToastrAlertService,
     private vendorbroadcast: VendorBroadcastChannelService,
   ) {}
 
@@ -102,6 +102,7 @@ export class VendorEffects {
           localStorage.removeItem(environment.vendorInfo);
           localStorage.removeItem(environment.vn_accessKey);
           this.router.navigate(['/vendor/login'], { replaceUrl: true });
+          this.toastr.success('You are successfully logged out!')
       }),
       catchError((error: any) => {
         console.error('Logout error:', error);

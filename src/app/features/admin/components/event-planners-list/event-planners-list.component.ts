@@ -1,7 +1,5 @@
 import { CommonModule } from '@angular/common';
 import { Component, HostListener } from '@angular/core';
-import { environment } from '../../../../../environments/environment';
-import { ToastrService } from 'ngx-toastr';
 import { EventPlannerAdminService } from '../../services/planner.service';
 import { RouterModule } from '@angular/router';
 import IEventPlanner from '../../../../core/models/eventPlanner.model';
@@ -12,6 +10,7 @@ import { Status } from '../../../../core/enums/important.enums';
 import { SortSearchComponent } from '../../../../shared/components/admin/sort-search/sort-search.component';
 import { AdminPaginationComponent } from '../../../../shared/components/admin/admin-pagination/admin-pagination.component';
 import { FormsModule } from '@angular/forms';
+import { ToastrAlertService } from '../../../../core/services/toastr.service';
 
 @Component({
   selector: 'app-event-planners-list',
@@ -28,6 +27,8 @@ import { FormsModule } from '@angular/forms';
   templateUrl: './event-planners-list.component.html',
   styleUrl: './event-planners-list.component.css',
 })
+
+
 export class EventPlannersListComponent {
   status = Status;
   page: number = 1;
@@ -51,7 +52,7 @@ export class EventPlannersListComponent {
 
   constructor(
     private eventPlannerService: EventPlannerAdminService,
-    private toastr: ToastrService,
+    private toastr: ToastrAlertService,
     private snackBar: MatSnackBar,
   ) {}
   ngOnInit(): void {
@@ -61,7 +62,6 @@ export class EventPlannersListComponent {
   loadVendors() {
     this.eventPlannerService.getPlannersPage(this.page, this.limit).subscribe({
       next: (res) => {
-        console.log(res)
         this.planners = res.data?.eventPlanners;
         this.totalCount = res.data?.totalPages;
         this.totalPages = res.data?.totalCount;
@@ -76,7 +76,7 @@ export class EventPlannersListComponent {
   onStatusChange(index: number, slug: string, status: Status.Approved | Status.Rejected) {
     this.eventPlannerService.plannerStatusChange(slug, status).subscribe({
       next: (res) => {
-        if (status === 'approved' || status === 'rejected') {
+        if (status === Status.Approved || status === Status.Rejected) {
           this.planners[index].approval = status;
           // Show an alert or a pop-up
           this.snackBar.open(`${this.planners[index].company} has been Approved`, 'OK', {
@@ -92,9 +92,8 @@ export class EventPlannersListComponent {
     });
   }
 
-  onRejected(slug: string) {
-    console.log(slug);
-  }
+
+  
 
   toggleDropdown(index: number) {
     this.activeDropdownIndex = this.activeDropdownIndex === index ? null : index;

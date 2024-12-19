@@ -26,12 +26,11 @@ export class VenueDetailComponent {
 
     ngOnInit(): void {
       this.venueVendorService.getVenueDetails().subscribe({
-        next: (res: {data: { venueVendorData: IVenue }}) => {
-          console.log(res.data)
-          if (!res.data?.venueVendorData) {
+        next: (res: {data: { venueData: IVenue }}) => {
+          if (!res.data?.venueData) {
             this.router.navigate(['/vendor/venue-vendor/new-service', 'VV']);
           } else {
-            this.venueData = res.data.venueVendorData as IVenue;
+            this.venueData = res.data.venueData as IVenue;
           }
         },
         error: (err: any) => {

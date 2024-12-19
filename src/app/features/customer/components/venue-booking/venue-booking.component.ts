@@ -7,8 +7,7 @@ import { atLeastOneSelected, eventDateValidator, isFieldInvalid } from '../../..
 import { IVenue } from '../../../../core/models/venue.model';
 import { LoaderComponent } from '../../../../shared/components/common/loader/loader.component';
 import { environment } from '../../../../../environments/environment';
-import { ToastrService } from 'ngx-toastr';
-import { Router } from '@angular/router';
+import { ToastrAlertService } from '../../../../core/services/toastr.service';import { Router } from '@angular/router';
 import { CommonService } from '../../../../core/services/common.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
 
@@ -46,7 +45,7 @@ export class VenueBookingComponent implements OnInit{
     private fb: FormBuilder,
     private venueService: venueService,
     private commonservice: CommonService,
-    private toastr: ToastrService,
+    private toastr: ToastrAlertService,
     private router: Router,
     private snackBar: MatSnackBar,
     private ngZone: NgZone

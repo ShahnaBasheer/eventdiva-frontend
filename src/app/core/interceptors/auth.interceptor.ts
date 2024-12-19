@@ -52,7 +52,7 @@ export const AuthInterceptor: HttpInterceptorFn = (
     tokenKey = environment.ad_accessKey;
   } else if (path.startsWith('/vendor/')) {
     tokenKey = environment.vn_accessKey;
-  } else if('/api'){
+  } else if(path.startsWith('/api/')){
     tokenKey = environment.cu_accessKey;
   }
 
@@ -85,14 +85,12 @@ export const AuthInterceptor: HttpInterceptorFn = (
               newToken = token;
             }
 
-            console.log('auth interceptor triggering')
-
             if (user) {
-              if (user.role === 'admin') {
+              if (user.role === environment.admin) {
                 store.dispatch(adminLoginSuccess({ user }));
-              } else if (user.role === 'customer') {
+              } else if (user.role === environment.customer) {
                 store.dispatch(loginSuccess({ user, token }));
-              } else if (user.role === 'vendor') {
+              } else if (user.role === environment.vendor) {
                 store.dispatch(vendorLoginSuccess({ user, token }));
               }
             } else {
@@ -100,7 +98,7 @@ export const AuthInterceptor: HttpInterceptorFn = (
                 store.dispatch(adminSessionExpired());
               } else if (path.startsWith('/vendor/')) {
                 store.dispatch(vendorSessionExpired());
-              } else if('/api'){
+              } else if(path.startsWith('/api/')){
                 store.dispatch(sessionExpired());
               }
             }

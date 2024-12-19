@@ -1,10 +1,10 @@
 import { CommonModule } from '@angular/common';
 import { Component, HostListener } from '@angular/core';
 import { VenuesAdminService } from '../../services/venues.service';
-import { ToastrService } from 'ngx-toastr';
 import { VenueBooking } from '../../../../core/models/venueBooking.model';
 import { ActionBtnsComponent } from '../../../../shared/components/common/action-btns/action-btns.component';
 import { StatusBadgeComponent } from '../../../../shared/components/common/status-badge/status-badge.component';
+import { ToastrAlertService } from '../../../../core/services/toastr.service';
 
 @Component({
   selector: 'app-venues-booking-list',
@@ -41,7 +41,7 @@ export class VenuesBookingListComponent {
 
   constructor(
     private venuesAdminService: VenuesAdminService,
-    private toastr: ToastrService
+    private toastr: ToastrAlertService,
   ) {}
   ngOnInit(): void {
     this.loadVendors();

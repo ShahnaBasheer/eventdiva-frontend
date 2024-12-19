@@ -31,7 +31,7 @@ export class CustomersService {
     }
 
     blockCustomer(id: string){
-        return this.http.get<any>(`${this.APIBASE_URL}/block/${id}`, {
+        return this.http.get<any>(`${this.APIBASE_URL}/block/${id}/${environment.customer}`, {
             headers: new HttpHeaders({
               'Content-Type': 'application/json',
             }),
@@ -40,7 +40,7 @@ export class CustomersService {
     }
 
     unblockCustomer(id: string){
-      return this.http.get<any>(`${this.APIBASE_URL}/unblock/${id}`, {
+      return this.http.get<any>(`${this.APIBASE_URL}/unblock/${id}/${environment.customer}`, {
           headers: new HttpHeaders({
             'Content-Type': 'application/json',
           }),

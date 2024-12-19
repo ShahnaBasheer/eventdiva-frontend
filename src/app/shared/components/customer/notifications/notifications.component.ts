@@ -8,6 +8,7 @@ import { Store } from '@ngrx/store';
 import { isLoggedIn } from '../../../../features/customer/store/customer.selectors';
 import { Notification } from '../../../../core/models/notification.model';
 import { environment } from '../../../../../environments/environment';
+import { ToastrAlertService } from '../../../../core/services/toastr.service';
 
 
 @Component({
@@ -35,28 +36,62 @@ export class NotificationsComponent implements OnInit{
   private subscriptions: Subscription = new Subscription();
 
 
-  constructor(private notificationservice: NotificationService, private store: Store){}
+  constructor(
+    private notificationservice: NotificationService,
+    private store: Store,
+    private toastr: ToastrAlertService
+  ){}
 
-  ngOnInit(): void{
 
-      this.store.select(isLoggedIn).subscribe(data => this.isLogged = data)
+  ngOnInit(): void {
+    this.store.select(isLoggedIn).subscribe((data) => {
+      this.isLogged = data;
 
-      if(this.isLogged){
-        this.notificationservice.fetchNotifications(environment.customerUrl).subscribe(res => {
-          this.notificationservice.addNotifications(res.data?.notifications);
-          this.unreadCount = res.data?.readCount;
+      if (this.isLogged) {
+        this.notificationservice.fetchNotifications(environment.customerUrl).subscribe({
+          next: (res) => {
+            this.notificationservice.addNotifications(res.data?.notifications);
+            this.unreadCount = res.data?.readCount || 0;
+          },
+          error: (err) => {
+            console.error('Error fetching notifications:', err);
+            if (err.status === 401 || err.status === 403) {
+              this.toastr.warning('Authentication failed. Redirecting to login.')
+            }
+          },
         });
       }
+    });
 
+    const notificationsSubscription = this.notificationservice.notifications$.subscribe((data) => {
+      this.AllNotifications = data;
+      this.unreadCount = data.filter((notif) => !notif.isRead).length;
+    });
 
-      const notificationsSubscription = this.notificationservice.notifications$.subscribe( data => {
-        this.AllNotifications =  data;
-        this.unreadCount++;
-      })
-
-      // Add first subscription
-      this.subscriptions.add(notificationsSubscription);
+    this.subscriptions.add(notificationsSubscription);
   }
+
+  // ngOnInit(): void{
+
+  //     this.store.select(isLoggedIn).subscribe(data => this.isLogged = data)
+
+  //     if(this.isLogged){
+  //       this.notificationservice.fetchNotifications(environment.customerUrl).subscribe(res => {
+  //         this.notificationservice.addNotifications(res.data?.notifications);
+  //         this.unreadCount = res.data?.readCount;
+  //       });
+  //     }
+
+  //     const notificationsSubscription = this.notificationservice.notifications$.subscribe( data => {
+  //       this.AllNotifications =  data;
+  //       if(data.length > 0){
+  //         this.unreadCount++;
+  //       }
+  //     })
+
+  //     // Add first subscription
+  //     this.subscriptions.add(notificationsSubscription);
+  // }
 
 
   toggleNotifications(): void {

@@ -3,7 +3,7 @@ import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angula
 import { Customer } from '../../../../core/models/customer.model';
 import { CustomerService } from '../../services/customer.service';
 import { Router } from '@angular/router';
-import { ToastrService } from 'ngx-toastr';
+import { ToastrAlertService } from '../../../../core/services/toastr.service';
 import { isFieldInvalidator } from '../../../../core/validators/forms.validator';
 import { CommonModule } from '@angular/common';
 import { EditProfileModalComponent } from '../../../../shared/components/common/edit-profile-modal/edit-profile-modal.component';
@@ -32,7 +32,7 @@ export class UserProfileComponent {
     private customerService: CustomerService,
     private router: Router,
     private fb: FormBuilder,
-    private toastr: ToastrService
+    private toastr: ToastrAlertService
   ) {}
 
   ngOnInit(): void {

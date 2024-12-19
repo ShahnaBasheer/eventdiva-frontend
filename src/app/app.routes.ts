@@ -63,7 +63,7 @@ export const routes: Routes = [
       { path: 'otpverification', component: OtpVerificationComponent },
       { path: 'forgot-password', component: ForgotPasswordComponent },
       { path: 'contact', component: ContactComponent },
-      { path: 'profile', component: UserProfileComponent},
+      { path: 'profile', component: UserProfileComponent },
       { path: 'about', component: AboutComponent },
       { path: 'vendors/venues', component: VenuesComponent },
       { path: 'vendors/venues/:slug', component: VenueDetailComponent },

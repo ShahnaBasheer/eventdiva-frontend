@@ -31,7 +31,7 @@ export class VendorsService {
     }
 
     blockVendor(id: string){
-        return this.http.get<any>(`${this.APIBASE_URL}/block/${id}`, {
+        return this.http.get<any>(`${this.APIBASE_URL}/block/${id}/${environment.vendor}`, {
             headers: new HttpHeaders({
               'Content-Type': 'application/json',
             }),
@@ -40,7 +40,7 @@ export class VendorsService {
     }
 
     unblockVendor(id: string){
-      return this.http.get<any>(`${this.APIBASE_URL}/unblock/${id}`, {
+      return this.http.get<any>(`${this.APIBASE_URL}/unblock/${id}/${environment.vendor}`, {
           headers: new HttpHeaders({
             'Content-Type': 'application/json',
           }),

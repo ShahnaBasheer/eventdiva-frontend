@@ -2,12 +2,13 @@ import { CommonModule } from '@angular/common';
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { venueService } from '../../../../features/customer/services/venue.service';
-import { ToastrService } from 'ngx-toastr';
+import { ToastrAlertService } from '../../../../core/services/toastr.service';
 import { checkEndDateValidator, isFieldInvalid } from '../../../../core/validators/forms.validator';
 import { PlannerService } from '../../../../features/customer/services/planner.service';
 import { isLoggedIn } from '../../../../features/customer/store/customer.selectors';
 import { Store } from '@ngrx/store';
 import { Router } from '@angular/router';
+import { environment } from '../../../../../environments/environment';
 
 @Component({
   selector: 'app-check-availability',
@@ -30,7 +31,7 @@ export class CheckAvailabilityComponent implements OnInit{
   constructor(
     private venueService: venueService,
     private fb: FormBuilder,
-    private toastr: ToastrService,
+    private toastr: ToastrAlertService,
     private plannerService: PlannerService,
     private store: Store,
     private router: Router
@@ -69,13 +70,13 @@ export class CheckAvailabilityComponent implements OnInit{
       console.log(this.checkAvailabilityForm.valid)
       if(!this.isLoggedIn){
           this.router.navigate(['/login']);
-          this.toastr.error('Please Login to Check Availability');
+          this.toastr.info('Please Login to Check Availability');
           return;
       }
       if(this.checkAvailabilityForm.valid){
           this.isCheckingLoding = true;
 
-          if(this.role === 'event-planner'){
+          if(this.role === environment.event_planner){
               this.plannerService.checkAvailability(this.checkAvailabilityForm.value,this.vendorId).subscribe({
                 next: (res) => {
                     this.isAvailable(res.data?.isAvailable);
@@ -89,7 +90,7 @@ export class CheckAvailabilityComponent implements OnInit{
                   }
                 }
               })
-          } else if(this.role === 'venue-vendor'){
+          } else if(this.role === environment.venue_vendor){
               this.venueService.checkAvailability(this.checkAvailabilityForm.value,this.vendorId).subscribe({
                 next: (res) => {
                     this.isAvailable(res.data?.isAvailable);

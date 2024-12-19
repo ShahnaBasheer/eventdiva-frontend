@@ -1,7 +1,7 @@
 import { AfterViewInit, Component, ElementRef, EventEmitter, OnDestroy, Output, ViewChild } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { VendorWebRTCService } from '../../../../features/vendors/services/vendorWebrtc.service';
-import { ToastrService } from 'ngx-toastr';
+import { ToastrAlertService } from '../../../../core/services/toastr.service';
 import { Store } from '@ngrx/store';
 import { isLoggedIn } from '../../../../features/vendors/store/vendor.selectors';
 
@@ -24,7 +24,7 @@ export class RecieverVideoCallComponent implements AfterViewInit, OnDestroy{
 
   constructor(
     protected webRTCService: VendorWebRTCService,
-    private toastr: ToastrService,
+    private toastr: ToastrAlertService,
     private store: Store
   ){}
 

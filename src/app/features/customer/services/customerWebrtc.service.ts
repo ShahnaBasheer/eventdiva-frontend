@@ -191,22 +191,28 @@ export class CustomerWebRTCService implements OnDestroy{
   }
 
 
-  public toggleAudio() {
+  public toggleAudio(): boolean {
+    let state = false;
     const stream = this.localStreamSubject.getValue();
     if (stream) {
       stream.getAudioTracks().forEach(track => {
         track.enabled = !track.enabled;
+        state = track.enabled;
       });
     }
+    return state;
   }
 
-  public toggleVideo() {
+  public toggleVideo(): boolean {
+    let state = false;
     const stream = this.localStreamSubject.getValue();
     if (stream) {
       stream.getVideoTracks().forEach(track => {
         track.enabled = !track.enabled;
+        state = track.enabled;
       });
     }
+    return state;
   }
 
 

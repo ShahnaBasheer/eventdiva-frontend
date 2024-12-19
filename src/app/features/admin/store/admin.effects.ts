@@ -2,13 +2,13 @@ import { Injectable } from '@angular/core';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
 import * as AdminActions from './admin.actions';
 import { catchError, map, mergeMap, switchMap, tap } from 'rxjs/operators';
-import { EMPTY, of } from 'rxjs';
+import { of } from 'rxjs';
 import { LoginCredentials } from '../../../core/models/common.model';
 import { Router } from '@angular/router';
 import { AdminAuthService } from '../services/admin.service';
-import { ToastrService } from 'ngx-toastr';
 import { environment } from '../../../../environments/environment';
 import { AdminBroadcastChannelService } from '../services/broadcast-admin.service';
+import { ToastrAlertService } from '../../../core/services/toastr.service';
 
 
 @Injectable({
@@ -22,7 +22,7 @@ export class AdminEffects {
     private actions$: Actions,
     private router: Router,
     private adminService: AdminAuthService,
-    private toastr: ToastrService,
+    private toastr: ToastrAlertService,
     private adminbroadcast: AdminBroadcastChannelService
   ) {}
 

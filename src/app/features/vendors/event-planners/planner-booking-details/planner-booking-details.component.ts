@@ -3,9 +3,8 @@ import { PlannerBooking } from '../../../../core/models/plannerBooking.model';
 import { PlannerBookingService } from '../services/planner-booking.service';
 import { CommonModule } from '@angular/common';
 import { DateCalendarComponent } from '../../../../shared/components/common/date-calendar/date-calendar.component';
-import { CurrencyFormat } from '../../../../core/pipes/currency-format.pipe';
 import { RouterModule } from '@angular/router';
-import { ToastrService } from 'ngx-toastr';
+import { ToastrAlertService } from '../../../../core/services/toastr.service';
 import { FormArray, FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { isFieldInvalid } from '../../../../core/validators/forms.validator';
 import { MatSnackBar } from '@angular/material/snack-bar';
@@ -16,7 +15,6 @@ import { MatSnackBar } from '@angular/material/snack-bar';
   imports: [
     CommonModule,
     DateCalendarComponent,
-    CurrencyFormat,
     RouterModule,
     ReactiveFormsModule
    ],
@@ -38,7 +36,7 @@ export class PlannerBookingDetailsComponent {
 
   constructor(
     private plannerBookingService: PlannerBookingService,
-    private toastr: ToastrService,
+    private toastr: ToastrAlertService,
     private fb: FormBuilder,
     private snackBar: MatSnackBar,
   ){}
